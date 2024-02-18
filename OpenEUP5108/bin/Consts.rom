@@ -1,0 +1,5 @@
+v3.0 hex words addressed
+## The Const ROM stores the most commonly used 8 bit values.
+## While only 00,01, and FF are avalible to the user through L*Z, L*O, & L*H instructions
+## 02,04 and 06 are used by the sequencer to load the correct IRQ address. 
+0: 00 01 02 04 06 08 10 20 40 80 00 00 00 F0 0F FF

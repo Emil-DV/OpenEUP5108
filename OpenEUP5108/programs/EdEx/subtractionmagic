@@ -1,0 +1,16 @@
+Subtraction Magic
+
+Ever wonder how a computer knows that one value is equal to another?
+Or Greater Than Or Less Than?
+
+It turns out that it is all done with subtraction
+Yes subtraction is how computers make choices
+
+Let's say you have two numbers, or things that can be numbers, age, weight, etc
+if you subtract one from the other and end up with zero then the numbers must be equal
+if you subtract one from the other and end up with something more than zero then
+the first number was more than the second
+And of course by now you figured out that if you end up with a negitive number then the first
+number was less than the second
+
+ 

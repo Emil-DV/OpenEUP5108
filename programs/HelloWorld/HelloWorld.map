@@ -1,0 +1,33 @@
+Line |APA |Content
+    6|    |W Main |
+    7|    |O 0x0008 |
+   10|    |D pStrHW |
+   11|0008|S Hello World!\n |
+   12|0015|L 0A 00 |
+   14|    |D pStrHelp |
+   15|0017|S Enter a string of characters and I will echo them\n\n |
+   16|004A|S Hit F1 for help on emulator control keys\n\n |
+   17|0074|S Hit ESC x2 to exit - or close window\n\n\0 |
+   19|    |D pPrompt |
+   20|009B|S EUP> |
+   21|009F|L 00 |
+   24|    |A 0xFFE0 |
+   26|    |V caStrIn |
+   27|    |a 0x20 |
+   30|    |O 0x0100 |
+   31|    |I ..\iolibs\EUPIO.asm |
+   34|    |D Main |
+   37|0138|  LDR pStrHW |
+   38|013B|  CAL printROM |
+   41|013E|  LDR pStrHelp |
+   42|0141|  CAL printROM |
+   45|    |D GetLine&PrintIt |
+   46|0144|  LDR pPrompt |
+   47|0147|  CAL printROM |
+   49|014A|  LDR caStrIn |
+   50|014D|  CAL getString |
+   51|0150|  W1E 0x0A |
+   53|0152|  LDR caStrIn |
+   54|0155|  CAL printRAM |
+   55|0158|  W1E 0x0A |
+   57|015A|  JPS GetLine&PrintIt |

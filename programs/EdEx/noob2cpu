@@ -1,0 +1,16 @@
+Noob 2 CPU
+An Introduction to Computer Processors from the ground up.
+
+The heart of a computer is the CPU 
+- Central Processing Unit
+- Processor for short
+- Micro Processor if it's small
+
+The processor has two primary jobs
+- Do math for you
+  - Add, Subtract, Multiply, Divide
+- Move data around to do more math for you
+  - Get data from the user or storage
+  - Show data to the user or put it in storage
+
+

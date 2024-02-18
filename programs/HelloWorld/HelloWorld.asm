@@ -14,6 +14,7 @@ L 0A 00           # Write \n and 00 (null to end the string)
 D pStrHelp
 S Enter a string of characters and I will echo them\n\n
 S Hit F1 for help on emulator control keys\n\n
+S If you have Notepad++ the emulator will use it to display\nsource code while single stepping\n\n
 S Hit ESC x2 to exit - or close window\n\n\0
 
 D pPrompt         # Prompt string

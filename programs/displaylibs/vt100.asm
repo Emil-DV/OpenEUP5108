@@ -7,13 +7,6 @@
 # cursor position and other things
 ## VT100 Codes
 
-C VT_ESC 0x1B
-C VT_[   0x5B
-
-C VT_CHA 0x47
-C VT_CUB 0x44
-C VT_CUD 0x42  
-
 D VTCLR
 S \e[2J\e\0
 

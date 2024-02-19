@@ -21,7 +21,6 @@ If you would like to help further the development of this project consider suppo
 - [ ] Navigate to your OpenEUP5108\programs\HelloWorld folder
 - [ ] Double click on the BuildNRun.bat file
       The Assembler will be invoked to build HelloWorld.asm and its included files
-      Once complete the Emulator will be invoked to run HelloWorld.rom output of the assembler
-- [ ] For the full 1990's experience set the Emulator window (cmd.exe) properties thusly
-      ![Cmd.com Properties](img/cmd.exe_ Properties.png)
-  
+      Once complete the Emulator will be invoked to run the HelloWorld.rom output of the assembler
+- [ ] For the full 1990's 80 column x 25 line experience set the Emulator window (cmd.exe) properties thusly
+      ![img/cmd.exe_ Properties.png](https://github.com/Emil-DV/OpenEUP5108/blob/main/img/cmd.exe_%20Properties.png)  

@@ -14,3 +14,14 @@ To use the custom language syntax highlighting, open an EUP5108 .asm file and se
 For a full set of explainer videos be sure to look through the [EUP5108 playlist](https://www.youtube.com/playlist?list=PLutzSUqCeqd2JNwKN7Za1qZU8AJ8HDwoR), Like, Subscribe, and Hit the Bell Icon for notifications of new videos and live streams
   
 If you would like to help further the development of this project consider supporting us on [Pateron](https://www.patreon.com/eunumpluribus)
+
+### Quick Start 
+
+- [ ] Clone this Repo or Download the .zip and unzip it to a good location
+- [ ] Navigate to your OpenEUP5108\programs\HelloWorld folder
+- [ ] Double click on the BuildNRun.bat file
+      The Assembler will be invoked to build HelloWorld.asm and its included files
+      Once complete the Emulator will be invoked to run HelloWorld.rom output of the assembler
+- [ ] For the full 1990's experience set the Emulator window (cmd.exe) properties thusly
+      ![Cmd.com Properties](img/cmd.exe_ Properties.png)
+  

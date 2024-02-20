@@ -396,9 +396,6 @@ D xtos.ret
 # # 1030: *getLine(DR=dst,A=max)
 D getLine
 
-  HLT
-  NOP
-
 C getLine.char 5
   DES
 C getLine.pStr 3

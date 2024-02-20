@@ -393,29 +393,49 @@ D xtos.ret
 
 
 # #######################################################
-# # 1030: *getLine(DR) 
+# # 1030: *getLine(DR=dst,A=max)
 D getLine
-  # Swap the DR/SP to use the SP inc/dec hardware
-  XDS swap(DR,SP)
+
+  HLT
+  NOP
+
+C getLine.char 5
+  DES
+C getLine.pStr 3
+  SCR
+  SCD
+C getLine.max 2
+  SCA
+C getLine.len 1
+  LAZ
+  SCA
+
+D getLine.ga    
+  W1E sys.cursorChar
+  W1E 'BS
   # Get a character
-D getLine.ga
+D getLine.gac
+  # print cursor
   LB0
   JLN getLine.go
-  JPL getLine.ga
-  # Ack read
+  JPL getLine.gac
+
 D getLine.go  
-  W0E 0x00
+  W0E 0x00        # Ack read
   # Check for Enter
   LAE 0x0A
   MAB 
   JLN getLine.c2
 D getLine.xit
   # CR hit, write a nul to end the line, A is 0 at this point
-  SCA  
-  INS
+  SIA  
   W1A
-  # Replace the SP and return
-  XDS
+
+  INS
+  INS
+  INS
+  INS
+  INS
   RTL
 
   # Check for BS
@@ -424,37 +444,93 @@ D getLine.c2
   MAB
   JLN getLine.oc
   # BS hit, delete last character, A is 0 at this point
-  # Decrement the SP
-  DES 
-  SCA  
-  INS
-  # Echo character to port 1
-  W1B 
+  POE getLine.len 
+  LBM
+  JLN getLine.nbol
+  JPL getLine.ga
+
+D getLine.nbol  
+  POE getLine.len 
+  LBM
+  DEB
+  SIB
+
+  # Decrement pStr
+  POE getLine.pStr
+  LAM
+  IND
+  LDM
+  LRA
+  DED
+  LAZ # zero the character
+  SIA
+  LAR
+  LBD
+  POE getLine.pStr
+  SIA
+  IND
+  SIB
+  
+  # Echo bs to port 1
+  W1E 0x20
+  W1E 'BS
+  W1E 'BS 
   # Get another
   JPL getLine.ga 
   # Anything else we add to the string
 D getLine.oc
-  SCB 
-  # increment the SP
-  INS # correct for auto SP-- of SC* commands
-  INS
-
-  # Check for 0xE0 - extended key code
-  LAE 0xE0
-  MAB
-  JLN getLine.oce
-    
-  LB0
-  SCB 
-  # increment the SP
-  INS # correct for auto SP-- of SC* commands
-  INS
+  POE getLine.char
+  SIB
+  # check that len < max
+  POE getLine.len
+  LAM
+  POE getLine.max
+  LBM 
+  MAB  
+  JLN getLine.isspace
+  JPL getLine.ga
   
-  W0E 0x00
-  JPL getLine.xit
+D getLine.isspace  
+  POE getLine.char
+  LBM
+  POE getLine.len
+  LAM
+  INA
+  SIA
+
+  # increment the pStr
+  POE getLine.pStr
+  LAM
+  IND
+  LDM
+  LRA
+  SIB # store char
+  IND
+  LAR
+  LBD
+  POE getLine.pStr
+  SIA
+  IND
+  SIB
+  
+  # Check for 0xE0 - extended key code
+  #LAE 0xE0
+  #MAB
+  #JLN getLine.oce
+    
+  #LB0
+  #SCB 
+  # increment the SP
+  #INS # correct for auto SP-- of SC* commands
+  #INS
+  
+  #W0E 0x00
+  #JPL getLine.xit
   
 D getLine.oce
   # Echo character to port 1
+  POE getLine.char
+  LBM
   W1B 
   # Get another
   JPL getLine.ga 

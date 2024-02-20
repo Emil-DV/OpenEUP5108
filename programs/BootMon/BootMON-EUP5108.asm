@@ -1,5 +1,5 @@
 #######################################################
-## Boot Monitor for the EUP 5108
+## Boot Monitor for the EUP 5108 - primary test program
 #######################################################
 
 W main      # Set reset vector to main
@@ -8,11 +8,13 @@ W IRQ1Func
 O 0010      # Start rom constants at 0x0010 ROM ADDRESS
 
 V CmdStr    # The command entered
-a 40
+a 42
+C CMDSTRMAX 41
 V CmdStrLen # The length of the command entered
 a 1
 
 C sys.topline 6      # 1 based
+C sys.cursorChar 0x5F # _
 
 I strings.asm
 I bootbanner.asm
@@ -445,6 +447,7 @@ D main.pu
   CAL printStr1E
   
 # Get a command line from the user
+  LAE CMDSTRMAX
   LDR CmdStr
   CAL getLine
   W1E 'LF

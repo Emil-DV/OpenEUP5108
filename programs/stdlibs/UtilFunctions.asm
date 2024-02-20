@@ -424,7 +424,13 @@ D getLine.go
   MAB 
   JLN getLine.c2
 D getLine.xit
+
   # CR hit, write a nul to end the line, A is 0 at this point
+  POE getLine.pStr
+  LBM
+  IND
+  LDM
+  LRB
   SIA  
   W1A
 

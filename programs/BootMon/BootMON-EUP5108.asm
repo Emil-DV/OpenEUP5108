@@ -3,7 +3,7 @@
 #######################################################
 
 W main      # Set reset vector to main
-O 0004
+W HWIRQFunc
 W IRQ1Func
 W IRQ2Func
 O 0010      # Start rom constants at 0x0010 ROM ADDRESS
@@ -239,9 +239,17 @@ D tf.delay
   
   RTL
 
+# HWIRQ Function prototype
+D HWIRQFunc  
+  HLT
+  NOP
+  RTI
+  
+# INQ2 Function prototype
 D IRQ2Func
   HLT
   NOP
+  RTI
   
 # INQ1 Function prints the boot banner
 D IRQ1Func
@@ -444,7 +452,7 @@ D IRQ1Func.rti
 #######################################################
 D main 
   LAE 'B
-  IQ2               # Call software IRQ for banner
+  IQ1         # Call software IRQ for banner
   
   # Prompt User for command
 D main.pu  

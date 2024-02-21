@@ -432,7 +432,7 @@ D getLine.xit
   LDM
   LRB
   SIA  
-  W1A
+  W1E 0x20
 
   INS
   INS

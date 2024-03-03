@@ -30,9 +30,6 @@ I ..\gamelibs\EUPOUTV2\EUPOUTv2.asm
 I ..\gamelibs\EUPInvaders\EUPInvadersCode.asm
 I ..\gamelibs\Cards\PlayingCardDeck.asm
 
-D charRuler
-S          1         2         3         4         5         6         7         8\n
-S 123456789*123456789*123456789*123456789*123456789*123456789*123456789*123456789*\n\0
 #######################################################
 D testFunc
   LDR VTCLR
@@ -473,21 +470,21 @@ D main.pu
   # Get first character from command into B
   LDR CmdStr
   LBM
-
+  # switch(B){
   # Check if the user entered '? for help function
   LAE '?
   MAB
-  JLN main.n0
+  JLN main.n0       # case ?:
   CAL HelpFunction
-  JPL main.pu
+  JPL main.pu       # break;
   
   # Check if the user entered 't for testScreenWidth function
 D main.n0
   LAE 't
   MAB
-  JLN main.n1
+  JLN main.n1       # case t:
   CAL testFunc
-  JPL main.pu
+  JPL main.pu       # break;
 
   # Check if the user entered 'm for memory function
 D main.n1

@@ -5,6 +5,11 @@ I EUPInvadersAssets.asm
 V eiInit
 a 1
 
+D EupInvadersCmd
+S ei\0
+D EupInvadersMsg
+S ei: Start the EUP Invaders Game\0
+
 C ShieldCount 08
 C ShieldGap 02
 #######################################################

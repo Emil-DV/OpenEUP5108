@@ -8,6 +8,25 @@
 ## DivBA
 ## printBHex
 
+D charRuler
+S          1         2         3         4         5         6         7         8\n
+S 123456789*123456789*123456789*123456789*123456789*123456789*123456789*123456789*\n\0
+
+
+#######################################################
+# callFNptr  This could be a better use of the CAS instruction
+D callFNptr  # Calls the function stored in DR and returns
+  LAR                 # Store DR in BA
+  LBD
+  LDR callFNptr.call  # Get the pointer to the call instruction in ROM
+  IND                 # Skip the CAL instruction itself
+  SEA                 # Write the DR that was passed in
+  IND
+  SEB
+D callFNptr.call # a manually entered CAL instruction
+L 96 00 00            # Call the function pointer passed in
+  RTL
+
 
 #######################################################
 # getRand       Gets a random number from the SFP
@@ -40,6 +59,8 @@ D sleep       # A=loop count
 #  HLT
 D sleep.y     # do {
   LDZ         #   DR = 0
+  LRE 0xFF
+  LDE 0x0F
   LTO         #   T = 1
   MDT         #   DR -= T
 D sleep.x     #   do {
@@ -57,13 +78,10 @@ D sleep.x     #   do {
 #######################################################
 D PrintASCIITbl
 C PrintASCIITbl.i 1
-  LAE 0x20
+  LAE 0x20              # Start at the space character
   SCA 
 
-# HLT
-  NOP
-
-  W1E 'CR
+  W1E 'LF
 D PrintASCIITbL.lp
   POE PrintASCIITbl.i      
   LBM

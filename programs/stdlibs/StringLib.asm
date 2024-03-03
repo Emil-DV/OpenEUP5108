@@ -123,6 +123,20 @@ D strlen.c
   JPL strlen.r    # loop
 
 #####################################################################################
+# strlenc in:DR=src out:A=len : limit 255
+# useage: LDR Src address then call strlen. A=len upon return
+D strlenc
+  LAZ             #A = 0
+D strlenc.r  
+  LBF             #B = DRAM[DR]
+  JSN strlenc.c   # if B != 0 jump
+  RTL             # return
+D strlenc.c  
+  INA             # A++
+  IND             # DR++
+  JPL strlenc.r   # loop
+
+#####################################################################################
 # toUpperStr in: DR = pointer to null terminated string
 # useage: Characters pointed to by DR: 'a'..'z' becomes 'A'..'Z'
 D toUpperStr
@@ -230,6 +244,8 @@ D strcpyconst.cont
 # Loop
   JPL strcpyconst
 
+V strcpyDelim # Set this to 0x20 to copy the first word
+a 1
 #####################################################################################
 # strcpy dst,src - copy from src to dst byte wise until a null is reached
 # useage: Push Src address then dst address then call strcpy (src & dst are in DRAM)
@@ -249,7 +265,7 @@ D strcpy
 
 # check if null, jump to continue
   JLN strcpy.cont
-
+D strcpy.xit
 # Load DR with the address of Dst which is expected at SP+4
   POE strcpy.dst  # DR = SP + 4
   LAM       # A = DRAM[DR]
@@ -261,6 +277,14 @@ D strcpy
   RTL       # return
  
 D strcpy.cont
+  LDR strcpyDelim
+  LAM
+  MAB
+  JLN strcpy.cont2
+  LBZ
+  JPL strcpy.xit
+  
+D strcpy.cont2  
 # Load DR with the address of Dst which is expected at SP+4
   POE strcpy.dst  # DR = SP + 4
   LAM       # A = DRAM[DR]
@@ -309,9 +333,35 @@ D strcpy.cont
 # strcmpconst dst,src - compares src to dst byte wise until a mismatch is reached
 # useage: Push Src address then Var address then call strcmpconst (src is ROM)
 D strcmpconst
+C strcmpconst.Src 7
+C strcmpconst.Dst 5
+C strcmpconst.tmp 1       # tmp = zero
+  LAZ
+  SCA
+  
+  POE strcmpconst.Src     # *Src
+  LAM
+  DED
+  LDM
+  LRA
+  CAL strlenc             # get length
+  POE strcmpconst.tmp     # tmp = strlenc(*Src)
+  SIA
+  POE strcmpconst.Dst     # *Dst
+  LAM
+  DED
+  LDM
+  LRA
+  CAL strlen              # get length
+  POE strcmpconst.tmp     # A = strlen(*Dst)
+  LBM
+  MAB
+  JLN strcmpconst.diff    # if A != tmp goto diff
+
+D strcmpconst.do
 # B = Src[0];
 # Load DR with address of Src which is SP+6
-  POE 0x06  # DR = SP+6
+  POE strcmpconst.Src  # DR = SP+6
 
 # Read the two bytes located at stack address into DR
   LAM       # A = DRAM[DR]
@@ -324,11 +374,12 @@ D strcmpconst
 
 # check if null, jump to continue
   JLN strcmpconst.cont
+  INS
   RTL       # return
  
 D strcmpconst.cont
 # Load DR with the address of Var which is expected at SP+4
-  POE 0x04  # DR = SP+4
+  POE strcmpconst.Dst  # DR = SP+4
   LAM       # A = DRAM[DR]
   DED       # DR--
   LDM       # D = DRAM[DR]
@@ -346,13 +397,13 @@ D strcmpconst.cont
 # Store new value of Var
   LAR       # A = R
   LBD       # B = D
-  POE 0x04  # DR = SP+4
+  POE strcmpconst.Dst  # DR = SP+4
   SIA       # DRAM[DR] = A
   DED       # DR--
   SIB       # DRAM[DR] = B
  
 # Load DR with address of Src which is SP+6
-  POE 0x06  # DR = SP+6
+  POE strcmpconst.Src  # DR = SP+6
 
 # Load DR with Src
   LAM       # A = DRAM[DR]
@@ -366,15 +417,18 @@ D strcmpconst.cont
 #store new value
   LAR       # A = R
   LBD       # B = D
-  POE 0x06  # DR = SP+6
+  POE strcmpconst.Src  # DR = SP+6
   SIA       # DRAM[DR] = A
   DED       # DR--
   SIB       # DRAM[DR] = B
 # Loop
-  JPL strcpyconst
+  JPL strcmpconst.do
 
 D strcmpconst.diff
+  INS
+  LBE 1
   RTL
+  
 
 #######################################################
 # repeatChar: prints a character A times

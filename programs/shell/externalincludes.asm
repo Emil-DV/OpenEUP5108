@@ -4,4 +4,4 @@
 I shellTestFunc.asm
 I ..\gamelibs\Cards\PlayingCardDeck.asm
 I ..\gamelibs\EUPInvaders\EUPInvadersCode.asm
-#I ..\gamelibs\EUPOUTV2\EUPOUTv2.asm
+I ..\gamelibs\EUPOUTV2\EUPOUTv2.asm

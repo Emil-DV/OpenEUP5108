@@ -84,9 +84,15 @@ W clearCmd
 W clearFunc
 W clearMsg
 
+W DisplayHexValuesCmd
+W DisplayHexValues
+W DisplayHexValuesMsg
+
 W echoVTCmd
 W echoVT
 W echoVTMsg
+
+
 
 I ExternalCmds.asm
 
@@ -339,3 +345,157 @@ D main.cmdnext
   SIB
   JPL main.mapsearch
   
+#######################################################
+D DisplayHexValuesCmd
+S d\0
+D DisplayHexValuesMsg
+S d: Displays the string of hex values as characters\0
+
+D DisplayHexValues  
+C DHV.Temp 1  # char Temp;
+C DHV.i 2
+  DES
+  DES
+
+  #W1E 'LF
+  
+  POE DHV.Temp #Temp = 0;
+  LAZ
+  SIA
+  
+  POE DHV.i #i=1
+  LAE 2
+  SIA
+  
+  # set the command to upper case
+  LDR CmdStr
+  CAL toUpperStr
+
+D DHV.loop
+  POE DHV.i
+  LAM
+
+  LDR CmdStr
+  EDA
+
+  LBM 
+  CAL isHexDigitB
+  
+  LTO
+  MAT
+  JLN DHV.xit
+  TLB 
+  TLB 
+  TLB 
+  TLB   
+  POE DHV.Temp
+  SIB
+  
+  POE DHV.i  # i++
+  LAM
+  INA
+  SIA
+  
+  LDR CmdStr
+  EDA
+
+  LBM 
+  CAL isHexDigitB
+  LTO
+  MAT
+  JLN DHV.xit
+  POE DHV.Temp
+  LAM
+  EBA
+  SIB
+
+  W1B # echo the character
+  
+  POE DHV.i  # i++
+  LAM
+  INA
+  SIA
+  
+  JPL DHV.loop
+
+D DHV.xit  
+  W1E 'LF
+  INS
+  INS
+
+  RTL
+  
+##########################################################  
+D PlayHexValues
+C PHV.Temp 1  # char Temp;
+C PHV.i 2
+  DES
+  DES
+
+  #W1E 'LF
+  
+  POE PHV.Temp #Temp = 0;
+  LAZ
+  SIA
+  
+  POE PHV.i #i=1
+  LAO
+  SIA
+  
+  # set the command to upper case
+  LDR CmdStr
+  CAL toUpperStr
+
+D PHV.loop
+  POE PHV.i
+  LAM
+
+  LDR CmdStr
+  EDA
+
+  LBM 
+  CAL isHexDigitB
+  
+  LTO
+  MAT
+  JLN PHV.xit
+  TLB 
+  TLB 
+  TLB 
+  TLB   
+  POE PHV.Temp
+  SIB
+  
+  POE PHV.i  # i++
+  LAM
+  INA
+  SIA
+  
+  LDR CmdStr
+  EDA
+
+  LBM 
+  CAL isHexDigitB
+  LTO
+  MAT
+  JLN PHV.xit
+  POE PHV.Temp
+  LAM
+  EBA
+  SIB
+
+  W2B # echo the character to the sound port
+  
+  POE PHV.i  # i++
+  LAM
+  INA
+  SIA
+  
+  JPL PHV.loop
+
+D PHV.xit  
+  W1E 'LF
+  INS
+  INS
+
+  RTL

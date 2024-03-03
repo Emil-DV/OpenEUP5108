@@ -16,6 +16,9 @@ S 123456789*123456789*123456789*123456789*123456789*123456789*123456789*12345678
 #######################################################
 # callFNptr  This could be a better use of the CAS instruction
 D callFNptr  # Calls the function stored in DR and returns
+  #HLT
+  NOP
+  
   LAR                 # Store DR in BA
   LBD
   LDR callFNptr.call  # Get the pointer to the call instruction in ROM

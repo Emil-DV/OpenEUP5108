@@ -248,7 +248,7 @@ D eiMainLoop
 
   
 D eiML.do           # do{
-  LAO               # A = 1 ~ 37ms
+  LAE 0x10          # A = 1 ~ 37ms
   CAL sleep         # Sleep
 
   CAL DrawGoodGuy     

@@ -1,6 +1,10 @@
 #######################################################
 ## EUPOUT - "Breakout clone" Video Game
 #######################################################
+D EUPOUTCmd
+S eo\0
+D EUPOUTMsg
+S eo: The EUPOUT game that is more like snake
 
 # Screen should be clear
 D EUPOUT

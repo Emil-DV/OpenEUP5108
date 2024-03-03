@@ -10,3 +10,7 @@ W EupInvadersCmd
 W eiMainLoop
 W EupInvadersMsg
 
+W EUPOUTCmd
+W EUPOUT
+W EUPOUTMsg
+

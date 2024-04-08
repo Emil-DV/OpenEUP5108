@@ -15,6 +15,64 @@ C NULL 0x00
 C 'ESC 0x1B
 
 #####################################################################################
+# strreplace in:DR=pStr in:A value to remove in:B value to place
+#            runs through a null term string replacing A with B
+D strreplace
+C strreplace.pStr 3
+  SCD
+  SCR
+C strreplace.r 2
+  SCA
+C strreplace.p 1
+  SCB
+
+D strreplace.do
+  POE strreplace.pStr
+  LAM
+  IND
+  LDM
+  LRA
+
+  LBM
+  # check if we are at the end
+  JLN strreplace.cont
+  # B = NULL so exit
+  INS
+  INS
+  INS
+  INS
+  RTL  
+  
+D strreplace.cont
+  POE strreplace.r
+  LAM
+  MBA
+  JLN strreplace.nxt  
+  POE strreplace.p
+  LBM
+  POE strreplace.pStr
+  LAM
+  IND
+  LDM
+  LRA
+  SIB
+D strreplace.nxt 
+  POE strreplace.pStr # pStr++
+  LAM
+  IND
+  LDM
+  LRA
+  IND
+  LAR
+  LBD
+  POE strreplace.pStr
+  SIA
+  IND
+  SIB
+  JPL strreplace.do
+
+
+#####################################################################################
 # itoa in:DR=dst[3] in:B
 # useage: LDR Dst address A=value then call itoa
 D itoa

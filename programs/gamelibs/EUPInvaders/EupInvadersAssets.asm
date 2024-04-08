@@ -13,6 +13,24 @@ L DC DB DB DB DB DC 00
 L DB DF DF DF DF DB 00 00 00
 C eiShield.size 10
 
+#          1         2         3         4         5         6         7         8
+# 123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.
+
+D eiShieldBlock
+#      ████         ████         ████         ████         ████         ████      \n
+#     ██████       ██████       ██████       ██████       ██████       ██████     \n
+#     █    █       █    █       █    █       █    █       █    █       █    █     \0 
+#L 20 20 20 20 20 DB DB DB DB 20 20 20 20 20 20 20 20 20 DB DB DB DB    
+S      ____         ____         ____         ____         ____         ____      \n
+S     ______       ______       ______       ______       ______       ______     \n
+S     _    _       _    _       _    _       _    _       _    _       _    _     \0
+
+
+V eiShieldBlockD
+a FF
+
+
+
 D eiBlockDegrade
 # █▓▒░
 L DB B2 B1 B0
@@ -55,11 +73,6 @@ D eiExplode
 L 5C F9 2F 
 L C4 20 C4
 L 2F F9 5C 00
-
-## The variable that holds the collection of shields
-#  Each shield is 16 characters 10 shields = 160 bytes 0xA0
-V eiShields
-a A0
 
 V eiShotsFired
 a 2

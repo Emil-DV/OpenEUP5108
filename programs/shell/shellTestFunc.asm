@@ -23,6 +23,27 @@ V tf.char
 a 1
 V tf.i
 a 1
+
+V tf.bcd
+a BCDLib.strlen
+
+  LDR tf.bcd
+  CAL BCDZro
+D gohere  
+
+  LDR VTHOME
+  CAL printStr1E
+
+  LDR tf.bcd
+  CAL BCDPnt
+
+  LDR tf.bcd
+  CAL BCDInc
+
+  #W2E 0x05
+
+  JPL gohere
+  
   
   LDR tf.i
   LAO
@@ -104,7 +125,7 @@ D tf.docrc
   LBM
   TLB
   TLB
-  INB
+  TLB
   EAB
   LBE 20
   CAL vtSetCursorPos

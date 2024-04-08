@@ -10,55 +10,59 @@ S ei\0
 D EupInvadersMsg
 S ei: Start the EUP Invaders Game\0
 
-C ShieldCount 08
-C ShieldGap 02
+
 #######################################################
-## ShieldsUp - initialize the eiShields var and 1st draw
-D ShieldsUp
-  #HLT
-  NOP
-  
-C ShieldsUp.i  1      # char i
-  DES
-  
-  POE ShieldsUp.i     # i = 0 
-  LAZ             
-  SIA
-  
-D ShieldsUp.do
-  POE ShieldsUp.i     # A = i 
-  LAM
-  
-  LBE eiShield.size   # DR = A * B
-  CAL MulBA
-  LAR
+## ShieldBlockUp - animates the appearance of the shields
+#######################################################
+D ShieldBlockUp
 
-  LDR eiShield        # Push src address of shield const
-  SCR
-  SCD
+  CAL DrawShieldBlock
+  W2E 0x10
+  LDR eiShieldBlockD
+  LAE '_
+  LBE 0xB0
+  CAL strreplace
   
-  LDR eiShields
-  EDA
-  
-  SCR
-  SCD
-  CAL strcpyconst  
-  INS
-  INS
-  INS
-  INS
+  CAL DrawShieldBlock
+  W2E 0x20
+  LDR eiShieldBlockD
+  LAE 0xB0
+  LBE 0xB1
+  CAL strreplace
 
-  POE ShieldsUp.i     # A = i 
-  LAM
-  INA
-  SIA
+  CAL DrawShieldBlock
+  W2E 0x30
+  LDR eiShieldBlockD
+  LAE 0xB1
+  LBE 0xB2
+  CAL strreplace
   
-  LBE ShieldCount     # A < ShieldCount
-  MBA
-  JLN ShieldsUp.do    # store next one
-  
-  INS
+  CAL DrawShieldBlock
+  W2E 0x40
+  LDR eiShieldBlockD
+  LAE 0xB2
+  LBE 0xDB
+  CAL strreplace
+
+  CAL DrawShieldBlock
+  W2E 0x50
+
   RTL
+
+#######################################################
+## DrawShieldBlock
+#######################################################
+C ShieldBlockRow 16 
+D DrawShieldBlock
+  LDR VTBLUEONBLK
+  CAL printStr1E
+  LBE ShieldBlockRow
+  LAO
+  CAL vtSetCursorPos
+  LDR eiShieldBlockD
+  CAL printStr1D 
+  RTL
+  
 #######################################################
 ## DrawBullet
 #######################################################
@@ -189,9 +193,6 @@ D GoBoom
   W2E 0x70
   W2E 0x23
   
-  
-  
-  
   INS
   INS
 
@@ -246,13 +247,31 @@ D eiMainLoop
   IND
   SIA
 
+  LDR VTCLR
+  CAL printStr1E
+  
+  LDR eiShieldBlock
+  SCR
+  SCD
+  LDR eiShieldBlockD
+  SCR
+  SCD
+  CAL strcpyconst
+  INS
+  INS
+  INS
+  INS
+  
+  CAL ShieldBlockUp
   
 D eiML.do           # do{
+  
   LAE 0x10          # A = 1 ~ 37ms
   CAL sleep         # Sleep
 
   CAL DrawGoodGuy     
   CAL DrawBullet
+  CAL DrawShieldBlock
   
   LB0               # Chk port 4 key
   
@@ -278,6 +297,15 @@ D eiML.!a
   JPL eiML.do       # Get a key
 
 D eiML.!d  
+  LAE 'c            # if(B != 'c')
+  MAB               
+  JLN eiML.!c       #   goto eiML.!c
+
+  LDR VTCLR
+  CAL printStr1E
+  JPL eiML.do
+
+D eiML.!c  
   LAE 'q            # if(B != 'q')
   MAB               
   JLN eiML.!q       #   goto eiML.!q
@@ -290,8 +318,6 @@ D eiML.!q
   # The fire button has been pressed
   LDR eiShotsFired
   CAL incShort
-  
-  CAL getRand
   
   CAL CheckForNoBoom
   LBA

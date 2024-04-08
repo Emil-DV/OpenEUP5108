@@ -59,24 +59,24 @@ D incShort.c
 
 #######################################################
 D sleep       # A=loop count
-#  HLT
+  #HLT
 D sleep.y     # do {
-  LDZ         #   DR = 0
+#  LDZ         #   DR = 0
   LRE 0xFF
   LDE 0x0F
-  LTO         #   T = 1
-  MDT         #   DR -= T
+#  LTO         #   T = 1
+#  MDT         #   DR -= T
 D sleep.x     #   do {
   DED         #     DR -= 1
   JLN sleep.x #   }while(DR != 0)
   DEA         #   A -= 1
   JLN sleep.y # }while(A != 0)
-#  HLT
+  #HLT
   RTL         # return
 
-# One loop =  1109791 cycles
+# One loop =  1044818 cycles
 # Mhz      = 30000000 
-#          ~ 37ms
+#          ~ 35ms
 
 #######################################################
 D PrintASCIITbl

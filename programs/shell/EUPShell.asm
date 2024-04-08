@@ -18,11 +18,14 @@ a 2
 
 C sys.topline 6      # 1 based
 C sys.cursorChar 0x5F
+C sys.scrwidth 0x50
 
 # include both libraries and command execution functions
 I ..\stdlibs\stringlib.asm
 I ..\stdlibs\math.asm
 I ..\stdlibs\utilfunctions.asm
+I ..\stdlibs\BCDLib.asm
+
 I ..\displaylibs\vt100.asm
 I ..\displaylibs\bigled.asm
 I ..\displaylibs\BoxDrawing.asm

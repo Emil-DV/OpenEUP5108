@@ -2,6 +2,10 @@
 ## A Retro 8-bit, Scratch-built, Minimalist, Micro-controller
 ---
 **This distro contains the EUP5108 Assembler, Emulator, and all source roms, documentation, and example code necessary for the user to write, run, and debug programs for the EUP5108!**
+
+The source for the Assembler & Emulator is not yet stable and is thus in a private distro for now
+
+For the Open Source purist, the Assembler and Emulator can be thought of as the engine that runs the EUP5108 shell program, games, and other Open Source examples in programs folder
   
 Check out [doc/EUP5108UserGuide.pdf](https://github.com/Emil-DV/OpenEUP5108/blob/main/doc/EUP5108UsersGuide.pdf) for detailed information about the operation, instruction set, and micro-coded architecture of the EUP5108
   

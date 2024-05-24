@@ -6,7 +6,7 @@
 W Main            # Write value of 'main' to byte 0,1 in ROM (reset vector) 
 O 0x0008          # Set the APA to x0008 (just past vectors)
 
-# String and other global constant data
+# String and other global constant data   char pStrHW[] = {"Hello World!\n\n"};
 D pStrHW          # Defines pStr as x0008
 S Hello World!\n  # Writes Hello World! to ROM starting at current APA
 L 0A 00           # Write \n and 00 (null to end the string)
@@ -24,7 +24,7 @@ L 00
 # Global varibles in RAM 
 A 0xFFE0          # Set the starting address for Variables
 
-V caStrIn         # caStrIn == 0xFFE0
+V caStrIn         # caStrIn == 0xFFE0       char caStrIn[32];
 a 0x20            # caStrIn[32]
 
 # Start loading up code beginning with any included libs
@@ -34,7 +34,7 @@ I ..\iolibs\EUPIO.asm  # Include the EUPIO.asm file to use those functions later
 # The Main function
 D Main            # The location of 'void main()'
 
-# Print "Hello World!"
+# printf("Hello World!\n\n");
   LDR pStrHW      # Load the value of 'pStrHW' into DR
   CAL printROM    # Call the print ROM function
 

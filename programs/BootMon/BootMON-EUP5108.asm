@@ -449,6 +449,9 @@ D IRQ1Func.rti
 #######################################################
 D main 
   LAE 'B
+  LDR IRQ1Func.rti
+  LBE 5
+  MBA
   IQ1         # Call software IRQ for banner
   
   # Prompt User for command

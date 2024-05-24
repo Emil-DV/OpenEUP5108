@@ -10,4 +10,4 @@ pause
 exit
 :runit
 rem Remove the 'R' at the end to bring up the emulator paused
-..\..\bin\eupemu.exe %BaseName%.rom 8000000 R
+..\..\bin\eupemu.exe %BaseName%.rom 8000000 

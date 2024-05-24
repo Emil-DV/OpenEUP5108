@@ -1,5 +1,5 @@
 v3.0 hex words addressed
-##  The Sequencer ROM contains the instruction sequences using 32 bit control words
+##  The Sequencer ROM contains the instruction sequences using 32 bit control words whose bits drive OE and WE signals
 ##  Pattern:
 ##  0x00000000
 ##    ||||||||- Instruction/Address Control bits:
@@ -110,6 +110,7 @@ B0: 1000C002 1600F000 1000C002 1700F000 1000C002 1000C001
 ##  IP++     
 BF: 1000C002 
 ##  IRQ - Pushes P,I,R,D,T,B,A on the Stack, Stows ALU Flags, and goes to the address in the vector table
+##  OE  P SP OE   
 C0: 8000C004 8200F000 9000C010 9200F020 6000C010 6200F020 7000C010 7200F020
 C8: 5000C010 5200F020 4000C010 4200F020 3000C010 3200F020 00F00C94 00000020
 ##  I=00     P=ALUi   P=const  OE ROM   T=rom(IP) IP++    I=rom(ip) OE T    P=T      OE ROM   Load IR

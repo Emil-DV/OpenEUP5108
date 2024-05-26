@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ A language file for the EUP5108 assembly language
+ Author: Emil DeVries
+-->
+<language id="eup" name="EUP" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="mimetypes">text/x-eup</property>
+    <property name="globs">*.asm</property>
+    <property name="line-comment-start">\#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"               map-to="def:comment"/>
+    <style id="string"            name="String"                map-to="def:string"/>
+    <style id="keyword"           name="Keyword"               map-to="def:keyword"/>
+    <style id="type"              name="Data Type"             map-to="def:type"/>
+    <style id="escaped-character" name="Escaped Character"     map-to="def:special-char"/>
+    <style id="decimal"           name="Decimal number"        map-to="def:decimal"/>
+    <style id="hexadecimal"       name="Hexadecimal number"    map-to="def:base-n-integer"/>
+    <style id="error"             name="Error"                 map-to="def:error"/>
+  </styles>
+
+  <definitions>
+
+    <!--Main context-->
+    <context id="eup" class="no-spell-check">
+      <include>
+        <context ref="comment"/>
+        <context ref="string"/>
+        <context ref="hexadecimal"/>
+        <context ref="invalid-hexadecimal"/>
+        <context ref="decimal"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+      </include>
+    </context>
+
+    <context id="comment" style-ref="comment">
+      <start>\#</start>
+      <end>$</end>
+    </context>
+
+    <!--regexs-->
+    <define-regex id="preproc-start">^\s*#\s*</define-regex>
+    <define-regex id="escaped-character" extended="true">
+      \\(                   # leading backslash
+      [\\\"\'nrbtfav\?] |   # escaped character
+      [0-7]{1,3} |          # one, two, or three octal digits
+      x[0-9A-Fa-f]+         # 'x' followed by hex digits
+      )
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>L?"</start>
+      <end>"</end>
+      <include>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[xX][a-fA-F0-9]+[uUlL]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="invalid-hexadecimal" style-ref="error">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[xX][a-fA-F0-9]*[g-zG-Z][a-zA-Z0-9]*[uUlL]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        (0|[1-9][0-9]*)[uUlL]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>^I</keyword>
+      <keyword>^O</keyword>
+      <keyword>^D</keyword>
+      <keyword>^L</keyword>
+      <keyword>^S</keyword>                        
+      <keyword>^W</keyword>      
+      <keyword>^C</keyword>      
+      <keyword>^A</keyword>      
+      <keyword>^V</keyword>      
+      <keyword>^a</keyword>      
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>AAB</keyword>
+      <keyword>AAT</keyword>
+      <keyword>ABA</keyword>
+      <keyword>ABT</keyword>
+      <keyword>BC0</keyword>
+      <keyword>BC1</keyword>
+      <keyword>BC2</keyword>
+      <keyword>BC3</keyword>
+      <keyword>BCA</keyword>
+      <keyword>BCB</keyword>
+      <keyword>BS0</keyword>
+      <keyword>BS1</keyword>
+      <keyword>BS2</keyword>
+      <keyword>BS3</keyword>
+      <keyword>BSA</keyword>
+      <keyword>BSB</keyword>
+      <keyword>BT0</keyword>
+      <keyword>BT1</keyword>
+      <keyword>BT2</keyword>
+      <keyword>BT3</keyword>
+      <keyword>BTA</keyword>
+      <keyword>BTB</keyword>
+      <keyword>CAL</keyword>
+      <keyword>CAS</keyword>
+      <keyword>DEA</keyword>
+      <keyword>DEB</keyword>
+      <keyword>DED</keyword>
+      <keyword>DES</keyword>
+      <keyword>DXR</keyword>
+      <keyword>EAB</keyword>
+      <keyword>EAT</keyword>
+      <keyword>EBA</keyword>
+      <keyword>EBT</keyword>
+      <keyword>EDA</keyword>
+      <keyword>EDB</keyword>
+      <keyword>EDT</keyword>
+      <keyword>ETA</keyword>
+      <keyword>ETB</keyword>
+      <keyword>HLT</keyword>
+      <keyword>INA</keyword>
+      <keyword>INB</keyword>
+      <keyword>IND</keyword>
+      <keyword>INS</keyword>
+      <keyword>IQ1</keyword>
+      <keyword>IQ2</keyword>
+      <keyword>IQC</keyword>
+      <keyword>IQM</keyword>
+      <keyword>IQR</keyword>
+      <keyword>IQU</keyword>
+      <keyword>JHB</keyword>
+      <keyword>JLC</keyword>
+      <keyword>JLN</keyword>
+      <keyword>JLR</keyword>
+      <keyword>JPL</keyword>
+      <keyword>JPS</keyword>
+      <keyword>JSB</keyword>
+      <keyword>JSC</keyword>
+      <keyword>JSN</keyword>
+      <keyword>JSR</keyword>
+      <keyword>JST</keyword>
+      <keyword>LA0</keyword>
+      <keyword>LA1</keyword>
+      <keyword>LA2</keyword>
+      <keyword>LA3</keyword>
+      <keyword>LAB</keyword>
+      <keyword>LAD</keyword>
+      <keyword>LAE</keyword>
+      <keyword>LAF</keyword>
+      <keyword>LAH</keyword>
+      <keyword>LAI</keyword>
+      <keyword>LAK</keyword>
+      <keyword>LAM</keyword>
+      <keyword>LAO</keyword>
+      <keyword>LAP</keyword>
+      <keyword>LAR</keyword>
+      <keyword>LAS</keyword>
+      <keyword>LAT</keyword>
+      <keyword>LAZ</keyword>
+      <keyword>LB0</keyword>
+      <keyword>LB1</keyword>
+      <keyword>LB2</keyword>
+      <keyword>LB3</keyword>
+      <keyword>LBA</keyword>
+      <keyword>LBD</keyword>
+      <keyword>LBE</keyword>
+      <keyword>LBF</keyword>
+      <keyword>LBH</keyword>
+      <keyword>LBI</keyword>
+      <keyword>LBK</keyword>
+      <keyword>LBM</keyword>
+      <keyword>LBO</keyword>
+      <keyword>LBP</keyword>
+      <keyword>LBR</keyword>
+      <keyword>LBS</keyword>
+      <keyword>LBT</keyword>
+      <keyword>LBZ</keyword>
+      <keyword>LDA</keyword>
+      <keyword>LDB</keyword>
+      <keyword>LDE</keyword>
+      <keyword>LDF</keyword>
+      <keyword>LDI</keyword>
+      <keyword>LDK</keyword>
+      <keyword>LDM</keyword>
+      <keyword>LDP</keyword>
+      <keyword>LDR</keyword>
+      <keyword>LDS</keyword>
+      <keyword>LDT</keyword>
+      <keyword>LDZ</keyword>
+      <keyword>LKA</keyword>
+      <keyword>LKB</keyword>
+      <keyword>LKD</keyword>
+      <keyword>LKE</keyword>
+      <keyword>LKF</keyword>
+      <keyword>LKM</keyword>
+      <keyword>LKR</keyword>
+      <keyword>LKT</keyword>
+      <keyword>LRA</keyword>
+      <keyword>LRB</keyword>
+      <keyword>LRE</keyword>
+      <keyword>LRF</keyword>
+      <keyword>LRI</keyword>
+      <keyword>LRK</keyword>
+      <keyword>LRM</keyword>
+      <keyword>LRP</keyword>
+      <keyword>LRS</keyword>
+      <keyword>LRT</keyword>
+      <keyword>LSA</keyword>
+      <keyword>LSB</keyword>
+      <keyword>LSD</keyword>
+      <keyword>LSE</keyword>
+      <keyword>LSF</keyword>
+      <keyword>LSM</keyword>
+      <keyword>LSR</keyword>
+      <keyword>LST</keyword>
+      <keyword>LT0</keyword>
+      <keyword>LT1</keyword>
+      <keyword>LT2</keyword>
+      <keyword>LT3</keyword>
+      <keyword>LTA</keyword>
+      <keyword>LTB</keyword>
+      <keyword>LTD</keyword>
+      <keyword>LTE</keyword>
+      <keyword>LTF</keyword>
+      <keyword>LTH</keyword>
+      <keyword>LTI</keyword>
+      <keyword>LTK</keyword>
+      <keyword>LTM</keyword>
+      <keyword>LTO</keyword>
+      <keyword>LTP</keyword>
+      <keyword>LTR</keyword>
+      <keyword>LTS</keyword>
+      <keyword>LTZ</keyword>
+      <keyword>MAB</keyword>
+      <keyword>MAT</keyword>
+      <keyword>MBA</keyword>
+      <keyword>MBT</keyword>
+      <keyword>MDA</keyword>
+      <keyword>MDB</keyword>
+      <keyword>MDT</keyword>
+      <keyword>MTA</keyword>
+      <keyword>MTB</keyword>
+      <keyword>NAB</keyword>
+      <keyword>NBA</keyword>
+      <keyword>NOA</keyword>
+      <keyword>NOB</keyword>
+      <keyword>NOP</keyword>
+      <keyword>NOT</keyword>
+      <keyword>OAB</keyword>
+      <keyword>OAT</keyword>
+      <keyword>OBA</keyword>
+      <keyword>OBT</keyword>
+      <keyword>PDO</keyword>
+      <keyword>PDS</keyword>
+      <keyword>POE</keyword>
+      <keyword>PSD</keyword>
+      <keyword>RC0</keyword>
+      <keyword>RC1</keyword>
+      <keyword>RC2</keyword>
+      <keyword>RC3</keyword>
+      <keyword>RE0</keyword>
+      <keyword>RE1</keyword>
+      <keyword>RE2</keyword>
+      <keyword>RE3</keyword>
+      <keyword>RI0</keyword>
+      <keyword>RI1</keyword>
+      <keyword>RI2</keyword>
+      <keyword>RI3</keyword>
+      <keyword>RRA</keyword>
+      <keyword>RRB</keyword>
+      <keyword>RRD</keyword>
+      <keyword>RRT</keyword>
+      <keyword>RST</keyword>
+      <keyword>RTI</keyword>
+      <keyword>RTL</keyword>
+      <keyword>RTS</keyword>
+      <keyword>SCA</keyword>
+      <keyword>SCB</keyword>
+      <keyword>SCD</keyword>
+      <keyword>SCI</keyword>
+      <keyword>SCK</keyword>
+      <keyword>SCP</keyword>
+      <keyword>SCR</keyword>
+      <keyword>SCS</keyword>
+      <keyword>SCT</keyword>
+      <keyword>SEA</keyword>
+      <keyword>SEB</keyword>
+      <keyword>SED</keyword>
+      <keyword>SEI</keyword>
+      <keyword>SEK</keyword>
+      <keyword>Sep</keyword>
+      <keyword>SER</keyword>
+      <keyword>SES</keyword>
+      <keyword>SET</keyword>
+      <keyword>SIA</keyword>
+      <keyword>SIB</keyword>
+      <keyword>SID</keyword>
+      <keyword>SII</keyword>
+      <keyword>SIK</keyword>
+      <keyword>SIP</keyword>
+      <keyword>SIR</keyword>
+      <keyword>SIS</keyword>
+      <keyword>SIT</keyword>
+      <keyword>TDS</keyword>
+      <keyword>TLA</keyword>
+      <keyword>TLB</keyword>
+      <keyword>TLD</keyword>
+      <keyword>TLT</keyword>
+      <keyword>W0A</keyword>
+      <keyword>W0B</keyword>
+      <keyword>W0E</keyword>
+      <keyword>W0F</keyword>
+      <keyword>W0M</keyword>
+      <keyword>W0T</keyword>
+      <keyword>W1A</keyword>
+      <keyword>W1B</keyword>
+      <keyword>W1E</keyword>
+      <keyword>W1F</keyword>
+      <keyword>W1M</keyword>
+      <keyword>W1T</keyword>
+      <keyword>W2A</keyword>
+      <keyword>W2B</keyword>
+      <keyword>W2E</keyword>
+      <keyword>W2F</keyword>
+      <keyword>W2M</keyword>
+      <keyword>W2T</keyword>
+      <keyword>W3A</keyword>
+      <keyword>W3B</keyword>
+      <keyword>W3E</keyword>
+      <keyword>W3F</keyword>
+      <keyword>W3I</keyword>
+      <keyword>W3T</keyword>
+      <keyword>XAB</keyword>
+      <keyword>XAT</keyword>
+      <keyword>XBA</keyword>
+      <keyword>XBT</keyword>
+      <keyword>XDS</keyword>
+    </context>
+
+
+  </definitions>
+</language>

@@ -2,6 +2,10 @@
 <!--
  A language file for the EUP5108 assembly language
  Author: Emil DeVries
+ 
+ To use, place this file into your language-specs folder as root
+ /usr/share/libgedit-gtksourceview-300/language-specs
+ 
 -->
 <language id="eup" name="EUP" version="2.0" _section="Source">
 

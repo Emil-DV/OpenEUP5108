@@ -21,6 +21,7 @@ D pPrompt         # Prompt string
 S EUP>
 L 00
 
+
 # Global varibles in RAM 
 A 0xFFE0          # Set the starting address for Variables
 
@@ -38,6 +39,8 @@ D Main            # The location of 'void main()'
   LDR pStrHW      # Load the value of 'pStrHW' into DR
   CAL printROM    # Call the print ROM function
 
+  HLT
+  
 # Print the Help String
   LDR pStrHelp    # Load the value of 'pStrHelp' into DR
   CAL printROM    # Call the print ROM function

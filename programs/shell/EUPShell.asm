@@ -21,13 +21,13 @@ C sys.cursorChar 0x5F
 C sys.scrwidth 0x50
 
 # include both libraries and command execution functions
-I ..\stdlibs\stringlib.asm
-I ..\stdlibs\math.asm
-I ..\stdlibs\utilfunctions.asm
+I ..\stdlibs\StringLib.asm
+I ..\stdlibs\Math.asm
+I ..\stdlibs\UtilFunctions.asm
 I ..\stdlibs\BCDLib.asm
 
 I ..\displaylibs\vt100.asm
-I ..\displaylibs\bigled.asm
+I ..\displaylibs\BigLED.asm
 I ..\displaylibs\BoxDrawing.asm
 
 I AsciiShelldon.asm
@@ -97,7 +97,7 @@ W echoVTMsg
 
 
 
-I ExternalCmds.asm
+I externalcmds.asm
 
 L 00 00  # this null indicates the end of the table
 

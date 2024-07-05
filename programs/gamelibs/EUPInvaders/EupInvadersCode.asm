@@ -1,7 +1,7 @@
 #######################################################
 ## EUP Invaders - EUP5108 Space Invaders clone
 #######################################################
-I EUPInvadersAssets.asm
+I EupInvadersAssets.asm
 V eiInit
 a 1
 

@@ -17,17 +17,17 @@ a 1
 C sys.topline 6      # 1 based
 C sys.cursorChar 0x5F # _
 
-I strings.asm
-I bootbanner.asm
+I Strings.asm
+I BootBanner.asm
 
 I ..\displaylibs\vt100.asm
 I ..\displaylibs\BoxDrawing.asm
-I ..\displaylibs\bigled.asm
-I ..\stdlibs\stringlib.asm
-I ..\stdlibs\math.asm
-I ..\stdlibs\utilfunctions.asm
-I ..\gamelibs\EUPOUTV2\EUPOUTv2.asm
-I ..\gamelibs\EUPInvaders\EUPInvadersCode.asm
+I ..\displaylibs\BigLED.asm
+I ..\stdlibs\StringLib.asm
+I ..\stdlibs\Math.asm
+I ..\stdlibs\UtilFunctions.asm
+I ..\gamelibs\EUPOutV2\EUPOUTv2.asm
+I ..\gamelibs\EUPInvaders\EupInvadersCode.asm
 I ..\gamelibs\Cards\PlayingCardDeck.asm
 
 #######################################################

@@ -14,9 +14,9 @@ window_id=$3
 gedit +$line_number "$filename" &
 
 # Wait for a short period to ensure gedit starts
-xdotool sleep 0.25
+xdotool sleep 0.25 > /dev/null 2>&1
 
 # Bring the window with the specified ID forward using xdotool
-xdotool search --name "$window_id" windowactivate
+xdotool search --name "$window_id" windowactivate > /dev/null 2>&1
 
 

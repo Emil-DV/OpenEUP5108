@@ -39,7 +39,7 @@ D Main            # The location of 'void main()'
   LDR pStrHW      # Load the value of 'pStrHW' into DR
   CAL printROM    # Call the print ROM function
 
-  HLT
+#  HLT
   
 # Print the Help String
   LDR pStrHelp    # Load the value of 'pStrHelp' into DR

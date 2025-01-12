@@ -95,8 +95,6 @@ W echoVTCmd
 W echoVT
 W echoVTMsg
 
-
-
 I externalcmds.asm
 
 L 00 00  # this null indicates the end of the table
@@ -193,7 +191,8 @@ D helpFunc.domore
   JPL helpFunc.doall 
 
 #######################################################
-D main # The EUP shell provides a CLI framework for a EUP5108 based PC
+D main # The EUP shell provides a CLI framework for a 
+       # EUP5108 based PC
   
   LDR VTRST       # Reset screen colors
   CAL printStr1E  

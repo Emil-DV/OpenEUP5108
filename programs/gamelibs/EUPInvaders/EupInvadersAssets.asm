@@ -2,6 +2,12 @@
 ## EUP Invaders - EUP5108 Space Invaders clone
 #######################################################
 
+D eiBanner
+S \e[10;34H\e
+S ****************\e[16D\e\e[1B\e
+S * EUP Invaders *\e[16D\e\e[1B\e
+S ****************\e[16D\e\e[1B\e\0
+
 # 6x2 Graphic Elements
 
 C eiBulletSound 0x51
@@ -48,15 +54,15 @@ L AE F9 F9 20 00
 
 D eiSpaceShip0
 # «(Φ)»
-L AE 28 E8 29 AF 00
+L AE 28 E4 29 AF 00
 
 D eiSpaceShip1
 # ╘)Φ(╛
-L 20 D4 29 E8 28 BE 00
+L 20 D4 29 E4 28 BE 00
 
 D eiSpaceShip2
 # ╒)Φ(╕
-L 20 D5 29 E8 28 B8 00
+L 20 D5 29 E4 28 B8 00
 
 D eiGoodGuyBlank
 # <^>
@@ -64,7 +70,7 @@ S  <^> \0
 
 D eiGoodGuy
 # <ô>
-L 20 3C 93 3E 20 00
+L 20 3C 94 3E 20 00
 
 D eiExplode
 # \∙/

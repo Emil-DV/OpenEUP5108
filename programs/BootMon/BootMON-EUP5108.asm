@@ -415,7 +415,7 @@ D IRQ1Func.ex
   LDR BlankNMatrix
   CAL DrawBox
     
-  CAL eiMainLoop
+  #CAL eiMainLoop
     
     
   INS

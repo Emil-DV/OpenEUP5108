@@ -7,7 +7,7 @@ W testFunc
 W testMsg
 
 W EupInvadersCmd
-W eiMainLoop
+W eiStart
 W EupInvadersMsg
 
 W EUPOUTCmd

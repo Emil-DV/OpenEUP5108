@@ -10,6 +10,12 @@ S ei\0
 D EupInvadersMsg
 S ei: Start the EUP Invaders Game\0
 
+#######################################################
+## eiStart - Init vars, show banner, then start
+#######################################################
+D eiStart
+  CAL eiMainLoop
+  RTL
 
 #######################################################
 ## ShieldBlockUp - animates the appearance of the shields
@@ -178,6 +184,7 @@ D GoBoom
   SCA
   LDR BulletCol
   LAM
+  DEA
   SCA
 
   LAO
@@ -249,7 +256,7 @@ D eiMainLoop
 
   LDR VTCLR
   CAL printStr1E
-  
+
   LDR eiShieldBlock
   SCR
   SCD
@@ -261,8 +268,11 @@ D eiMainLoop
   INS
   INS
   INS
-  
+
   CAL ShieldBlockUp
+
+  LDR eiBanner
+  CAL printStr1E
   
 D eiML.do           # do{
   

@@ -59,6 +59,7 @@ D ShieldBlockUp
 ## DrawShieldBlock
 #######################################################
 C ShieldBlockRow 16 
+C ShieldBlockRowBase 18
 D DrawShieldBlock
   LDR VTBLUEONBLK
   CAL printStr1E
@@ -79,8 +80,8 @@ a 1
 
 D DrawBullet
   LDR BulletRow
-  LBM
-  JLN DB.notz
+  LBM			# B = *BulletRow
+  JLN DB.notz		# if(B) goto .notz
   JPL DB.rtl
   
 D DB.notz  
@@ -179,13 +180,13 @@ D MGGR.rtl
 ## goBoom
 #######################################################
 D GoBoom
-  LDR BulletRow
-  LAM
-  SCA
+  LDR BulletRow	#
+  LAM		# A = *BulletRow
+  SCA		# push A
   LDR BulletCol
-  LAM
-  DEA
-  SCA
+  LAM		# A = *BulletCol
+  DEA		# A--
+  SCA		# push A
 
   LAO
   LBA
@@ -236,6 +237,57 @@ D CFB.nRow
 D CFB.goboom  
   LAZ
   RTL
+
+#######################################################
+## CheckForShieldBoom
+#  Check if the last bullet might have hit a shield
+#  Row = 2..5 Col 26..52  
+#######################################################
+D CheckForShieldBoom	# returns A=1 of not a hit
+
+  LDR BulletRow		#
+  LBM			# B = *BulletRow
+  LDE ShieldBlockRow	  # D = const ShieldBlockRow
+  LRE ShieldBlockRowBase  # R = const ShieldBlocRowBase
+  CAL inRangeB		# A = inRangeB();	
+  LBA			# B = A - sets flags
+  JLN CFSB.nRow		# if(B) goto CFSB.nRow
+  LAO			# A = 1
+  RTL			# Return
+  
+D CFSB.nRow
+  LDR BulletRow		#
+  LAM			# A = *BulletRow
+  LBE ShieldBlockRow	# B = ShieldBlockRow
+  MAB			# A -= B
+  LBE eiShieldBlockLen  # B = eiShieldBlockLen
+  CAL MulBA		# DR = B * A
+  LBR 			# B = R 
+  # do test for not zero
+  LDR BulletCol		#
+  LAM			# A = *BulletCol
+  
+  LDR eiShieldBlockD	# DR = eiShieldBlockD  
+  EDB			# DR += B (for the row)
+  EDA			# DR += A (for the col)
+  DED			# DR-- cuz are cols start at one
+
+  LBM 			# B = *DR (current bullet loc)
+  LAE 0x20		# A = 20 [space]
+  MAB			# A = A-B	
+  JLN CFSB.!spc		# B != space
+  RTL
+  
+D CFSB.!spc  
+  # change the not space character
+  LAE 0x20		# Load space into A
+  SIA			# *DR = A
+  LDR BulletRow		# set bullet row = 0
+  LAZ
+  SIA
+  W2E eiBulletHitShield # play hit sound	
+  RTL
+
   
 #######################################################
 ## eiMainLoop           # The main game loop
@@ -280,8 +332,9 @@ D eiML.do           # do{
   CAL sleep         # Sleep
 
   CAL DrawGoodGuy     
-  CAL DrawBullet
   CAL DrawShieldBlock
+  CAL DrawBullet
+  CAL CheckForShieldBoom
   
   LB0               # Chk port 4 key
   

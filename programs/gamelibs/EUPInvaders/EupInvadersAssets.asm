@@ -11,6 +11,7 @@ S ****************\e[16D\e\e[1B\e\0
 # 6x2 Graphic Elements
 
 C eiBulletSound 0x51
+C eiBulletHitShield 0x30
 
 D eiShield
 # ▄████▄
@@ -23,6 +24,7 @@ C eiShield.size 10
 # 123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.
 
 D eiShieldBlock
+C eiShieldBlockLen 51
 #      ████         ████         ████         ████         ████         ████      \n
 #     ██████       ██████       ██████       ██████       ██████       ██████     \n
 #     █    █       █    █       █    █       █    █       █    █       █    █     \0 
@@ -33,7 +35,7 @@ S     _    _       _    _       _    _       _    _       _    _       _    _   
 
 
 V eiShieldBlockD
-a FF
+a FF			# char eiShieldBlockD[255];
 
 
 

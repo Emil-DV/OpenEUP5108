@@ -270,7 +270,7 @@ D isHexDigitB.ltrchk
 # Check if input is less than = 'F'
 D isHexDigitB.nd
   LAE 'F
-  MAB             # A=A-B
+  MAB                # A=A-B
   JLR isHexDigitB.or # if(B > A) goto |or
 # Value is a digit so set A to one and return
   LAE 0x37        # Difference between 'A' and 0x0A

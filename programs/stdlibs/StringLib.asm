@@ -223,6 +223,84 @@ D toUpperB.nd
   MBA
 D toUpperB.rtl  
   RTL
+
+#####################################################################################
+# memcpyconst dst,src - copy from src to dst byte wise until a null is reached
+# useage: Push Src address then dst address then length byte then call memcpyconst (src is ROM)
+D memcpyconst
+C memcpyc.src 7
+C memcpyc.dst 5
+C memcpyc.len 3
+  
+# check if the length is zero
+  POE memcpyc.len
+  LBM
+  JLN memcpyconst.more
+  RTL
+
+D memcpyconst.more  
+# B = Src[0];
+# Load DR with address of Src which is SP+6
+  POE memcpyc.src  # DR = SP+6
+# DR = *DR
+  LAM       # A = DRAM[DR]
+  DED       # DR--
+  LDM       # D = DRAM[DR]
+  LRA       # R = A
+
+# Loads into B set the zero flag 
+  LBF       # B = EEPROM[DR]
+
+# Load DR with the address of Dst which is expected at SP+4
+  POE memcpyc.dst  # DR = SP+4
+  LAM       # A = DRAM[DR]
+  DED       # DR--
+  LDM       # D = DRAM[DR]
+  LRA       # R = A
+
+# Store the value from Src into Dst
+  SIB       # DRAM[DR] = B
+
+# increment DR (aka Dst)
+  IND       # DR++
+
+# Store new value of dst
+  LAR       # A = R
+  LBD       # B = D
+  POE memcpyc.dst  # DR = SP+4
+  SIA       # DRAM[DR] = A
+  DED       # DR--
+  SIB       # DRAM[DR] = B
+ 
+# Load DR with address of Src which is SP+6
+  POE memcpyc.src  # DR = SP+6
+
+# Load DR with Src
+  LAM       # A = DRAM[DR]
+  DED       # DR--
+  LDM       # D = DRAM[DR]
+  LRA       # R = A
+
+# increment Src
+  IND       # DR++
+
+#store new value
+  LAR       # A = R
+  LBD       # B = D
+  POE memcpyc.src  # DR = SP+6
+  SIA       # DRAM[DR] = A
+  DED       # DR--
+  SIB       # DRAM[DR] = B
+
+# load value of length and decrement 
+  POE memcpyc.len
+  LAM
+  DEA
+  SIA
+    
+# Loop
+  JPL memcpyconst
+
   
   
 

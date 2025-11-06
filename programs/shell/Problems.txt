@@ -1,0 +1,3 @@
+Problem instructions
+LB0 loads 1 into A
+LBF loads rom into A

@@ -14,8 +14,84 @@ S ei: Start the EUP Invaders Game\0
 ## eiStart - Init vars, show banner, then start
 #######################################################
 D eiStart
+  # Init 2 byte stats to zero
+  LDR eiShotsFired
+  LAZ
+  SIA
+  IND
+  SIA
+  
+  LDR eiShotsOnTarget
+  LAZ
+  SIA
+  IND
+  SIA
+
+  # init game tick to zero
+  LDR eiGameTick
+  LAZ
+  SIA
+
+  # Copy the shield block from rom to ram
+  LDR eiShieldBlock  #Push eiShieldBlock onto stack
+  SCR
+  SCD
+  LDR eiShieldBlockD #Push eiShieldBlockD onto stack
+  SCR
+  SCD
+  CAL strcpyconst    #Call strcopy from const
+  INS # Clean up stack
+  INS
+  INS
+  INS
+
+  # Copy the shield block from rom to ram
+  LDR eiBadGuyRows  #Push eiBadGuyRows onto stack
+  SCR
+  SCD
+  LDR eiBadGuyRowsD #Push eiBadGuyRowsD onto stack
+  SCR
+  SCD
+  LAE eiBadGuyRowsLen
+  SCA
+  CAL memcpyconst    #Call memcopy from const
+  INS # Clean up stack
+  INS
+  INS
+  INS
+  INS
+
+  LDR eiBadGuyRows2  #Push eiBadGuyRows onto stack
+  SCR
+  SCD
+  LDR eiBadGuyRowsD2 #Push eiBadGuyRowsD onto stack
+  SCR
+  SCD
+  LAE eiBadGuyRowsLen
+  SCA
+  CAL memcpyconst    #Call memcopy from const
+  INS # Clean up stack
+  INS
+  INS
+  INS
+  INS
+
+  # Clear the screen
+  LDR VTCLR
+  CAL printStr1E
+
+  # Animate shields
+  CAL ShieldBlockUp
+  
+  # draw banner
+  LDR eiBanner
+  CAL printStr1E
+
+  # main game loop	
   CAL eiMainLoop
   RTL
+  
+  
 
 #######################################################
 ## ShieldBlockUp - animates the appearance of the shields
@@ -101,11 +177,19 @@ D DB.notz
   
   W1E eiBullet1
 
-  LDR BulletRow
-  LBM
-  DEB
-  SIB
+  LDR BulletRow	#
+  LBM		# B = *BulletRow
+  DEB		# B--
+  SIB		# *BulletRow = B
+  JLN DB.rtl	# if(BulletRow) return
+ 
+  LDR BulletCol
+  LAM  		# A = *BulletCol
+  LBT		# B = 1
+  CAL vtSetCursorPos # Set position
   
+  W1E 0x20           # Erase old bullet
+
 D DB.rtl
   RTL  
 
@@ -288,43 +372,50 @@ D CFSB.!spc
   W2E eiBulletHitShield # play hit sound	
   RTL
 
+#######################################################
+## DrawBadGuys           # Draw the bad guys
+#######################################################
+D DrawBadGuys
+C DBG.State
+
+  LAE 7
+  LBE 7
+  CAL vtSetCursorPos
+
+  LDR eiGameTick
+  LBM
+  LAE 0x04
+  CAL DivBA		# B = eiGameTick%0x20
+  JLN DBG.noInc
+  LDR eiBadGuyRowEntry
+  LAM
+  INA
+  INA
+  SIA
+  LBE 0x08
+  MBA
+  JLR DBG.Inc
+  JPL DBG.noInc
+D DBG.Inc
+  LAZ 
+  SIA
+D DBG.noInc  
+  LDR eiBadGuyRowEntry
+  LAM
+  LDR eiBadGuyRowTbl
+  EDA
+  LAF
+  IND
+  LDF
+  LRA
+  
+  CAL printStr1D
+  RTL
   
 #######################################################
 ## eiMainLoop           # The main game loop
 #######################################################
 D eiMainLoop            
-  
-  LDR eiShotsFired
-  LAZ
-  SIA
-  IND
-  SIA
-  
-  LDR eiShotsOnTarget
-  LAZ
-  SIA
-  IND
-  SIA
-
-  LDR VTCLR
-  CAL printStr1E
-
-  LDR eiShieldBlock
-  SCR
-  SCD
-  LDR eiShieldBlockD
-  SCR
-  SCD
-  CAL strcpyconst
-  INS
-  INS
-  INS
-  INS
-
-  CAL ShieldBlockUp
-
-  LDR eiBanner
-  CAL printStr1E
   
 D eiML.do           # do{
   
@@ -333,8 +424,16 @@ D eiML.do           # do{
 
   CAL DrawGoodGuy     
   CAL DrawShieldBlock
+  CAL DrawBadGuys
   CAL DrawBullet
   CAL CheckForShieldBoom
+  
+  # inc game tick
+  LDR eiGameTick
+  LAM
+  INA
+  SIA
+
   
   LB0               # Chk port 4 key
   
@@ -415,11 +514,6 @@ D eiML.!boom
   W2E eiBulletSound # Play Bullet sound
 
 D eiML.!fire
-
-  LAE 'p     
-  MAB
-  JLN eiML.do
-  W1E 'ESC
 
   JPL eiML.do  
 

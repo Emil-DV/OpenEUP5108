@@ -14,3 +14,12 @@ W EUPOUTCmd
 W EUPOUT
 W EUPOUTMsg
 
+#W scrtestCmd
+#W scrtestFunc
+#W scrtestMsg 
+
+W hddCmd
+W hddfunctests
+W hddMsg
+
+

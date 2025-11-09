@@ -23,28 +23,11 @@ V tf.char
 a 1
 V tf.i
 a 1
-
-V tf.bcd
-a BCDLib.strlen
-
-  LDR tf.bcd
-  CAL BCDZro
-D gohere  
-
-  LDR VTHOME
-  CAL printStr1E
-
-  LDR tf.bcd
-  CAL BCDPnt
-
-  LDR tf.bcd
-  CAL BCDInc
-
-  #W2E 0x05
-
-  JPL gohere
   
+  #Run the BCD test
+  #JPL testBCD
   
+  # Run the playing card test
   LDR tf.i
   LAO
   SIA
@@ -87,7 +70,7 @@ D tf.docdo
   LAM
   CAL docDrawCard
 
-  W2E 0x50
+#  W2E 0x50
   
   LDR tf.col
   LAM
@@ -120,14 +103,13 @@ D tf.docrc
   LDR VTREDONBLK
   CAL printStr1E
 
-  LAE 12
-  LDR tf.i
+  LAE 2			#Starting col of LED prints
+  LDR tf.i		#LED Number
   LBM
-  TLB
-  TLB
+  TLB			#Multiply B by 4 via shifts
   TLB
   EAB
-  LBE 20
+  LBE 20		#Starting row of LED prints
   CAL vtSetCursorPos
   
   LDR tf.i
@@ -218,3 +200,23 @@ D tf.delay
 
 D testFunc.xit
   RTL
+  
+D testBCD
+V tf.bcd
+a BCDLib.strlen
+  HLT
+  LDR tf.bcd
+  CAL BCDZro
+D gohere  
+
+  LDR VTHOME
+  CAL printStr1E
+
+  LDR tf.bcd
+  CAL BCDPnt
+
+  LDR tf.bcd
+  CAL BCDInc
+  HLT
+  JPL gohere
+

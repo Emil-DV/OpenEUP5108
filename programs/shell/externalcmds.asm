@@ -18,8 +18,8 @@ W EUPOUTMsg
 #W scrtestFunc
 #W scrtestMsg 
 
-W hddCmd
-W hddfunctests
-W hddMsg
+#W hddCmd
+#W hddfunctests
+#W hddMsg
 
 

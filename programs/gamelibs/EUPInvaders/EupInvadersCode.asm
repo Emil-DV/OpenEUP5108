@@ -86,7 +86,11 @@ D eiStart
   # draw banner
   LDR eiBanner
   CAL printStr1E
-
+  
+  # Init eiShotsBCD
+  LDR eiShotsBCD
+  CAL BCDZro
+  
   # main game loop	
   CAL eiMainLoop
   RTL
@@ -422,6 +426,12 @@ D eiML.do           # do{
   LAE 0x10          # A = 1 ~ 37ms
   CAL sleep         # Sleep
 
+  LAE 44
+  LBE 1
+  CAL vtSetCursorPos
+  LDR eiShotsBCD
+  CAL BCDPnt
+
   CAL DrawGoodGuy     
   CAL DrawShieldBlock
   CAL DrawBadGuys
@@ -480,6 +490,8 @@ D eiML.!q
   # The fire button has been pressed
   LDR eiShotsFired
   CAL incShort
+  LDR eiShotsBCD
+  CAL BCDInc
   
   CAL CheckForNoBoom
   LBA

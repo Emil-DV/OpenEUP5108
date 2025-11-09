@@ -131,6 +131,9 @@ L 2F F9 5C 00
 V eiShotsFired
 a 2
 
+V eiShotsBCD
+a BCDLib.strlen
+
 V eiShotsOnTarget
 a 2
 

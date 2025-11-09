@@ -12,7 +12,7 @@ C BCDLib.strlen 8  # Max 99999999
 
 ################################################################
 # BCDInc - Increment the BCD string by 1 using single digit math
-D BCDInc
+D BCDInc # DR = pBCDStr
 C BCDInc.pBCDStr 1          # Store pBCDStr
   SCD
   SCR
@@ -34,24 +34,24 @@ C BCDInc.pBCDStr 1          # Store pBCDStr
   SIB  
 
 D BCDInc.do
-  POE BCDInc.pBCDStr        # B = *pBCDStr
+  POE BCDInc.pBCDStr        # DR = &pBCDStr
   LAM
   IND
   LDM
   LRA
-  LBM
+  LBM                       # B = *pBCDStr
   INB
   LAE 0x0A
-  MAB  
-  JLN BCDInc.c
+  MAB  			    # A = A - B
+  JLN BCDInc.c		    # if B = 0x0A goto BCDInc.c
   LAZ
   SIA
 
-  POE BCDInc.pBCDStr        # else pBCDStr--
-  LAM
-  IND
-  LDM
-  LRA
+#  POE BCDInc.pBCDStr        # else pBCDStr--
+# LAM
+# IND
+# LDM
+# LRA
   DED
   LBM
   LAE 0x0A
@@ -84,8 +84,8 @@ D BCDInc.c
 D BCDZro 
   # Run backwards through the string
   LBE BCDLib.strlen
-  DEB                   # A = BCDLib.strlen-1  
-  EDB                   # DR += A
+  DEB                   # B = BCDLib.strlen-1  
+  EDB                   # DR += B
   
   LAZ                   # Store the Zero
   SIA  
@@ -112,26 +112,26 @@ C BCDPnt.i 1                # Store BCDStr length
   SCA
   
 D BCDPnt.do                 # Loop
-  POE BCDPnt.pBCDStr        # B = *DR
-  LAM
+  POE BCDPnt.pBCDStr        # DR = SP+BCDPnt.pBCDStr
+  LAM			    # DR = *DR (2bytes)	
   IND
   LDM
   LRA
-  LBM
+  LBM			    # B = byte from BCDStr
   
-  LAE 0x0A                  
+  LAE 0x0A                  # If B != 0x0A goto BCDPnt.show
   MAB
-  JLN BCDPnt.show           # B != 0x0A?
+  JLN BCDPnt.show           
 D BCDPnt.nxt
-  POE BCDPnt.pBCDStr        # else pBCDStr++
+  POE BCDPnt.pBCDStr        # DR = pBCDStr (stack)
   LAM
   IND
   LDM
-  LRA
-  IND
+  LRA                       
+  IND                       # DR++
   LAR
   LBD
-  POE BCDPnt.pBCDStr        
+  POE BCDPnt.pBCDStr        # pBCDStr (stack) = A,B 	    
   SIA
   IND
   SIB

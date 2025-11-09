@@ -1,4 +1,5 @@
 # BIG LED lib - A bit more wonky then I'd like but good for now.
+
 # printLED(A=Value)
 D printLED
 C printLED.val 4
@@ -94,7 +95,7 @@ L C8 CD BC 00
 D LED1  
 L 20 20 BB 00
 L 20 20 BA 00
-L 20 20 BA 00
+L 20 20 CA 00
 D LED2  
 L 20 CD BB 00
 L C9 CD BC 00

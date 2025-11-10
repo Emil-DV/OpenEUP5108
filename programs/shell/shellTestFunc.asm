@@ -25,7 +25,7 @@ V tf.i
 a 1
   
   #Run the BCD test
-  #JPL testBCD
+  JPL testBCD
   
   # Run the playing card test
   LDR tf.i
@@ -204,7 +204,6 @@ D testFunc.xit
 D testBCD
 V tf.bcd
 a BCDLib.strlen
-  HLT
   LDR tf.bcd
   CAL BCDZro
 D gohere  
@@ -213,10 +212,10 @@ D gohere
   CAL printStr1E
 
   LDR tf.bcd
-  CAL BCDPnt
+#  CAL BCDPnt	#Print the BCD value as characters
+  CAL BCDPntLED #Print the BCD value as BIGLEDs
 
   LDR tf.bcd
   CAL BCDInc
-  HLT
   JPL gohere
 

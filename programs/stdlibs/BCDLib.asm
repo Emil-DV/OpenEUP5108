@@ -153,6 +153,64 @@ D BCDPnt.show               # Print the digit
   W1A
   JPL BCDPnt.nxt  
   
+  
+D BCDLEDnl
+S \e[3A\e\e[4C\e\0
+  
+################################################################
+# BCDPntLED - Print a BCD String in BIGLEDs
+# in:DR=pBCDStr
+# The binary value 0x0A is used to mark unfilled leading spaces
+D BCDPntLED
+C BCDPntLED.pBCDStr 2          # Store pBCDStr
+  SCD
+  SCR
+C BCDPntLED.i 1                # Store BCDStr length
+  LAE BCDLib.strlen
+  SCA
+  
+D BCDPntLED.do                 # Loop
+  POE BCDPntLED.pBCDStr        # DR = SP+BCDPnt.pBCDStr
+  LAM			    # DR = *DR (2bytes)	
+  IND
+  LDM
+  LRA
+  LBM			    # B = byte from BCDStr
+  
+  LAE 0x0A                  # If B != 0x0A goto BCDPnt.show
+  MAB
+  JLN BCDPntLED.show           
+D BCDPntLED.nxt
+  POE BCDPntLED.pBCDStr        # DR = pBCDStr (stack)
+  LAM
+  IND
+  LDM
+  LRA                       
+  IND                       # DR++
+  LAR
+  LBD
+  POE BCDPntLED.pBCDStr        # pBCDStr (stack) = A,B 	    
+  SIA
+  IND
+  SIB
+
+  POE BCDPntLED.i              # i--
+  LBM
+  DEB
+  SIB
+  JLN BCDPntLED.do  
+
+  INS
+  INS
+  INS
+  RTL
+
+D BCDPntLED.show               # Print the digit
+  LAB
+  CAL printLED
+  LDR BCDLEDnl		       # Position cursor for next
+  CAL printStr1E
+  JPL BCDPntLED.nxt  
 
 
 

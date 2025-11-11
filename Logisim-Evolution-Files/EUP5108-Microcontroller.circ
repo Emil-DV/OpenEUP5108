@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project source="3.5.0" version="1.0">
-  This file is intended to be loaded by Logisim-evolution (https://github.com/logisim-evolution/logisim-evolution).
+<project source="3.8.0" version="1.0">
+  This file is intended to be loaded by Logisim-evolution v3.8.0(https://github.com/logisim-evolution/).
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
@@ -15,10 +15,8 @@
       <a name="facing" val="west"/>
       <a name="incoming" val="8"/>
     </tool>
-    <tool name="Pin">
-      <a name="appearance" val="NewPins"/>
-    </tool>
     <tool name="Probe">
+      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
     </tool>
     <tool name="Constant">
@@ -35,16 +33,15 @@
     <tool name="Controlled Inverter">
       <a name="width" val="8"/>
     </tool>
-    <tool name="PLA">
-      <a name="table" val=""/>
-    </tool>
   </lib>
   <lib desc="#Plexers" name="2">
     <tool name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="size" val="20"/>
       <a name="width" val="3"/>
     </tool>
     <tool name="Demultiplexer">
+      <a name="enable" val="true"/>
       <a name="width" val="2"/>
     </tool>
   </lib>
@@ -83,9 +80,6 @@
     </tool>
     <tool name="ROM">
       <a name="appearance" val="classic"/>
-      <a name="contents">addr/data: 8 8
-0
-</a>
     </tool>
   </lib>
   <lib desc="#I/O" name="5">
@@ -126,9 +120,6 @@ end TCL_Generic;&#13;
   <lib desc="#Base" name="8">
     <tool name="Text Tool">
       <a name="font" val="SansSerif plain 12"/>
-      <a name="halign" val="center"/>
-      <a name="text" val=""/>
-      <a name="valign" val="base"/>
     </tool>
   </lib>
   <lib desc="#BFH-Praktika" name="9">
@@ -137,72 +128,8 @@ end TCL_Generic;&#13;
     </tool>
   </lib>
   <lib desc="#Input/Output-Extra" name="10"/>
-  <lib desc="#Soc" name="11">
-    <tool name="Rv32im">
-      <a name="SocBusSelection" val=""/>
-    </tool>
-    <tool name="Nios2">
-      <a name="SocBusSelection" val=""/>
-    </tool>
-    <tool name="SocBus">
-      <a name="SocBusIdentifier" val="0x0000017ED0CA71185e6455b6"/>
-    </tool>
-    <tool name="Socmem">
-      <a name="SocBusSelection" val=""/>
-    </tool>
-    <tool name="SocPio">
-      <a name="SocBusSelection" val=""/>
-    </tool>
-    <tool name="SocVga">
-      <a name="SocBusSelection" val=""/>
-    </tool>
-    <tool name="SocJtagUart">
-      <a name="SocBusSelection" val=""/>
-    </tool>
-  </lib>
-  <lib desc="#HDL-IP" name="12">
-    <tool name="VHDL Entity">
-      <a name="content">--------------------------------------------------------------------------------&#13;
--- HEIG-VD, institute REDS, 1400 Yverdon-les-Bains&#13;
--- Project :&#13;
--- File    :&#13;
--- Autor   :&#13;
--- Date    :&#13;
---&#13;
---------------------------------------------------------------------------------&#13;
--- Description :&#13;
---&#13;
---------------------------------------------------------------------------------&#13;
-&#13;
-library ieee;&#13;
-  use ieee.std_logic_1164.all;&#13;
-  --use ieee.numeric_std.all;&#13;
-&#13;
-entity VHDL_Component is&#13;
-  port(&#13;
-  ------------------------------------------------------------------------------&#13;
-  --Insert input ports below&#13;
-    horloge_i  : in  std_logic;                    -- input bit example&#13;
-    val_i      : in  std_logic_vector(3 downto 0); -- input vector example&#13;
-  ------------------------------------------------------------------------------&#13;
-  --Insert output ports below&#13;
-    max_o      : out std_logic;                    -- output bit example&#13;
-    cpt_o      : out std_logic_vector(3 downto 0)  -- output vector example&#13;
-    );&#13;
-end VHDL_Component;&#13;
-&#13;
---------------------------------------------------------------------------------&#13;
---Complete your VHDL description below&#13;
-architecture type_architecture of VHDL_Component is&#13;
-&#13;
-&#13;
-begin&#13;
-&#13;
-&#13;
-end type_architecture;&#13;
-</a>
-    </tool>
-  </lib>
+  <lib desc="#Soc" name="11"/>
+  <lib desc="#HDL-IP" name="12"/>
   <main name="GamingView"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
@@ -220,17 +147,12 @@ end type_architecture;&#13;
     <tool lib="8" name="Wiring Tool"/>
     <tool lib="8" name="Text Tool">
       <a name="font" val="SansSerif plain 12"/>
-      <a name="halign" val="center"/>
-      <a name="text" val=""/>
-      <a name="valign" val="base"/>
     </tool>
     <sep/>
     <tool lib="0" name="Pin">
-      <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
     </tool>
     <tool lib="0" name="Pin">
-      <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
     </tool>
@@ -255,29 +177,21 @@ end type_architecture;&#13;
       <a name="size" val="30"/>
     </tool>
     <sep/>
-    <tool lib="4" name="D Flip-Flop">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool lib="4" name="Register">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
+    <tool lib="4" name="D Flip-Flop"/>
+    <tool lib="4" name="Register"/>
   </toolbar>
   <circuit name="Inverter">
     <a name="appearance" val="custom"/>
     <a name="circuit" val="Inverter"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
-      <ellipse cx="97.0" cy="60.0" fill="#ffffff" rx="3.0" ry="3.0" stroke="#000000" stroke-width="2"/>
+      <ellipse cx="97" cy="60" fill="#ffffff" rx="3" ry="3" stroke="#000000" stroke-width="2"/>
       <polygon fill="none" points="60,50 60,70 93,60" stroke="#000000" stroke-width="2"/>
       <rect height="3" stroke="none" width="10" x="100" y="59"/>
       <rect height="3" stroke="none" width="10" x="50" y="59"/>
-      <circ-port height="10" pin="230,150" width="10" x="105" y="55"/>
-      <circ-port height="8" pin="110,150" width="8" x="46" y="56"/>
-      <circ-anchor facing="east" height="6" width="6" x="107" y="57"/>
+      <circ-anchor facing="east" x="110" y="60"/>
+      <circ-port dir="in" pin="110,150" x="50" y="60"/>
+      <circ-port dir="out" pin="230,150" x="110" y="60"/>
     </appear>
     <comp lib="0" loc="(110,150)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -301,10 +215,6 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="NandFullAddr"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <polyline fill="none" points="110,60 100,60" stroke="#000000" stroke-width="2"/>
       <polyline fill="none" points="80,30 80,40" stroke="#000000" stroke-width="2"/>
@@ -317,12 +227,12 @@ end type_architecture;&#13;
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="55" y="54">A</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="55" y="74">B</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="70" y="51">Cin</text>
-      <circ-port height="10" pin="670,210" width="10" x="105" y="55"/>
-      <circ-port height="10" pin="670,330" width="10" x="75" y="85"/>
-      <circ-port height="8" pin="150,190" width="8" x="36" y="46"/>
-      <circ-port height="8" pin="150,230" width="8" x="36" y="66"/>
-      <circ-port height="8" pin="150,310" width="8" x="76" y="26"/>
-      <circ-anchor facing="east" height="6" width="6" x="107" y="57"/>
+      <circ-anchor facing="east" x="110" y="60"/>
+      <circ-port dir="in" pin="150,190" x="40" y="50"/>
+      <circ-port dir="in" pin="150,230" x="40" y="70"/>
+      <circ-port dir="in" pin="150,310" x="80" y="30"/>
+      <circ-port dir="out" pin="670,210" x="110" y="60"/>
+      <circ-port dir="out" pin="670,330" x="80" y="90"/>
     </appear>
     <comp lib="0" loc="(150,190)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -375,7 +285,7 @@ end type_architecture;&#13;
     <comp lib="1" loc="(660,330)" name="NAND Gate">
       <a name="label" val="U9"/>
     </comp>
-    <comp lib="8" loc="(281,51)" name="Text">
+    <comp lib="8" loc="(280,50)" name="Text">
       <a name="font" val="SansSerif plain 16"/>
       <a name="text" val="Nand Gate based 1 Bit Full Adder"/>
     </comp>
@@ -428,10 +338,6 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="NandFullSubtractor"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <polyline fill="none" points="80,40 80,50" stroke="#000000" stroke-width="2"/>
       <polyline fill="none" points="90,90 90,100" stroke="#000000" stroke-width="2"/>
@@ -444,12 +350,12 @@ end type_architecture;&#13;
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64">A</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="84">B</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="75" y="63">Bin</text>
-      <circ-port height="10" pin="800,60" width="10" x="115" y="65"/>
-      <circ-port height="10" pin="800,90" width="10" x="85" y="95"/>
-      <circ-port height="8" pin="120,120" width="8" x="46" y="76"/>
-      <circ-port height="8" pin="120,60" width="8" x="76" y="36"/>
-      <circ-port height="8" pin="120,90" width="8" x="46" y="56"/>
-      <circ-anchor facing="east" height="6" width="6" x="117" y="67"/>
+      <circ-anchor facing="east" x="120" y="70"/>
+      <circ-port dir="in" pin="120,120" x="50" y="80"/>
+      <circ-port dir="in" pin="120,60" x="80" y="40"/>
+      <circ-port dir="in" pin="120,90" x="50" y="60"/>
+      <circ-port dir="out" pin="800,60" x="120" y="70"/>
+      <circ-port dir="out" pin="800,90" x="90" y="100"/>
     </appear>
     <comp lib="0" loc="(120,120)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -656,10 +562,6 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="NandFlipFlop"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <polyline fill="none" points="60,100 70,90" stroke="#000000"/>
       <polyline fill="none" points="60,80 70,90" stroke="#000000"/>
@@ -670,13 +572,13 @@ end type_architecture;&#13;
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="79" y="59">S</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="90" y="59">Q</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="90" y="99">Q</text>
-      <circ-port height="10" pin="490,290" width="10" x="95" y="55"/>
-      <circ-port height="10" pin="490,380" width="10" x="95" y="95"/>
-      <circ-port height="8" pin="120,400" width="8" x="56" y="86"/>
-      <circ-port height="8" pin="120,510" width="8" x="56" y="66"/>
-      <circ-port height="8" pin="310,150" width="8" x="76" y="46"/>
-      <circ-port height="8" pin="310,560" width="8" x="76" y="106"/>
-      <circ-anchor facing="east" height="6" width="6" x="97" y="57"/>
+      <circ-anchor facing="east" x="100" y="60"/>
+      <circ-port dir="in" pin="120,400" x="60" y="90"/>
+      <circ-port dir="in" pin="120,510" x="60" y="70"/>
+      <circ-port dir="in" pin="310,150" x="80" y="50"/>
+      <circ-port dir="in" pin="310,560" x="80" y="110"/>
+      <circ-port dir="out" pin="490,290" x="100" y="60"/>
+      <circ-port dir="out" pin="490,380" x="100" y="100"/>
     </appear>
     <comp lib="0" loc="(120,400)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -722,7 +624,7 @@ end type_architecture;&#13;
     <comp lib="1" loc="(400,380)" name="NAND Gate">
       <a name="inputs" val="3"/>
     </comp>
-    <comp lib="8" loc="(310,44)" name="Text">
+    <comp lib="8" loc="(310,40)" name="Text">
       <a name="font" val="SansSerif plain 16"/>
       <a name="text" val="D Flip Flop a.k.a. 1 bit memory"/>
     </comp>
@@ -789,10 +691,6 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="EUP51_ALU"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect fill="none" height="190" stroke="#000000" stroke-width="2" width="200" x="60" y="50"/>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="end" x="172" y="66">BCZ</text>
@@ -810,27 +708,27 @@ end type_architecture;&#13;
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="250" y="160">S</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="250" y="180">d</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="250" y="200">s</text>
-      <circ-port height="10" pin="1030,460" width="10" x="55" y="195"/>
-      <circ-port height="10" pin="1280,780" width="10" x="255" y="195"/>
-      <circ-port height="10" pin="1280,760" width="10" x="255" y="175"/>
-      <circ-port height="10" pin="1030,300" width="10" x="155" y="45"/>
-      <circ-port height="10" pin="300,830" width="10" x="55" y="215"/>
-      <circ-port height="10" pin="640,150" width="10" x="205" y="45"/>
-      <circ-port height="8" pin="1260,380" width="8" x="136" y="46"/>
-      <circ-port height="8" pin="1260,430" width="8" x="126" y="46"/>
-      <circ-port height="8" pin="1270,670" width="8" x="256" y="86"/>
-      <circ-port height="8" pin="1280,700" width="8" x="256" y="136"/>
-      <circ-port height="8" pin="1280,720" width="8" x="256" y="156"/>
-      <circ-port height="8" pin="270,340" width="8" x="56" y="76"/>
-      <circ-port height="8" pin="270,380" width="8" x="56" y="86"/>
-      <circ-port height="8" pin="270,500" width="8" x="176" y="236"/>
-      <circ-port height="8" pin="300,950" width="8" x="56" y="56"/>
-      <circ-port height="8" pin="330,530" width="8" x="196" y="236"/>
-      <circ-port height="8" pin="330,620" width="8" x="206" y="236"/>
       <visible-led height="10" path="/LED(950,310)" stroke-width="0" width="10" x="146" y="66"/>
       <visible-led height="10" path="/LED(970,310)" stroke-width="0" width="10" x="155" y="66"/>
       <visible-led height="10" path="/LED(990,310)" stroke-width="0" width="10" x="164" y="66"/>
-      <circ-anchor facing="east" height="6" width="6" x="247" y="57"/>
+      <circ-anchor facing="east" x="250" y="60"/>
+      <circ-port dir="in" pin="1260,380" x="140" y="50"/>
+      <circ-port dir="in" pin="1260,430" x="130" y="50"/>
+      <circ-port dir="in" pin="1270,670" x="260" y="90"/>
+      <circ-port dir="in" pin="1280,700" x="260" y="140"/>
+      <circ-port dir="in" pin="1280,720" x="260" y="160"/>
+      <circ-port dir="in" pin="270,340" x="60" y="80"/>
+      <circ-port dir="in" pin="270,380" x="60" y="90"/>
+      <circ-port dir="in" pin="270,500" x="180" y="240"/>
+      <circ-port dir="in" pin="300,950" x="60" y="60"/>
+      <circ-port dir="in" pin="330,530" x="200" y="240"/>
+      <circ-port dir="in" pin="330,620" x="210" y="240"/>
+      <circ-port dir="out" pin="1030,300" x="160" y="50"/>
+      <circ-port dir="out" pin="1030,460" x="60" y="200"/>
+      <circ-port dir="out" pin="1280,760" x="260" y="180"/>
+      <circ-port dir="out" pin="1280,780" x="260" y="200"/>
+      <circ-port dir="out" pin="300,830" x="60" y="220"/>
+      <circ-port dir="out" pin="640,150" x="210" y="50"/>
     </appear>
     <comp lib="0" loc="(1010,560)" name="Splitter">
       <a name="appear" val="center"/>
@@ -1143,6 +1041,7 @@ end type_architecture;&#13;
       <a name="width" val="2"/>
     </comp>
     <comp lib="2" loc="(770,340)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="size" val="20"/>
       <a name="width" val="3"/>
     </comp>
@@ -1190,37 +1089,37 @@ end type_architecture;&#13;
     <comp lib="5" loc="(990,310)" name="LED">
       <a name="facing" val="south"/>
     </comp>
-    <comp lib="8" loc="(651,561)" name="Text">
+    <comp lib="8" loc="(650,560)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Logical Functions"/>
     </comp>
-    <comp lib="8" loc="(826,805)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="Diff"/>
-    </comp>
-    <comp lib="8" loc="(827,607)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="Or"/>
-    </comp>
-    <comp lib="8" loc="(828,557)" name="Text">
+    <comp lib="8" loc="(825,555)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="And"/>
     </comp>
-    <comp lib="8" loc="(829,843)" name="Text">
+    <comp lib="8" loc="(825,605)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Or"/>
+    </comp>
+    <comp lib="8" loc="(825,805)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Diff"/>
+    </comp>
+    <comp lib="8" loc="(825,840)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="A"/>
     </comp>
-    <comp lib="8" loc="(831,703)" name="Text">
+    <comp lib="8" loc="(830,655)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Nor"/>
+    </comp>
+    <comp lib="8" loc="(830,700)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Xor"/>
     </comp>
-    <comp lib="8" loc="(832,752)" name="Text">
+    <comp lib="8" loc="(830,750)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Sum"/>
-    </comp>
-    <comp lib="8" loc="(833,657)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="Nor"/>
     </comp>
     <comp loc="(590,580)" name="Inverter"/>
     <comp loc="(590,620)" name="Inverter"/>
@@ -1541,18 +1440,14 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="Const8BitValues"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect fill="none" height="30" stroke="#000000" stroke-width="2" width="50" x="70" y="50"/>
-      <circ-port height="10" pin="170,210" width="10" x="105" y="75"/>
-      <circ-port height="8" pin="110,70" width="8" x="76" y="46"/>
-      <circ-port height="8" pin="120,100" width="8" x="106" y="46"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(310,210)" stroke-width="0" width="14" x="81" y="55"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(350,210)" stroke-width="0" width="14" x="96" y="55"/>
-      <circ-anchor facing="east" height="6" width="6" x="107" y="77"/>
+      <circ-anchor facing="east" x="110" y="80"/>
+      <circ-port dir="in" pin="110,70" x="80" y="50"/>
+      <circ-port dir="in" pin="120,100" x="110" y="50"/>
+      <circ-port dir="out" pin="170,210" x="110" y="80"/>
     </appear>
     <comp lib="0" loc="(110,70)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -1603,13 +1498,11 @@ end type_architecture;&#13;
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(310,210)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@14c6c559"/>
       <a name="bg" val="#000000"/>
       <a name="labelvisible" val="true"/>
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(350,210)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@198d80c0"/>
       <a name="bg" val="#000000"/>
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
@@ -1630,9 +1523,6 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="ALoad8BitCounter"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="north"/>
     <appear>
       <polyline fill="none" points="104,70 100,65" stroke="#000000"/>
@@ -1642,14 +1532,14 @@ end type_architecture;&#13;
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="start" x="107" y="64">0</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="start" x="95" y="54">D</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64"/>
-      <circ-port height="10" pin="1000,230" width="10" x="115" y="45"/>
-      <circ-port height="8" pin="810,340" width="8" x="86" y="56"/>
-      <circ-port height="8" pin="880,230" width="8" x="86" y="46"/>
-      <circ-port height="8" pin="890,200" width="8" x="86" y="36"/>
-      <circ-port height="8" pin="900,350" width="8" x="96" y="66"/>
-      <circ-port height="8" pin="980,350" width="8" x="106" y="66"/>
       <visible-counter height="10" path="/Counter(990,230)" stroke-width="0" width="13" x="99" y="33"/>
-      <circ-anchor facing="east" height="6" width="6" x="117" y="47"/>
+      <circ-anchor facing="east" x="120" y="50"/>
+      <circ-port dir="in" pin="810,340" x="90" y="60"/>
+      <circ-port dir="in" pin="880,230" x="90" y="50"/>
+      <circ-port dir="in" pin="890,200" x="90" y="40"/>
+      <circ-port dir="in" pin="900,350" x="100" y="70"/>
+      <circ-port dir="in" pin="980,350" x="110" y="70"/>
+      <circ-port dir="out" pin="1000,230" x="120" y="50"/>
     </appear>
     <comp lib="0" loc="(1000,230)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -1717,28 +1607,24 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="ALoad16BitCounter"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect fill="none" height="50" stroke="#000000" stroke-width="2" width="200" x="60" y="50"/>
-      <circ-port height="10" pin="1510,470" width="10" x="175" y="45"/>
-      <circ-port height="10" pin="1510,500" width="10" x="255" y="85"/>
-      <circ-port height="10" pin="1510,550" width="10" x="95" y="45"/>
-      <circ-port height="10" pin="1550,450" width="10" x="215" y="45"/>
-      <circ-port height="10" pin="1550,530" width="10" x="135" y="45"/>
-      <circ-port height="10" pin="1810,390" width="10" x="255" y="55"/>
-      <circ-port height="8" pin="1080,660" width="8" x="216" y="96"/>
-      <circ-port height="8" pin="1220,360" width="8" x="56" y="76"/>
-      <circ-port height="8" pin="1290,360" width="8" x="56" y="66"/>
-      <circ-port height="8" pin="1450,310" width="8" x="76" y="96"/>
-      <circ-port height="8" pin="1450,560" width="8" x="66" y="96"/>
-      <circ-port height="8" pin="1510,1270" width="8" x="56" y="86"/>
-      <circ-port height="8" pin="190,1050" width="8" x="56" y="56"/>
-      <circ-port height="8" pin="190,860" width="8" x="66" y="46"/>
-      <circ-port height="8" pin="970,470" width="8" x="256" y="76"/>
-      <circ-anchor facing="east" height="6" width="6" x="257" y="57"/>
+      <circ-anchor facing="east" x="260" y="60"/>
+      <circ-port dir="in" pin="1080,660" x="220" y="100"/>
+      <circ-port dir="in" pin="1220,360" x="60" y="80"/>
+      <circ-port dir="in" pin="1290,360" x="60" y="70"/>
+      <circ-port dir="in" pin="1450,310" x="80" y="100"/>
+      <circ-port dir="in" pin="1450,560" x="70" y="100"/>
+      <circ-port dir="in" pin="1510,1270" x="60" y="90"/>
+      <circ-port dir="in" pin="190,1050" x="60" y="60"/>
+      <circ-port dir="in" pin="190,860" x="70" y="50"/>
+      <circ-port dir="in" pin="970,470" x="260" y="80"/>
+      <circ-port dir="out" pin="1510,470" x="180" y="50"/>
+      <circ-port dir="out" pin="1510,500" x="260" y="90"/>
+      <circ-port dir="out" pin="1510,550" x="100" y="50"/>
+      <circ-port dir="out" pin="1550,450" x="220" y="50"/>
+      <circ-port dir="out" pin="1550,530" x="140" y="50"/>
+      <circ-port dir="out" pin="1810,390" x="260" y="60"/>
     </appear>
     <comp lib="0" loc="(1030,1140)" name="Splitter">
       <a name="bit0" val="7"/>
@@ -2889,29 +2775,11 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="ALoad8bitSReg"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <polyline fill="none" points="65,81 60,75" stroke="#000000"/>
       <polyline fill="none" points="65,81 61,85" stroke="#000000"/>
       <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="84"/>
-      <circ-port height="10" pin="1080,650" width="10" x="135" y="85"/>
-      <circ-port height="10" pin="1080,680" width="10" x="145" y="85"/>
-      <circ-port height="10" pin="1120,480" width="10" x="155" y="65"/>
-      <circ-port height="10" pin="1340,510" width="10" x="125" y="45"/>
-      <circ-port height="10" pin="1340,540" width="10" x="85" y="45"/>
-      <circ-port height="10" pin="1420,660" width="10" x="155" y="55"/>
-      <circ-port height="8" pin="1030,710" width="8" x="146" y="46"/>
-      <circ-port height="8" pin="680,420" width="8" x="66" y="46"/>
-      <circ-port height="8" pin="680,480" width="8" x="56" y="66"/>
-      <circ-port height="8" pin="680,550" width="8" x="56" y="56"/>
-      <circ-port height="8" pin="760,620" width="8" x="56" y="76"/>
-      <circ-port height="8" pin="850,450" width="8" x="86" y="86"/>
-      <circ-port height="8" pin="880,340" width="8" x="106" y="86"/>
-      <circ-port height="8" pin="880,710" width="8" x="66" y="86"/>
       <visible-led height="10" path="/LED(1170,570)" stroke-width="0" width="10" x="70" y="54"/>
       <visible-led height="10" path="/LED(1190,570)" stroke-width="0" width="10" x="80" y="54"/>
       <visible-led height="10" path="/LED(1210,570)" stroke-width="0" width="10" x="90" y="54"/>
@@ -2920,7 +2788,21 @@ end type_architecture;&#13;
       <visible-led height="10" path="/LED(1270,570)" stroke-width="0" width="10" x="120" y="54"/>
       <visible-led height="10" path="/LED(1290,570)" stroke-width="0" width="10" x="130" y="54"/>
       <visible-led height="10" path="/LED(1310,570)" stroke-width="0" width="10" x="140" y="54"/>
-      <circ-anchor facing="east" height="6" width="6" x="157" y="67"/>
+      <circ-anchor facing="east" x="160" y="70"/>
+      <circ-port dir="in" pin="1030,710" x="150" y="50"/>
+      <circ-port dir="in" pin="680,420" x="70" y="50"/>
+      <circ-port dir="in" pin="680,480" x="60" y="70"/>
+      <circ-port dir="in" pin="680,550" x="60" y="60"/>
+      <circ-port dir="in" pin="760,620" x="60" y="80"/>
+      <circ-port dir="in" pin="850,450" x="90" y="90"/>
+      <circ-port dir="in" pin="880,340" x="110" y="90"/>
+      <circ-port dir="in" pin="880,710" x="70" y="90"/>
+      <circ-port dir="out" pin="1080,650" x="140" y="90"/>
+      <circ-port dir="out" pin="1080,680" x="150" y="90"/>
+      <circ-port dir="out" pin="1120,480" x="160" y="70"/>
+      <circ-port dir="out" pin="1340,510" x="130" y="50"/>
+      <circ-port dir="out" pin="1340,540" x="90" y="50"/>
+      <circ-port dir="out" pin="1420,660" x="160" y="60"/>
     </appear>
     <comp lib="0" loc="(1010,550)" name="Splitter">
       <a name="bit1" val="0"/>
@@ -3059,7 +2941,9 @@ end type_architecture;&#13;
     <comp lib="1" loc="(850,610)" name="OR Gate">
       <a name="size" val="30"/>
     </comp>
-    <comp lib="2" loc="(820,490)" name="Multiplexer"/>
+    <comp lib="2" loc="(820,490)" name="Multiplexer">
+      <a name="enable" val="true"/>
+    </comp>
     <comp lib="4" loc="(870,550)" name="Shift Register">
       <a name="appearance" val="classic"/>
     </comp>
@@ -3189,29 +3073,8 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="ALoad16bitSReg"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="200" x="60" y="50"/>
-      <circ-port height="10" pin="1020,850" width="10" x="255" y="75"/>
-      <circ-port height="10" pin="1260,690" width="10" x="175" y="45"/>
-      <circ-port height="10" pin="1300,550" width="10" x="255" y="65"/>
-      <circ-port height="10" pin="970,690" width="10" x="95" y="45"/>
-      <circ-port height="8" pin="1240,820" width="8" x="226" y="86"/>
-      <circ-port height="8" pin="680,480" width="8" x="56" y="66"/>
-      <circ-port height="8" pin="760,610" width="8" x="56" y="76"/>
-      <circ-port height="8" pin="880,710" width="8" x="66" y="86"/>
-      <circ-port height="8" pin="970,420" width="8" x="136" y="86"/>
-      <circ-port height="8" pin="950,820" width="8" x="236" y="86"/>
-      <circ-port height="8" pin="850,430" width="8" x="156" y="86"/>
-      <circ-port height="8" pin="680,550" width="8" x="56" y="56"/>
-      <circ-port height="8" pin="680,420" width="8" x="66" y="46"/>
-      <circ-port height="8" pin="1140,420" width="8" x="146" y="86"/>
-      <circ-port height="10" pin="970,660" width="10" x="135" y="45"/>
-      <circ-port height="10" pin="1280,770" width="10" x="215" y="85"/>
-      <circ-port height="10" pin="1260,660" width="10" x="215" y="45"/>
       <visible-led height="10" path="/LED(960,730)" stroke-width="0" width="10" x="80" y="55"/>
       <visible-led height="10" path="/LED(980,730)" stroke-width="0" width="10" x="90" y="55"/>
       <visible-led height="10" path="/LED(1000,730)" stroke-width="0" width="10" x="100" y="55"/>
@@ -3228,7 +3091,24 @@ end type_architecture;&#13;
       <visible-led height="10" path="/LED(1350,730)" stroke-width="0" width="10" x="210" y="55"/>
       <visible-led height="10" path="/LED(1370,730)" stroke-width="0" width="10" x="220" y="55"/>
       <visible-led height="10" path="/LED(1390,730)" stroke-width="0" width="10" x="230" y="55"/>
-      <circ-anchor facing="east" height="6" width="6" x="257" y="67"/>
+      <circ-anchor facing="east" x="260" y="70"/>
+      <circ-port dir="in" pin="1140,420" x="150" y="90"/>
+      <circ-port dir="in" pin="1240,820" x="230" y="90"/>
+      <circ-port dir="in" pin="680,420" x="70" y="50"/>
+      <circ-port dir="in" pin="680,480" x="60" y="70"/>
+      <circ-port dir="in" pin="680,550" x="60" y="60"/>
+      <circ-port dir="in" pin="760,610" x="60" y="80"/>
+      <circ-port dir="in" pin="850,430" x="160" y="90"/>
+      <circ-port dir="in" pin="880,710" x="70" y="90"/>
+      <circ-port dir="in" pin="950,820" x="240" y="90"/>
+      <circ-port dir="in" pin="970,420" x="140" y="90"/>
+      <circ-port dir="out" pin="1020,850" x="260" y="80"/>
+      <circ-port dir="out" pin="1260,660" x="220" y="50"/>
+      <circ-port dir="out" pin="1260,690" x="180" y="50"/>
+      <circ-port dir="out" pin="1280,770" x="220" y="90"/>
+      <circ-port dir="out" pin="1300,550" x="260" y="70"/>
+      <circ-port dir="out" pin="970,660" x="140" y="50"/>
+      <circ-port dir="out" pin="970,690" x="100" y="50"/>
     </appear>
     <comp lib="0" loc="(1010,820)" name="Splitter">
       <a name="appear" val="center"/>
@@ -3435,7 +3315,9 @@ end type_architecture;&#13;
     <comp lib="1" loc="(960,790)" name="Controlled Buffer">
       <a name="width" val="8"/>
     </comp>
-    <comp lib="2" loc="(820,490)" name="Multiplexer"/>
+    <comp lib="2" loc="(820,490)" name="Multiplexer">
+      <a name="enable" val="true"/>
+    </comp>
     <comp lib="4" loc="(1160,550)" name="Shift Register">
       <a name="appearance" val="classic"/>
     </comp>
@@ -3617,29 +3499,9 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="ALoadSRegWLEDs"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
       <polyline fill="none" points="96,64 96,84" stroke="#000000"/>
-      <circ-port height="10" pin="1190,510" width="10" x="95" y="45"/>
-      <circ-port height="8" pin="410,390" width="8" x="66" y="46"/>
-      <circ-port height="8" pin="630,270" width="8" x="96" y="86"/>
-      <circ-port height="8" pin="410,450" width="8" x="56" y="66"/>
-      <circ-port height="10" pin="1220,480" width="10" x="115" y="45"/>
-      <circ-port height="10" pin="970,450" width="10" x="155" y="65"/>
-      <circ-port height="8" pin="610,590" width="8" x="56" y="76"/>
-      <circ-port height="8" pin="410,520" width="8" x="56" y="56"/>
-      <circ-port height="10" pin="910,650" width="10" x="145" y="85"/>
-      <circ-port height="10" pin="930,620" width="10" x="135" y="85"/>
-      <circ-port height="8" pin="560,270" width="8" x="76" y="86"/>
-      <circ-port height="8" pin="700,270" width="8" x="86" y="86"/>
-      <circ-port height="8" pin="730,680" width="8" x="66" y="86"/>
-      <circ-port height="8" pin="780,230" width="8" x="116" y="86"/>
-      <circ-port height="8" pin="780,270" width="8" x="106" y="86"/>
-      <circ-port height="8" pin="880,680" width="8" x="146" y="46"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(1100,400)" stroke-width="0" width="14" x="97" y="64"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(1150,400)" stroke-width="0" width="14" x="110" y="64"/>
       <visible-led height="10" path="/LED(1020,540)" stroke-width="0" width="10" x="70" y="54"/>
@@ -3650,7 +3512,23 @@ end type_architecture;&#13;
       <visible-led height="10" path="/LED(1120,540)" stroke-width="0" width="10" x="120" y="54"/>
       <visible-led height="10" path="/LED(1140,540)" stroke-width="0" width="10" x="130" y="54"/>
       <visible-led height="10" path="/LED(1160,540)" stroke-width="0" width="10" x="140" y="54"/>
-      <circ-anchor facing="east" height="6" width="6" x="157" y="67"/>
+      <circ-anchor facing="east" x="160" y="70"/>
+      <circ-port dir="in" pin="410,390" x="70" y="50"/>
+      <circ-port dir="in" pin="410,450" x="60" y="70"/>
+      <circ-port dir="in" pin="410,520" x="60" y="60"/>
+      <circ-port dir="in" pin="560,270" x="80" y="90"/>
+      <circ-port dir="in" pin="610,590" x="60" y="80"/>
+      <circ-port dir="in" pin="630,270" x="100" y="90"/>
+      <circ-port dir="in" pin="700,270" x="90" y="90"/>
+      <circ-port dir="in" pin="730,680" x="70" y="90"/>
+      <circ-port dir="in" pin="780,230" x="120" y="90"/>
+      <circ-port dir="in" pin="780,270" x="110" y="90"/>
+      <circ-port dir="in" pin="880,680" x="150" y="50"/>
+      <circ-port dir="out" pin="1190,510" x="100" y="50"/>
+      <circ-port dir="out" pin="1220,480" x="120" y="50"/>
+      <circ-port dir="out" pin="910,650" x="150" y="90"/>
+      <circ-port dir="out" pin="930,620" x="140" y="90"/>
+      <circ-port dir="out" pin="970,450" x="160" y="70"/>
     </appear>
     <comp lib="0" loc="(1100,560)" name="Splitter">
       <a name="appear" val="center"/>
@@ -3799,8 +3677,11 @@ end type_architecture;&#13;
     <comp lib="1" loc="(890,580)" name="Controlled Buffer">
       <a name="width" val="8"/>
     </comp>
-    <comp lib="2" loc="(670,460)" name="Multiplexer"/>
+    <comp lib="2" loc="(670,460)" name="Multiplexer">
+      <a name="enable" val="true"/>
+    </comp>
     <comp lib="2" loc="(740,240)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="facing" val="west"/>
       <a name="size" val="20"/>
       <a name="width" val="8"/>
@@ -3821,7 +3702,6 @@ end type_architecture;&#13;
       <a name="facing" val="south"/>
     </comp>
     <comp lib="5" loc="(1100,400)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@781af723"/>
       <a name="bg" val="#000000"/>
       <a name="label" val="HiNib"/>
       <a name="labelloc" val="north"/>
@@ -3838,7 +3718,6 @@ end type_architecture;&#13;
       <a name="facing" val="south"/>
     </comp>
     <comp lib="5" loc="(1150,400)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@3fc16943"/>
       <a name="bg" val="#000000"/>
       <a name="label" val="LoNib"/>
       <a name="labelloc" val="north"/>
@@ -3941,18 +3820,14 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="ByteProbe"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect height="20" stroke="#000000" stroke-width="2" width="28" x="60" y="60"/>
-      <circ-port height="8" pin="810,510" width="8" x="66" y="56"/>
-      <circ-port height="8" pin="810,540" width="8" x="66" y="76"/>
-      <circ-port height="8" pin="810,570" width="8" x="56" y="66"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(780,470)" stroke-width="0" width="14" x="61" y="60"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(820,470)" stroke-width="0" width="14" x="74" y="60"/>
-      <circ-anchor facing="east" height="6" width="6" x="57" y="67"/>
+      <circ-anchor facing="east" x="60" y="70"/>
+      <circ-port dir="in" pin="810,510" x="70" y="60"/>
+      <circ-port dir="in" pin="810,540" x="70" y="80"/>
+      <circ-port dir="in" pin="810,570" x="60" y="70"/>
     </appear>
     <comp lib="0" loc="(810,510)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -3986,7 +3861,6 @@ end type_architecture;&#13;
       <a name="spacing" val="4"/>
     </comp>
     <comp lib="5" loc="(780,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@1d8f8fef"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D1"/>
@@ -3995,7 +3869,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(820,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@68f1971e"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D0"/>
@@ -4014,10 +3887,6 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="WordProbe"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect height="20" stroke="#000000" stroke-width="2" width="57" x="103" y="50"/>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64"/>
@@ -4025,8 +3894,8 @@ end type_architecture;&#13;
       <visible-hexdigit height="20" path="/Hex Digit Display(780,490)" stroke-width="0" width="14" x="118" y="50"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(820,490)" stroke-width="0" width="14" x="132" y="50"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(860,490)" stroke-width="0" width="14" x="146" y="50"/>
-      <circ-port height="8" pin="890,510" width="8" x="156" y="56"/>
-      <circ-anchor facing="east" height="6" width="6" x="157" y="57"/>
+      <circ-anchor facing="east" x="160" y="60"/>
+      <circ-port dir="in" pin="890,510" x="160" y="60"/>
     </appear>
     <comp lib="0" loc="(870,510)" name="Splitter">
       <a name="bit1" val="0"/>
@@ -4056,7 +3925,6 @@ end type_architecture;&#13;
       <a name="width" val="16"/>
     </comp>
     <comp lib="5" loc="(740,490)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@477dd6cc"/>
       <a name="bg" val="#000000"/>
       <a name="label" val="D3"/>
       <a name="labelloc" val="north"/>
@@ -4064,7 +3932,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(780,490)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@73c22411"/>
       <a name="bg" val="#000000"/>
       <a name="label" val="D2"/>
       <a name="labelloc" val="north"/>
@@ -4072,7 +3939,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(820,490)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@12d32d71"/>
       <a name="bg" val="#000000"/>
       <a name="label" val="D1"/>
       <a name="labelloc" val="north"/>
@@ -4080,7 +3946,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(860,490)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@767e1152"/>
       <a name="bg" val="#000000"/>
       <a name="label" val="D0"/>
       <a name="labelloc" val="north"/>
@@ -4093,10 +3958,6 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="DWordProbe"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64"/>
       <rect height="20" stroke="#000000" stroke-width="2" width="113" x="147" y="60"/>
@@ -4108,8 +3969,8 @@ end type_architecture;&#13;
       <visible-hexdigit height="20" path="/Hex Digit Display(850,470)" stroke-width="0" width="14" x="218" y="60"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(890,470)" stroke-width="0" width="14" x="232" y="60"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(930,470)" stroke-width="0" width="14" x="246" y="60"/>
-      <circ-port height="8" pin="960,490" width="8" x="256" y="66"/>
-      <circ-anchor facing="east" height="6" width="6" x="257" y="67"/>
+      <circ-anchor facing="east" x="260" y="70"/>
+      <circ-port dir="in" pin="960,490" x="260" y="70"/>
     </appear>
     <comp lib="0" loc="(940,490)" name="Splitter">
       <a name="bit1" val="0"/>
@@ -4155,7 +4016,6 @@ end type_architecture;&#13;
       <a name="width" val="32"/>
     </comp>
     <comp lib="5" loc="(650,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@5f1c62e7"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D7"/>
@@ -4164,7 +4024,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(690,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@3d9c37b9"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D6"/>
@@ -4173,7 +4032,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(730,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@362f3dde"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D5"/>
@@ -4182,7 +4040,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(770,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@305d5ec8"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D4"/>
@@ -4191,7 +4048,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(810,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@c6a097e"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D3"/>
@@ -4200,7 +4056,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(850,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@5017d6b5"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D2"/>
@@ -4209,7 +4064,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(890,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@1f19d0a4"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D1"/>
@@ -4218,7 +4072,6 @@ end type_architecture;&#13;
       <a name="offcolor" val="#dcdcdc00"/>
     </comp>
     <comp lib="5" loc="(930,470)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@45687691"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="label" val="D0"/>
@@ -4232,10 +4085,7 @@ end type_architecture;&#13;
     <a name="appearance" val="custom"/>
     <a name="circuit" val="IDSL"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
+    <a name="simulationFrequency" val="1.0"/>
     <appear>
       <rect fill="none" height="120" stroke="#000000" stroke-width="2" width="200" x="60" y="50"/>
       <polyline fill="none" points="115,50 120,56" stroke="#000000"/>
@@ -4244,23 +4094,6 @@ end type_architecture;&#13;
       <text dominant-baseline="central" font-family="SansSerif" font-size="14" text-anchor="middle" x="101" y="118">IR =&gt; Seq</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="14" text-anchor="middle" x="208" y="69">Seq Counter</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="14" text-anchor="middle" x="195" y="118">Seq Command</text>
-      <circ-port height="10" pin="1010,390" width="10" x="135" y="165"/>
-      <circ-port height="10" pin="1460,230" width="10" x="155" y="165"/>
-      <circ-port height="10" pin="940,510" width="10" x="95" y="45"/>
-      <circ-port height="8" pin="1450,200" width="8" x="256" y="146"/>
-      <circ-port height="8" pin="350,860" width="8" x="66" y="166"/>
-      <circ-port height="10" pin="940,540" width="10" x="85" y="45"/>
-      <circ-port height="10" pin="1480,520" width="10" x="125" y="165"/>
-      <circ-port height="10" pin="1010,450" width="10" x="215" y="45"/>
-      <circ-port height="10" pin="1060,320" width="10" x="255" y="155"/>
-      <circ-port height="10" pin="1510,630" width="10" x="115" y="165"/>
-      <circ-port height="8" pin="1370,780" width="8" x="66" y="46"/>
-      <circ-port height="8" pin="350,890" width="8" x="116" y="46"/>
-      <circ-port height="10" pin="990,860" width="10" x="55" y="65"/>
-      <circ-port height="10" pin="1480,550" width="10" x="105" y="165"/>
-      <circ-port height="10" pin="1030,290" width="10" x="255" y="55"/>
-      <circ-port height="8" pin="350,920" width="8" x="76" y="46"/>
-      <circ-port height="8" pin="350,960" width="8" x="146" y="166"/>
       <visible-hexdigit height="20" path="/WordProbe(220,460)/Hex Digit Display(820,490)" stroke-width="0" width="14" x="101" y="90"/>
       <visible-hexdigit height="20" path="/WordProbe(220,460)/Hex Digit Display(740,490)" stroke-width="0" width="14" x="73" y="90"/>
       <visible-hexdigit height="20" path="/WordProbe(220,460)/Hex Digit Display(780,490)" stroke-width="0" width="14" x="87" y="90"/>
@@ -4275,7 +4108,24 @@ end type_architecture;&#13;
       <visible-hexdigit height="20" path="/DWordProbe(550,460)/Hex Digit Display(850,470)" stroke-width="0" width="14" x="206" y="90"/>
       <visible-hexdigit height="20" path="/DWordProbe(550,460)/Hex Digit Display(890,470)" stroke-width="0" width="14" x="220" y="90"/>
       <visible-hexdigit height="20" path="/DWordProbe(550,460)/Hex Digit Display(930,470)" stroke-width="0" width="14" x="235" y="90"/>
-      <circ-anchor facing="east" height="6" width="6" x="157" y="107"/>
+      <circ-anchor facing="east" x="160" y="110"/>
+      <circ-port dir="in" pin="1370,780" x="70" y="50"/>
+      <circ-port dir="in" pin="1450,200" x="260" y="150"/>
+      <circ-port dir="in" pin="350,860" x="70" y="170"/>
+      <circ-port dir="in" pin="350,890" x="120" y="50"/>
+      <circ-port dir="in" pin="350,920" x="80" y="50"/>
+      <circ-port dir="in" pin="350,960" x="150" y="170"/>
+      <circ-port dir="out" pin="1010,390" x="140" y="170"/>
+      <circ-port dir="out" pin="1010,450" x="220" y="50"/>
+      <circ-port dir="out" pin="1030,290" x="260" y="60"/>
+      <circ-port dir="out" pin="1060,320" x="260" y="160"/>
+      <circ-port dir="out" pin="1460,230" x="160" y="170"/>
+      <circ-port dir="out" pin="1480,520" x="130" y="170"/>
+      <circ-port dir="out" pin="1480,550" x="110" y="170"/>
+      <circ-port dir="out" pin="1510,630" x="120" y="170"/>
+      <circ-port dir="out" pin="940,510" x="100" y="50"/>
+      <circ-port dir="out" pin="940,540" x="90" y="50"/>
+      <circ-port dir="out" pin="990,860" x="60" y="70"/>
     </appear>
     <comp lib="0" loc="(1010,390)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -4692,24 +4542,29 @@ end type_architecture;&#13;
       <a name="width" val="3"/>
     </comp>
     <comp lib="2" loc="(650,370)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="facing" val="south"/>
       <a name="selloc" val="tr"/>
       <a name="size" val="20"/>
       <a name="width" val="16"/>
     </comp>
     <comp lib="2" loc="(880,640)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="size" val="20"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="2" loc="(880,710)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="size" val="20"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="2" loc="(880,780)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="size" val="20"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="2" loc="(880,850)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="size" val="20"/>
       <a name="width" val="4"/>
     </comp>
@@ -5149,10 +5004,8 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <a name="appearance" val="custom"/>
     <a name="circuit" val="EUP5108"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="north"/>
+    <a name="simulationFrequency" val="2048000.0"/>
     <appear>
       <rect fill="#9e9e9e" height="290" stroke="none" width="240" x="160" y="30"/>
       <polyline fill="none" points="160,30 160,320" stroke="#c7c7c7"/>
@@ -5207,8 +5060,8 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <text dominant-baseline="central" fill="#3132ff" font-family="SansSerif" font-size="9" text-anchor="middle" x="283" y="160">EEPROM</text>
       <text dominant-baseline="central" fill="#3132ff" font-family="SansSerif" font-size="9" text-anchor="middle" x="285" y="201">Instruction</text>
       <text dominant-baseline="central" fill="#3132ff" font-family="SansSerif" font-size="9" text-anchor="middle" x="283" y="240">Seq #</text>
-      <text dominant-baseline="central" font-family="Impact" font-size="36" text-anchor="middle" x="239" y="53">EUP5108</text>
-      <text dominant-baseline="central" fill="#ff0000" font-family="Impact" font-size="36" text-anchor="middle" x="238" y="52">EUP5108</text>
+      <text dominant-baseline="central" font-family="Dialog" font-size="36" text-anchor="middle" x="239" y="53">EUP5108</text>
+      <text dominant-baseline="central" fill="#ff0000" font-family="Dialog" font-size="36" text-anchor="middle" x="238" y="52">EUP5108</text>
       <polyline fill="none" points="169,153 227,153" stroke="#f2f2f2"/>
       <polyline fill="none" points="356,123 393,123" stroke="#f2f2f2"/>
       <polyline fill="none" points="356,183 393,183" stroke="#f2f2f2"/>
@@ -5265,22 +5118,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <polyline fill="none" points="268,273 268,248" stroke="#525252"/>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="322" y="51">B C Z</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="10" text-anchor="middle" x="331" y="63">ALU Busy</text>
-      <circ-port height="10" pin="580,940" width="10" x="395" y="115"/>
-      <circ-port height="8" pin="550,940" width="8" x="396" y="126"/>
-      <circ-port height="8" pin="470,940" width="8" x="396" y="76"/>
-      <circ-port height="10" pin="530,940" width="10" x="395" y="135"/>
-      <circ-port height="10" pin="630,970" width="10" x="395" y="85"/>
-      <circ-port height="8" pin="600,940" width="8" x="396" y="106"/>
-      <circ-port height="8" pin="1540,200" width="8" x="396" y="56"/>
-      <circ-port height="10" pin="500,940" width="10" x="395" y="65"/>
-      <circ-port height="10" pin="720,940" width="10" x="395" y="195"/>
-      <circ-port height="8" pin="620,990" width="8" x="396" y="96"/>
-      <circ-port height="8" pin="1340,170" width="8" x="276" y="26"/>
-      <circ-port height="10" pin="1340,130" width="10" x="395" y="45"/>
-      <circ-port height="10" pin="780,940" width="10" x="395" y="175"/>
-      <circ-port height="8" pin="750,940" width="8" x="396" y="186"/>
-      <circ-port height="8" pin="1340,150" width="8" x="386" y="26"/>
-      <circ-port height="10" pin="1280,20" width="10" x="155" y="55"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(130,790)" stroke-width="0" width="14" x="220" y="90"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(140,520)" stroke-width="0" width="14" x="170" y="90"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(170,790)" stroke-width="0" width="14" x="234" y="90"/>
@@ -5307,23 +5144,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <visible-hexdigit height="20" path="/ALoadSRegWLEDs(1260,850)/Hex Digit Display(1150,400)" stroke-width="0" width="14" x="377" y="279"/>
       <visible-hexdigit height="20" path="/ALoadSRegWLEDs(660,850)/Hex Digit Display(1100,400)" stroke-width="0" width="14" x="357" y="100"/>
       <visible-hexdigit height="20" path="/ALoadSRegWLEDs(660,850)/Hex Digit Display(1150,400)" stroke-width="0" width="14" x="377" y="100"/>
-      <circ-port height="8" pin="1340,190" width="8" x="226" y="26"/>
-      <circ-port height="10" pin="830,950" width="10" x="395" y="145"/>
-      <circ-port height="8" pin="800,940" width="8" x="396" y="166"/>
-      <circ-port height="8" pin="1220,970" width="8" x="396" y="276"/>
-      <circ-port height="10" pin="1230,950" width="10" x="395" y="265"/>
-      <circ-port height="10" pin="920,940" width="10" x="395" y="255"/>
-      <circ-port height="8" pin="820,970" width="8" x="396" y="156"/>
-      <circ-port height="8" pin="1200,940" width="8" x="396" y="286"/>
-      <circ-port height="10" pin="1180,940" width="10" x="395" y="295"/>
-      <circ-port height="10" pin="980,940" width="10" x="395" y="235"/>
-      <circ-port height="8" pin="850,30" width="8" x="396" y="36"/>
-      <circ-port height="8" pin="1150,940" width="8" x="396" y="306"/>
-      <circ-port height="10" pin="1120,940" width="10" x="395" y="315"/>
-      <circ-port height="8" pin="1000,940" width="8" x="396" y="226"/>
-      <circ-port height="8" pin="950,940" width="8" x="396" y="246"/>
-      <circ-port height="8" pin="1020,970" width="8" x="396" y="216"/>
-      <circ-port height="10" pin="1030,950" width="10" x="395" y="205"/>
       <visible-hexdigit height="20" path="/ALoadSRegWLEDs(860,850)/Hex Digit Display(1100,400)" stroke-width="0" width="14" x="358" y="160"/>
       <visible-hexdigit height="20" path="/ALoadSRegWLEDs(860,850)/Hex Digit Display(1150,400)" stroke-width="0" width="14" x="377" y="160"/>
       <visible-hexdigit height="20" path="/ByteProbe(1570,420)/Hex Digit Display(820,470)" stroke-width="0" width="14" x="283" y="170"/>
@@ -5356,7 +5176,40 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <visible-led height="10" path="/EUP51_ALU(280,90)/LED(970,310)" stroke-width="0" width="10" x="317" y="36"/>
       <visible-led height="10" path="/EUP51_ALU(280,90)/LED(990,310)" stroke-width="0" width="10" x="328" y="36"/>
       <visible-led height="10" path="/LED(430,70)" stroke-width="0" width="10" x="323" y="67"/>
-      <circ-anchor facing="east" height="6" width="6" x="397" y="57"/>
+      <circ-anchor facing="east" x="400" y="60"/>
+      <circ-port dir="in" pin="1000,940" x="400" y="230"/>
+      <circ-port dir="in" pin="1020,970" x="400" y="220"/>
+      <circ-port dir="in" pin="1150,940" x="400" y="310"/>
+      <circ-port dir="in" pin="1200,940" x="400" y="290"/>
+      <circ-port dir="in" pin="1220,970" x="400" y="280"/>
+      <circ-port dir="in" pin="1340,150" x="390" y="30"/>
+      <circ-port dir="in" pin="1340,170" x="280" y="30"/>
+      <circ-port dir="in" pin="1340,190" x="230" y="30"/>
+      <circ-port dir="in" pin="1540,200" x="400" y="60"/>
+      <circ-port dir="in" pin="470,940" x="400" y="80"/>
+      <circ-port dir="in" pin="550,940" x="400" y="130"/>
+      <circ-port dir="in" pin="600,940" x="400" y="110"/>
+      <circ-port dir="in" pin="620,990" x="400" y="100"/>
+      <circ-port dir="in" pin="750,940" x="400" y="190"/>
+      <circ-port dir="in" pin="800,940" x="400" y="170"/>
+      <circ-port dir="in" pin="820,970" x="400" y="160"/>
+      <circ-port dir="in" pin="850,30" x="400" y="40"/>
+      <circ-port dir="in" pin="950,940" x="400" y="250"/>
+      <circ-port dir="out" pin="1030,950" x="400" y="210"/>
+      <circ-port dir="out" pin="1120,940" x="400" y="320"/>
+      <circ-port dir="out" pin="1180,940" x="400" y="300"/>
+      <circ-port dir="out" pin="1230,950" x="400" y="270"/>
+      <circ-port dir="out" pin="1280,20" x="160" y="60"/>
+      <circ-port dir="out" pin="1340,130" x="400" y="50"/>
+      <circ-port dir="out" pin="500,940" x="400" y="70"/>
+      <circ-port dir="out" pin="530,940" x="400" y="140"/>
+      <circ-port dir="out" pin="580,940" x="400" y="120"/>
+      <circ-port dir="out" pin="630,970" x="400" y="90"/>
+      <circ-port dir="out" pin="720,940" x="400" y="200"/>
+      <circ-port dir="out" pin="780,940" x="400" y="180"/>
+      <circ-port dir="out" pin="830,950" x="400" y="150"/>
+      <circ-port dir="out" pin="920,940" x="400" y="260"/>
+      <circ-port dir="out" pin="980,940" x="400" y="240"/>
     </appear>
     <comp lib="0" loc="(1000,940)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -5881,10 +5734,12 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="selloc" val="tr"/>
     </comp>
     <comp lib="2" loc="(160,310)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="facing" val="north"/>
       <a name="select" val="2"/>
     </comp>
     <comp lib="2" loc="(250,330)" name="Multiplexer">
+      <a name="enable" val="true"/>
       <a name="facing" val="west"/>
       <a name="select" val="2"/>
       <a name="selloc" val="tr"/>
@@ -5964,7 +5819,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="labelloc" val="west"/>
     </comp>
     <comp lib="5" loc="(130,790)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@1915a6bb"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -5976,7 +5830,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="facing" val="west"/>
     </comp>
     <comp lib="5" loc="(140,520)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@77597952"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -5984,7 +5837,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(170,790)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@26940bed"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -5992,7 +5844,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(180,520)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@204e3d50"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6000,7 +5851,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(410,790)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@14da779c"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6008,7 +5858,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(420,540)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@28750fbc"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#0000ff"/>
       <a name="decimalPoint" val="false"/>
@@ -6021,7 +5870,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="labelloc" val="west"/>
     </comp>
     <comp lib="5" loc="(450,790)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@2eb8a23c"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6029,7 +5877,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(460,540)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7fcdbe06"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#0000ff"/>
       <a name="decimalPoint" val="false"/>
@@ -6037,7 +5884,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(500,540)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@386c50f4"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#0000ff"/>
       <a name="decimalPoint" val="false"/>
@@ -6045,7 +5891,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(540,540)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@38e4b0aa"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#0000ff"/>
       <a name="decimalPoint" val="false"/>
@@ -6053,7 +5898,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(860,480)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@53a64cc8"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6061,7 +5905,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(860,630)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4109f534"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ffff00"/>
       <a name="decimalPoint" val="false"/>
@@ -6069,7 +5912,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(900,280)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@1bb8f611"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6077,7 +5919,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(900,480)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@644642c"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6085,7 +5926,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(900,630)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@67e5a820"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ffff00"/>
       <a name="decimalPoint" val="false"/>
@@ -6093,7 +5933,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(940,280)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@69cb51bd"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6101,7 +5940,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(940,480)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@359f3aeb"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6109,7 +5947,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(940,630)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@10df4d70"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ffff00"/>
       <a name="decimalPoint" val="false"/>
@@ -6117,7 +5954,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(980,480)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@5a3153e3"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ff0000"/>
       <a name="decimalPoint" val="false"/>
@@ -6125,66 +5961,65 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="offcolor" val="#ffffff00"/>
     </comp>
     <comp lib="5" loc="(980,630)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@69c4b7a1"/>
       <a name="bg" val="#000000"/>
       <a name="color" val="#ffff00"/>
       <a name="decimalPoint" val="false"/>
       <a name="labelvisible" val="true"/>
       <a name="offcolor" val="#ffffff00"/>
     </comp>
-    <comp lib="8" loc="(1006,659)" name="Text">
+    <comp lib="8" loc="(1005,655)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(a)"/>
     </comp>
-    <comp lib="8" loc="(1010,508)" name="Text">
+    <comp lib="8" loc="(1010,505)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(8)"/>
     </comp>
-    <comp lib="8" loc="(1037,860)" name="Text">
+    <comp lib="8" loc="(1035,860)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(e)"/>
     </comp>
-    <comp lib="8" loc="(1112,465)" name="Text">
+    <comp lib="8" loc="(1110,465)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="DR/SP Select"/>
     </comp>
-    <comp lib="8" loc="(1168,46)" name="Text">
+    <comp lib="8" loc="(1165,45)" name="Text">
       <a name="font" val="SansSerif plain 18"/>
       <a name="text" val="CLOCK"/>
     </comp>
-    <comp lib="8" loc="(1215,607)" name="Text">
+    <comp lib="8" loc="(1215,605)" name="Text">
       <a name="font" val="SansSerif plain 14"/>
       <a name="text" val="DR Bank Select"/>
     </comp>
-    <comp lib="8" loc="(1236,859)" name="Text">
+    <comp lib="8" loc="(1235,855)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(f)"/>
     </comp>
-    <comp lib="8" loc="(1345,253)" name="Text">
+    <comp lib="8" loc="(1345,250)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="IRQ Pending"/>
     </comp>
-    <comp lib="8" loc="(146,851)" name="Text">
+    <comp lib="8" loc="(145,850)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="B reg"/>
     </comp>
-    <comp lib="8" loc="(1470,323)" name="Text">
+    <comp lib="8" loc="(1470,320)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="IRQ UnMASK"/>
     </comp>
-    <comp lib="8" loc="(1493,625)" name="Text">
+    <comp lib="8" loc="(1490,625)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="ROM Write Enable"/>
     </comp>
-    <comp lib="8" loc="(157,572)" name="Text">
+    <comp lib="8" loc="(155,570)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="A reg"/>
     </comp>
-    <comp lib="8" loc="(1601,486)" name="Text">
+    <comp lib="8" loc="(1600,485)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(1)"/>
     </comp>
-    <comp lib="8" loc="(1601,754)" name="Text">
+    <comp lib="8" loc="(1600,750)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(2)"/>
     </comp>
@@ -6192,63 +6027,63 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(4)"/>
     </comp>
-    <comp lib="8" loc="(196,571)" name="Text">
+    <comp lib="8" loc="(195,570)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(3)"/>
     </comp>
-    <comp lib="8" loc="(409,629)" name="Text">
+    <comp lib="8" loc="(405,625)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(7)"/>
     </comp>
-    <comp lib="8" loc="(430,851)" name="Text">
+    <comp lib="8" loc="(430,850)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="T reg"/>
     </comp>
-    <comp lib="8" loc="(467,850)" name="Text">
+    <comp lib="8" loc="(465,850)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(5)"/>
     </comp>
-    <comp lib="8" loc="(481,634)" name="Text">
+    <comp lib="8" loc="(480,630)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="Data Register"/>
     </comp>
-    <comp lib="8" loc="(488,243)" name="Text">
+    <comp lib="8" loc="(485,240)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Load Location"/>
     </comp>
-    <comp lib="8" loc="(551,629)" name="Text">
+    <comp lib="8" loc="(550,625)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(6)"/>
     </comp>
-    <comp lib="8" loc="(638,858)" name="Text">
+    <comp lib="8" loc="(635,855)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(c)"/>
     </comp>
-    <comp lib="8" loc="(679,243)" name="Text">
+    <comp lib="8" loc="(675,240)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="OE Source"/>
     </comp>
-    <comp lib="8" loc="(834,660)" name="Text">
+    <comp lib="8" loc="(830,660)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(b)"/>
     </comp>
-    <comp lib="8" loc="(835,507)" name="Text">
+    <comp lib="8" loc="(835,505)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(9)"/>
     </comp>
-    <comp lib="8" loc="(837,859)" name="Text">
+    <comp lib="8" loc="(835,855)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="(d)"/>
     </comp>
-    <comp lib="8" loc="(919,662)" name="Text">
+    <comp lib="8" loc="(915,660)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="StacK pointer"/>
     </comp>
-    <comp lib="8" loc="(920,313)" name="Text">
+    <comp lib="8" loc="(920,310)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="I reg"/>
     </comp>
-    <comp lib="8" loc="(922,512)" name="Text">
+    <comp lib="8" loc="(920,510)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="Instruction Pointer"/>
     </comp>
@@ -7036,23 +6871,20 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <a name="appearance" val="custom"/>
     <a name="circuit" val="EUP51_Computer"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
+    <a name="simulationFrequency" val="2048000.0"/>
     <appear>
-      <circ-port height="10" pin="220,410" width="10" x="125" y="435"/>
-      <circ-port height="10" pin="460,770" width="10" x="265" y="425"/>
-      <circ-port height="10" pin="610,230" width="10" x="605" y="15"/>
-      <circ-port height="8" pin="350,260" width="8" x="146" y="436"/>
-      <circ-port height="8" pin="460,260" width="8" x="106" y="436"/>
-      <circ-port height="8" pin="460,800" width="8" x="406" y="436"/>
-      <circ-port height="8" pin="460,880" width="8" x="396" y="436"/>
-      <circ-port height="8" pin="570,260" width="8" x="66" y="436"/>
-      <circ-port height="8" pin="680,230" width="8" x="596" y="436"/>
       <visible-led height="10" path="/LED(220,360)" stroke-width="0" width="10" x="62" y="15"/>
       <visible-tty height="385" path="/TTY(750,540)" stroke-width="0" width="570" x="55" y="20"/>
-      <circ-anchor facing="east" height="6" width="6" x="287" y="27"/>
+      <circ-anchor facing="east" x="290" y="30"/>
+      <circ-port dir="in" pin="350,260" x="150" y="440"/>
+      <circ-port dir="in" pin="460,260" x="110" y="440"/>
+      <circ-port dir="in" pin="460,800" x="410" y="440"/>
+      <circ-port dir="in" pin="460,880" x="400" y="440"/>
+      <circ-port dir="in" pin="570,260" x="70" y="440"/>
+      <circ-port dir="in" pin="680,230" x="600" y="440"/>
+      <circ-port dir="out" pin="220,410" x="130" y="440"/>
+      <circ-port dir="out" pin="460,770" x="270" y="430"/>
+      <circ-port dir="out" pin="610,230" x="610" y="20"/>
     </appear>
     <comp lib="0" loc="(1050,730)" name="Splitter">
       <a name="bit1" val="0"/>
@@ -7245,15 +7077,15 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="rows" val="25"/>
     </comp>
     <comp lib="5" loc="(900,700)" name="Keyboard"/>
-    <comp lib="8" loc="(1003,162)" name="Text">
+    <comp lib="8" loc="(1000,160)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Testing Terminal"/>
     </comp>
-    <comp lib="8" loc="(476,719)" name="Text">
+    <comp lib="8" loc="(475,715)" name="Text">
       <a name="font" val="SansSerif plain 14"/>
       <a name="text" val="External Keyboard Interface"/>
     </comp>
-    <comp lib="8" loc="(968,662)" name="Text">
+    <comp lib="8" loc="(965,660)" name="Text">
       <a name="font" val="SansSerif plain 14"/>
       <a name="text" val="Internal Keyboard"/>
     </comp>
@@ -7402,10 +7234,8 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="Desktop_View"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="west"/>
+    <a name="simulationFrequency" val="2048000.0"/>
     <comp lib="5" loc="(1320,700)" name="Button">
       <a name="color" val="#f5fffe"/>
       <a name="facing" val="south"/>
@@ -7444,7 +7274,7 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="labelloc" val="center"/>
     </comp>
     <comp lib="5" loc="(990,690)" name="Keyboard"/>
-    <comp lib="8" loc="(1063,272)" name="Text">
+    <comp lib="8" loc="(1060,270)" name="Text">
       <a name="font" val="SansSerif plain 18"/>
       <a name="text" val="EUP51 System Console"/>
     </comp>
@@ -7464,10 +7294,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <a name="appearance" val="custom"/>
     <a name="circuit" val="PixelVideoDriver"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="start" x="92" y="63">Rst</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="start" x="65" y="64">WA</text>
@@ -7475,16 +7301,16 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="start" x="66" y="83">Data</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="end" x="135" y="64">cols2</text>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="end" x="135" y="84">cols</text>
-      <circ-port height="10" pin="940,180" width="10" x="135" y="75"/>
-      <circ-port height="8" pin="390,410" width="8" x="56" y="76"/>
-      <circ-port height="10" pin="940,150" width="10" x="135" y="55"/>
-      <circ-port height="8" pin="320,440" width="8" x="56" y="66"/>
-      <circ-port height="8" pin="370,340" width="8" x="56" y="56"/>
-      <circ-port height="8" pin="650,250" width="8" x="96" y="46"/>
-      <circ-port height="10" pin="940,530" width="10" x="135" y="65"/>
       <text dominant-baseline="alphabetic" fill="#404040" font-family="Dialog" font-size="10" text-anchor="end" x="135" y="74">rows</text>
       <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="80" x="60" y="50"/>
-      <circ-anchor facing="east" height="6" width="6" x="97" y="67"/>
+      <circ-anchor facing="east" x="100" y="70"/>
+      <circ-port dir="in" pin="320,440" x="60" y="70"/>
+      <circ-port dir="in" pin="370,340" x="60" y="60"/>
+      <circ-port dir="in" pin="390,410" x="60" y="80"/>
+      <circ-port dir="in" pin="650,250" x="100" y="50"/>
+      <circ-port dir="out" pin="940,150" x="140" y="60"/>
+      <circ-port dir="out" pin="940,180" x="140" y="80"/>
+      <circ-port dir="out" pin="940,530" x="140" y="70"/>
     </appear>
     <comp lib="0" loc="(320,440)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -7575,7 +7401,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="select" val="2"/>
     </comp>
     <comp lib="2" loc="(600,330)" name="Multiplexer">
-      <a name="enable" val="false"/>
       <a name="selloc" val="tr"/>
       <a name="width" val="5"/>
     </comp>
@@ -7606,25 +7431,24 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="type" val="nonvolatile"/>
     </comp>
     <comp lib="5" loc="(950,350)" name="DotMatrix">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@25c09010"/>
       <a name="inputtype" val="select"/>
       <a name="matrixcols" val="8"/>
       <a name="matrixrows" val="32"/>
       <a name="persist" val="256"/>
     </comp>
-    <comp lib="8" loc="(487,276)" name="Text">
+    <comp lib="8" loc="(485,275)" name="Text">
       <a name="font" val="SansSerif bold 12"/>
       <a name="text" val="Row Counter"/>
     </comp>
-    <comp lib="8" loc="(522,205)" name="Text">
+    <comp lib="8" loc="(520,205)" name="Text">
       <a name="font" val="SansSerif bold 12"/>
       <a name="text" val="Sequencer"/>
     </comp>
-    <comp lib="8" loc="(734,439)" name="Text">
+    <comp lib="8" loc="(730,435)" name="Text">
       <a name="font" val="SansSerif bold 12"/>
       <a name="text" val="Video RAM"/>
     </comp>
-    <comp lib="8" loc="(767,485)" name="Text">
+    <comp lib="8" loc="(765,485)" name="Text">
       <a name="font" val="SansSerif bold 12"/>
       <a name="text" val="Row Select Decoder"/>
     </comp>
@@ -7684,21 +7508,17 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <a name="appearance" val="custom"/>
     <a name="circuit" val="LEDwMemory"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <polyline fill="none" points="70,101 70,110" stroke="#000000" stroke-width="2"/>
       <polyline fill="none" points="80,100 80,110" stroke="#000000" stroke-width="2"/>
       <polyline fill="none" points="70,140 70,130" stroke="#000000" stroke-width="2"/>
       <rect height="21" stroke="#000000" stroke-width="2" width="30" x="59" y="109"/>
-      <circ-port height="8" pin="330,240" width="8" x="66" y="96"/>
-      <circ-port height="8" pin="270,200" width="8" x="66" y="136"/>
-      <circ-port height="8" pin="300,240" width="8" x="76" y="96"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(280,140)" stroke-width="0" width="14" x="60" y="110"/>
       <visible-hexdigit height="20" path="/Hex Digit Display(330,140)" stroke-width="0" width="14" x="75" y="110"/>
-      <circ-anchor facing="east" height="6" width="6" x="67" y="117"/>
+      <circ-anchor facing="east" x="70" y="120"/>
+      <circ-port dir="in" pin="270,200" x="70" y="140"/>
+      <circ-port dir="in" pin="300,240" x="80" y="100"/>
+      <circ-port dir="in" pin="330,240" x="70" y="100"/>
     </appear>
     <comp lib="0" loc="(270,200)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -7732,13 +7552,11 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="trigger" val="falling"/>
     </comp>
     <comp lib="5" loc="(280,140)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4f1eed15"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="offcolor" val="#000000"/>
     </comp>
     <comp lib="5" loc="(330,140)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@1fe0015e"/>
       <a name="bg" val="#000000"/>
       <a name="decimalPoint" val="false"/>
       <a name="labelvisible" val="true"/>
@@ -7763,28 +7581,24 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <a name="appearance" val="custom"/>
     <a name="circuit" val="EUP5109_DISPSYS"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <appear>
       <rect height="48" stroke="#000000" stroke-width="2" width="240" x="50" y="46"/>
       <rect fill="#ffffff" height="27" rx="10" ry="10" stroke="#00ff00" width="99" x="121" y="57"/>
       <text dominant-baseline="central" fill="#ff0000" font-family="InputMono" font-size="18" text-anchor="middle" x="169" y="71">*EUPOUT*</text>
-      <circ-port height="8" pin="520,530" width="8" x="46" y="66"/>
-      <circ-port height="10" pin="860,530" width="10" x="45" y="75"/>
       <visible-hexdigit height="20" path="/LEDwMemory(930,270)/Hex Digit Display(330,140)" stroke-width="0" width="14" x="60" y="60"/>
       <visible-hexdigit height="20" path="/LEDwMemory(930,270)/Hex Digit Display(280,140)" stroke-width="0" width="14" x="75" y="60"/>
       <visible-hexdigit height="20" path="/LEDwMemory(960,270)/Hex Digit Display(330,140)" stroke-width="0" width="14" x="90" y="60"/>
       <visible-hexdigit height="20" path="/LEDwMemory(960,270)/Hex Digit Display(280,140)" stroke-width="0" width="14" x="105" y="60"/>
-      <circ-port height="8" pin="540,290" width="8" x="46" y="46"/>
-      <circ-port height="8" pin="540,180" width="8" x="46" y="56"/>
-      <circ-port height="10" pin="870,350" width="10" x="45" y="85"/>
       <visible-hexdigit height="20" path="/LEDwMemory(1090,270)/Hex Digit Display(280,140)" stroke-width="0" width="14" x="223" y="60"/>
       <visible-hexdigit height="20" path="/LEDwMemory(1090,270)/Hex Digit Display(330,140)" stroke-width="0" width="14" x="238" y="60"/>
       <visible-hexdigit height="20" path="/LEDwMemory(1120,270)/Hex Digit Display(280,140)" stroke-width="0" width="14" x="253" y="60"/>
       <visible-hexdigit height="20" path="/LEDwMemory(1120,270)/Hex Digit Display(330,140)" stroke-width="0" width="14" x="268" y="60"/>
-      <circ-anchor facing="east" height="6" width="6" x="157" y="67"/>
+      <circ-anchor facing="east" x="160" y="70"/>
+      <circ-port dir="in" pin="520,530" x="50" y="70"/>
+      <circ-port dir="in" pin="540,180" x="50" y="60"/>
+      <circ-port dir="in" pin="540,290" x="50" y="50"/>
+      <circ-port dir="out" pin="860,530" x="50" y="80"/>
+      <circ-port dir="out" pin="870,350" x="50" y="90"/>
     </appear>
     <comp lib="0" loc="(1010,130)" name="Splitter">
       <a name="facing" val="south"/>
@@ -7793,6 +7607,7 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="spacing" val="3"/>
     </comp>
     <comp lib="0" loc="(450,490)" name="Probe">
+      <a name="appearance" val="classic"/>
       <a name="radix" val="16"/>
     </comp>
     <comp lib="0" loc="(520,530)" name="Pin">
@@ -7828,6 +7643,7 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="incoming" val="5"/>
     </comp>
     <comp lib="0" loc="(860,530)" name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="label" val="RowSelect"/>
       <a name="output" val="true"/>
@@ -7835,6 +7651,7 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(870,350)" name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="ColSelect"/>
       <a name="output" val="true"/>
@@ -7900,78 +7717,77 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="select" val="3"/>
     </comp>
     <comp lib="5" loc="(910,460)" name="DotMatrix">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@53d5c4bc"/>
       <a name="inputtype" val="select"/>
       <a name="matrixcols" val="24"/>
       <a name="matrixrows" val="32"/>
       <a name="offcolor" val="#80808000"/>
       <a name="persist" val="256"/>
     </comp>
-    <comp lib="8" loc="(1028,275)" name="Text">
+    <comp lib="8" loc="(1025,275)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="A          B   BCDD  C          D"/>
     </comp>
-    <comp lib="8" loc="(1155,313)" name="Text">
+    <comp lib="8" loc="(1155,310)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="0"/>
     </comp>
-    <comp lib="8" loc="(1161,624)" name="Text">
+    <comp lib="8" loc="(1160,620)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="32"/>
     </comp>
-    <comp lib="8" loc="(466,561)" name="Text">
+    <comp lib="8" loc="(465,560)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="0-8 0--32"/>
     </comp>
-    <comp lib="8" loc="(535,653)" name="Text">
-      <a name="font" val="InputMono plain 12"/>
-      <a name="text" val="111 xxxxx - 111 xxxxx Reset"/>
-    </comp>
-    <comp lib="8" loc="(538,611)" name="Text">
+    <comp lib="8" loc="(535,610)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="011 xxxxx - 011 xxxxx BCDD D"/>
     </comp>
-    <comp lib="8" loc="(538,622)" name="Text">
+    <comp lib="8" loc="(535,620)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="100 xxxxx - 100 xxxxx BCDD C"/>
     </comp>
-    <comp lib="8" loc="(538,633)" name="Text">
+    <comp lib="8" loc="(535,630)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="101 xxxxx - 101 xxxxx BCDD B"/>
     </comp>
-    <comp lib="8" loc="(538,643)" name="Text">
+    <comp lib="8" loc="(535,640)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="110 xxxxx - 110 xxxxx BCDD A"/>
     </comp>
-    <comp lib="8" loc="(542,364)" name="Text">
+    <comp lib="8" loc="(535,650)" name="Text">
+      <a name="font" val="InputMono plain 12"/>
+      <a name="text" val="111 xxxxx - 111 xxxxx Reset"/>
+    </comp>
+    <comp lib="8" loc="(540,360)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Chip Select"/>
     </comp>
-    <comp lib="8" loc="(546,561)" name="Text">
+    <comp lib="8" loc="(545,560)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="Memory Map"/>
     </comp>
-    <comp lib="8" loc="(550,577)" name="Text">
+    <comp lib="8" loc="(550,575)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="000 00000 - 000 11111 Left Band"/>
     </comp>
-    <comp lib="8" loc="(554,599)" name="Text">
+    <comp lib="8" loc="(550,595)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="010 00000 - 010 11111 Right Band"/>
     </comp>
-    <comp lib="8" loc="(558,588)" name="Text">
+    <comp lib="8" loc="(555,585)" name="Text">
       <a name="font" val="InputMono plain 12"/>
       <a name="text" val="001 00000 - 001 11111 Center Band"/>
     </comp>
-    <comp lib="8" loc="(657,285)" name="Text">
+    <comp lib="8" loc="(655,285)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Data Bus"/>
     </comp>
-    <comp lib="8" loc="(659,526)" name="Text">
+    <comp lib="8" loc="(655,525)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Address Bus"/>
     </comp>
-    <comp lib="8" loc="(777,234)" name="Text">
+    <comp lib="8" loc="(775,230)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Reset Line"/>
     </comp>
@@ -8088,10 +7904,7 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="GamingView"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
+    <a name="simulationFrequency" val="1.0"/>
     <comp lib="0" loc="(1250,510)" name="Constant">
       <a name="facing" val="west"/>
     </comp>
@@ -8145,7 +7958,6 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
       <a name="labelloc" val="north"/>
     </comp>
     <comp lib="5" loc="(1350,440)" name="DotMatrix">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@72b49ec6"/>
       <a name="inputtype" val="select"/>
       <a name="matrixcols" val="24"/>
       <a name="matrixrows" val="32"/>
@@ -8208,13 +8020,8 @@ b500f000 7000c000 7b00f000 5000c000 5700f000 a000c000 a500f000 6000c000
     <wire from="(1520,610)" to="(1520,620)"/>
   </circuit>
   <circuit name="basicmemory">
-    <a name="appearance" val="classic"/>
     <a name="circuit" val="basicmemory"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
     <comp lib="0" loc="(550,260)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="radix" val="16"/>

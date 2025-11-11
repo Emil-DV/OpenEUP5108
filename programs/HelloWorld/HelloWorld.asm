@@ -4,7 +4,7 @@
 #                  Print the string that was entered.          
 #-----------------------------------------------------------------------
 W Main            # Write value of 'main' to byte 0,1 in ROM (reset vector) 
-O 0x0008          # Set the APA to x0008 (just past vectors)
+O 0010            # Set the APA to x0008 (just past vectors)
 
 # String and other global constant data   char pStrHW[] = {"Hello World!\n\n"};
 D pStrHW          # Defines pStr as x0008

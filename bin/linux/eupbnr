@@ -1,5 +1,5 @@
 #!/bin/sh
-progname=HelloWorld
+progname="$1"
 
 ../../bin/linux/EUPASM $progname.asm
 if [ $? -ne 0 ]; then

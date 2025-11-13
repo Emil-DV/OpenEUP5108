@@ -14,6 +14,10 @@ W EUPOUTCmd
 W EUPOUT
 W EUPOUTMsg
 
+W BCDTestCmd
+W testBCD
+W BCDtestHelp
+
 #W scrtestCmd
 #W scrtestFunc
 #W scrtestMsg 

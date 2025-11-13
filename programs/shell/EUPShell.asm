@@ -1,5 +1,7 @@
-#######################################################
-## The EUP Shell
+#$---- 
+#$## shell/EUPShell.asm
+#$     The EUP Shell program for testing of other
+#$     programs via extendable menu system
 #######################################################
 W main      # Set reset vector to main
 O 0010      # Start rom constants at 0x0010 ROM ADDRESS
@@ -28,6 +30,12 @@ I ..\displaylibs\BigLED.asm
 I ..\displaylibs\BoxDrawing.asm
 
 I AsciiShelldon.asm
+
+#$
+#$     externalincludes.asm
+#$     contains the additional program entry points
+#$     and command map constants
+
 I externalincludes.asm
 
 #######################################################
@@ -91,6 +99,14 @@ W DisplayHexValuesMsg
 W echoVTCmd
 W echoVT
 W echoVTMsg
+
+#$
+#$     externalcmds.asm
+#$     contains the additional command map entries
+#$      Command string (case sensitive)
+#$      A pointer to the function for the command
+#$      A pointer to the Help message for the command
+#$     
 
 I externalcmds.asm #external commands
 

@@ -1,37 +1,37 @@
-#$########################################################################
-#$ displaylibs/vt100.asm - VT100 Escape Codes and API
+#$----
+#$## displaylibs/vt100.asm - VT100 Escape Codes and API
 #$
-#$ All codes begin with the Escape character 0x1B | \e then a string of 
-#$ characters to set colors, cursor position, and options
-#$ All codes must end with the Escape character 0x1B | \e
+#$     All codes begin with the Escape character 0x1B | \e then a string of 
+#$     characters to set colors, cursor position, and options
+#$     All codes must end with the Escape character 0x1B | \e
 #$
-#$ Vt100 code constants [LDR {VT*}, CAL printStr1E]
-#$------------------------------------------------------------------------
-#$ VTCLR - Clear the screen
+#$     Vt100 code constants [LDR {VT*}, CAL printStr1E]
+#$
+#$     VTCLR - Clear the screen
 D VTCLR
 S \e[2J\e\0
 
-#$ VTHOME - Sets the cursor to the top left 
+#$     VTHOME - Sets the cursor to the top left 
 D VTHOME
 S \e[7;1H\e\0
 
-#$ VTSCRUP - Moves the cursor up one line (row)
+#$     VTSCRUP - Moves the cursor up one line (row)
 D VTSCRUP
 S \eD\e\0
 
-#$ VTSCRDWN - Moves the cursor down one line (row)
+#$     VTSCRDWN - Moves the cursor down one line (row)
 D VTSCRDWN
 S \eM\e\0
 
-#$ VTBIGCHARS - Turns on BIG characters
+#$     VTBIGCHARS - Turns on BIG characters
 D VTBIGCHARS
 S \e[3m\e\0
 
-#$ VTJUMBOCHARS - Turns on JUMBO characters
+#$     VTJUMBOCHARS - Turns on JUMBO characters
 D VTJUMBOCHARS
 S \e[6m\e\0
 
-#$ VTHIDECURSOR - Hides the cursor
+#$     VTHIDECURSOR - Hides the cursor
 D VTHIDECURSOR
 S \e[?25l\e\0
 
@@ -68,35 +68,35 @@ L 1B 5B 23 35 1B 00
 D VTDWSH
 L 1B 5B 23 36 1B 00
 
-#$ VTREDONBLK - Sets red characters on black background
+#$     VTREDONBLK - Sets red characters on black background
 D VTREDONBLK
 S \e[31;40m\e\0
 
-#$ VTREDONWHT - Sets red characters on white background
+#$     VTREDONWHT - Sets red characters on white background
 D VTREDONWHT
 S \e[31;47m\e\0
 
-#$ VTBLUEONBLK - Sets blue characters on black background
+#$     VTBLUEONBLK - Sets blue characters on black background
 D VTBLUEONBLK
 S \e[34;40m\e\0
 
-#$ VTBLUEONWHT - Sets blue characters on white background
+#$     VTBLUEONWHT - Sets blue characters on white background
 D VTBLUEONWHT
 S \e[34;47m\e\0
 
-#$ VTBLKONWHT - Sets black characters on white background
+#$     VTBLKONWHT - Sets black characters on white background
 D VTBLKONWHT
 S \e[30;47m\e\0
 
-#$ VTPURPONBLK - Sets purple characters on black background
+#$     VTPURPONBLK - Sets purple characters on black background
 D VTPURPONBLK
 S \e[35;40m\e\0
 
-#$ VTYELLONBLK - Sets yellow characters on black background
+#$     VTYELLONBLK - Sets yellow characters on black background
 D VTYELLONBLK
 S \e[33;40m\e\0
 
-#$ VTREVERSE - Switches foreground and background colors
+#$     VTREVERSE - Switches foreground and background colors
 D VTREVERSE
 S \e[7m\e\0
 
@@ -106,10 +106,13 @@ S \e[39;49m\e\0
 D VTRST
 S \e[m\e\0
 
-D VTSETCURSORPOS 
+#$
+#$     VT.SETCURSORPOS - Template for Set Cursor Pos
+D VT.SETCURSORPOS 
 S \e[000;000f\e\0
-
-D VTGETCURSORPOS 
+#$
+#$     VT.GETCURSORPOS - Template for Get Cursor Pos
+D VT.GETCURSORPOS 
 S \e[6n\e\0
 
 V vtTEMP.str    # char vtTemp.str[20]
@@ -121,17 +124,16 @@ a 4
 V vtCol.str     # char vtCol.str[4]
 a 4
 
-#$ 
-#$ Vt100 functions -------------------------------------------------------
 #$
-#$ vtSetCursorPos - Sets the cursor positon: A=col,B=row
+#$### vtSetCursorPos - Sets the cursor positon
+#$     Set A=col,B=row before calling
 D vtSetCursorPos            # void vtSetCursorPos {
 C vtSetCursorPos.c 2        # c = A
   SCA
 C vtSetCursorPos.r 1        # r = B
   SCB
   
-  LDR VTSETCURSORPOS        # Push src on stack
+  LDR VT.SETCURSORPOS        # Push src on stack
   SCR
   SCD
   LDR vtTEMP.str            # Push dst on stack
@@ -176,7 +178,8 @@ D spacestr
 L 20 20 20 00
 
 #$
-#$ vtGetCursorPos (experimental) - Gets the cursor positon: A=col,B=row
+#$### vtGetCursorPos (experimental)
+#$     Gets the cursor positon: A=col,B=row
 D vtGetCursorPos            # void vtGetCursorPos(){
 
   HLT
@@ -200,7 +203,7 @@ D vtGetCursorPos            # void vtGetCursorPos(){
   INS
   INS
 
-  LDR VTGETCURSORPOS        # printf(VTGETCURSORPOS);
+  LDR VT.GETCURSORPOS        # printf(VTGETCURSORPOS);
   CAL printStr1E
   # Terminal should return
   # \e[n;mR

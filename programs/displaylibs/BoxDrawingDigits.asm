@@ -1,5 +1,16 @@
-#######################################################
-## Box Drawing Digits  for the  EUP 5108
+#$----
+#$## displaylibs/BoxDrawingDigits.asm
+#$     Contains the serif digits 0..9,A..F,U, & P 
+#$     Originally meant for the EUP Banner on BootMon
+#$     
+#$     Superseded by BIGLed library that will contain
+#$     all capital letters and digits
+#$
+#$     Defines:
+#$     C BoxDigitSize 0x09 - Nine characters per digit
+#$     C BoxDigitCount 0x12 - 18 Characters in total
+#$     D BoxDigits - The packed array of box digits
+#$
 #######################################################
 C BoxDigitSize 0x09
 C BoxDigitCount 0x12
@@ -44,8 +55,8 @@ L C8 CD B9
 L 20 20 D0 
 
 # BoxDigit5
-# ╔═
-L C9 CD 20 
+# ╔═╕
+L C9 CD B8 
 # ╚═╗
 L C8 CD BB 
 # ╘═╝

@@ -1,14 +1,14 @@
-#$########################################################################
-#$ iolibs/EUPIO.asm - I/O functions
+#$----
+#$## iolibs/EUPIO.asm - I/O functions
 #$
-#$ This assumes that Port0 is the keyboard input and Port1 is the output
-#$ to the screen.
+#$     This assumes that Port0 is the keyboard input and Port1 is the output
+#$     to the screen.
+
 #$
-#$ EUPIO functions -------------------------------------------------------
-#$
-#$ getC - reads a character from Port0 into the B register if != 0
-#$        else acks character by writing 0 to Port0 and 
-#$        returns character in B
+#$### getC - reads a character from Port0 into the B register 
+#$      if B == 0 loop
+#$      else acks character by writing 0 to Port0 and 
+#$      returns with character in B
 D getC
   LB0             # Read from port0 into B
   JSN getC.r      # if not zero flag is set jmp to return
@@ -17,10 +17,15 @@ D getC.r
   W0E 0x00        # ack byte received
   RTL             # Return
 
-#$  
-#$ getString - Reads characters into a string and echos to the terminal 
-#$             until 'CR. Backspace deletes previous character
-#$             Input: DR set to address of string buffer
+#$
+#$### getString - Reads characters into a string 
+#$     if char != 'LF echos to the terminal 
+#$     until 'LF
+#$     Backspace deletes previous character
+#$     Input: DR set to address of string buffer
+#$**Warning:**
+#$
+#$     Does not check for buffer overflow
 D getString
 # Get a character
   LB0              # B = Port0       

@@ -1,11 +1,13 @@
-#$########################################################################
-#$ HelloWorld.asm - Print "Hello World!\n" then loops:
-#$                  Print Prompt "EUP>"
-#$                  Get a string of characters into StrIn buffer
-#$                  Print the string that was entered.          
+#$----
+#$## HelloWorld.asm 
+#$     Print "Hello World!\n" then loops:
+#$      Print Prompt "EUP>"
+#$      Get a string of characters into StrIn buffer
+#$      Print the string that was entered.          
 #$
-#$ Program demos: Printing String constants, reading string from KB
-#$                Use of all Assembler directives W,O,D,S,L,A,V,a,I,C
+#$     Program demos:
+#$      Printing String constants, reading string from KB
+#$      Use of all Assembler directives W,O,D,S,L,A,V,a,I,C
 #-----------------------------------------------------------------------
 W Main            # Write value of 'main' to byte 0,1 in ROM (reset vector) 
 O 0008            # Set the APA to x0008 (just past vectors)

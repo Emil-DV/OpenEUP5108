@@ -1,3 +1,15 @@
+EUP5108 Stock Library and Program information
+#######################################################
+ displaylibs/BoxDrawingDigits.asm
+     Contains the serif digits 0..9,A..F,U, & P 
+     Originally meant for the EUP Banner on BootMon
+     Superseded by BIGLed library
+
+     Defines:
+     C BoxDigitSize 0x09 - Nine characters per digit
+     C BoxDigitCount 0x12 - 18 Characters in total
+     D BoxDigits - The packed array of box digits
+
 ########################################################################
  displaylibs/vt100.asm - VT100 Escape Codes and API
 

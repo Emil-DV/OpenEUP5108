@@ -15,6 +15,11 @@ D testFunc      # the function itself
   CAL printStr1E
   LDR VTHOME
   CAL printStr1E
+  
+  # Run the playing card test
+  JPL testPlayingCards
+
+# The playing cards test  
 V tf.col
 a 1
 V tf.row
@@ -23,11 +28,8 @@ V tf.char
 a 1
 V tf.i
 a 1
-  
-  #Run the BCD test
-  JPL testBCD
-  
-  # Run the playing card test
+
+D testPlayingCards  
   LDR tf.i
   LAO
   SIA
@@ -70,7 +72,7 @@ D tf.docdo
   LAM
   CAL docDrawCard
 
-#  W2E 0x50
+  W2E 0x50		# Play a beep sound
   
   LDR tf.col
   LAM
@@ -125,13 +127,6 @@ D tf.docrc
   LAE 'q
   MAB
   JLN tf.docdo1 
-#  JPL 
-
-  HLT
-  NOP
-
-
-
 
 D tf.loop  
   LAE 80
@@ -201,21 +196,5 @@ D tf.delay
 D testFunc.xit
   RTL
   
-D testBCD
-V tf.bcd
-a BCDLib.strlen
-  LDR tf.bcd
-  CAL BCDZro
-D gohere  
 
-  LDR VTHOME
-  CAL printStr1E
-
-  LDR tf.bcd
-#  CAL BCDPnt	#Print the BCD value as characters
-  CAL BCDPntLED #Print the BCD value as BIGLEDs
-
-  LDR tf.bcd
-  CAL BCDInc
-  JPL gohere
 

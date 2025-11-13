@@ -14,9 +14,7 @@ C CMDSTRMAX 41
 V CmdStrLen # The length of the command entered
 a 1
 
-C sys.topline 6      # 1 based
-C sys.cursorChar 0x5F # _
-
+I ..\stdlibs\sys.asm
 I Strings.asm
 I BootBanner.asm
 

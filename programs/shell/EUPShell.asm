@@ -16,11 +16,8 @@ a 1
 V main.pCmdMap  # Temp cmd map pointer to the entry of interest
 a 2
 
-C sys.topline 6      # 1 based
-C sys.cursorChar 0x5F
-C sys.scrwidth 0x50
-
 # include both libraries and command execution functions
+I ..\stdlibs\sys.asm
 I ..\stdlibs\StringLib.asm
 I ..\stdlibs\Math.asm
 I ..\stdlibs\UtilFunctions.asm

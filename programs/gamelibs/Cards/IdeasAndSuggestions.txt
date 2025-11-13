@@ -1,0 +1,4 @@
+EUP5108  ideas/suggestions
+
+ - Add a file, read by the Emulator, if found, that redefines characters (E0..FE) as any unicode value
+ 

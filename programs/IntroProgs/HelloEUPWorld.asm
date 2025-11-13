@@ -1,13 +1,16 @@
-# HelloEUPWorld.asm - Prints "Hello EUP World!\n"
+#$----
+#$## IntroProgs/HelloEUPWorld.asm 
+#$     Print "Hello EUP World!\n" and halts
+#$
+#$     Program demos:
+#$      Printing a String constant
 #-----------------------------------------------------------------------
 W main          # Write value of 'main' to byte 0,1 in ROM (reset vector) 
-O 0010          # Set the APA to 0010 (just past interrupt vectors)
+O 0008          # Set the APA to 0008 (just past interrupt vectors)
                 # All constants and code start here
 
-C sys.cursorChar 0x5F   #C: #define sys.cursorChar 0x5F
-
                 # I is the same as C's #include
-I ..\stdlibs\Math.asm             # Brings in the Math Functions
+I ..\stdlibs\sys.asm                
 I ..\stdlibs\StringLib.asm	  # Brings in the String Functions
 I ..\stdlibs\UtilFunctions.asm    # Brings in the Print Functions
 

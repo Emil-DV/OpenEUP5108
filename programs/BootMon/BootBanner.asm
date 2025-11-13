@@ -1,4 +1,4 @@
-# BootBanner.asm - Just the BootBanner strings
+# BootBanner.asm - Just the BootBanner strings for BootMON
 
 D BootBanner3x5     
 S EEE  U U  PP    555   1    0    8 \n   

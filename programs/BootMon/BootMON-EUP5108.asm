@@ -1,5 +1,9 @@
-#######################################################
-## Boot Monitor for the EUP 5108 - primary test program
+#$---- 
+#$## BootMon/BootMON-EUP5108.asm
+#$     Boot Monitor for the EUP 5108 
+#$     primary program for low level tests
+#$     Testing of interrupts, reading RAM/ROM directly
+#$     Some overlap with the EUPShell
 #######################################################
 
 W main      # Set reset vector to main

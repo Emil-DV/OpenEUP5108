@@ -1,5 +1,5 @@
 #$----
-#$## HelloWorld.asm 
+#$## HelloWorld/HelloWorld.asm 
 #$     Print "Hello World!\n" then loops:
 #$      Print Prompt "EUP>"
 #$      Get a string of characters into StrIn buffer

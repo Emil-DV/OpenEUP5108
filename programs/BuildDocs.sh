@@ -4,7 +4,8 @@ filename=StockLibProgs.md
 # use
 # #$**Warning** for important notes
 
-# #$---- at the top of each file
+# At the top of each file
+# #$---- 
 # #$## {path and filename relative to programs folder} - {short description}
 
 # #$     {for each line of long description and consts and/or Vars }

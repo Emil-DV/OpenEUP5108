@@ -35,9 +35,17 @@ fi
 
 
 if [ $recursive -eq 1 ]; then
-    # Recursive search with include pattern
-    grep $grep_opts -r --include="$file_pattern" "$search_string" .
+    # Recursive search with sorted files
+    find . -type f -name "$file_pattern" -printf '%P\n' | sort | while read -r file; do
+        if [ -n "$file" ]; then
+            grep $grep_opts "$search_string" "$file"
+        fi
+    done
 else
-    # Non-recursive search
-    grep $grep_opts "$search_string" $file_pattern
+    # Non-recursive search with sorted files
+    find . -maxdepth 1 -type f -name "$file_pattern" -printf '%P\n' | sort | while read -r file; do
+        if [ -n "$file" ]; then
+            grep $grep_opts "$search_string" "$file"
+        fi
+    done
 fi

@@ -14,6 +14,8 @@ C 'SP 0x20
 C NULL 0x00
 C 'ESC 0x1B
 
+I Math.asm #The math functions needed for some of the string functions
+
 #####################################################################################
 # strreplace in:DR=pStr in:A value to remove in:B value to place
 #            runs through a null term string replacing A with B

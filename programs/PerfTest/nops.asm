@@ -1,5 +1,5 @@
 #$----
-#$## HelloWorld/nops.asm
+#$## PerfTest/nops.asm
 #$     This program does nothing except demonstrate the O assembler
 #$     directive to put a long jump instruction near the end of ROM
 #$

@@ -5,7 +5,7 @@
 #$     to the screen.
 
 #$
-#$### getC - reads a character from Port0 into the B register 
+#$### | getC - reads a character from Port0 into the B register 
 #$      if B == 0 loop
 #$      else acks character by writing 0 to Port0 and 
 #$      returns with character in B
@@ -18,7 +18,7 @@ D getC.r
   RTL             # Return
 
 #$
-#$### getString - Reads characters into a string 
+#$### | getString - Reads characters into a string 
 #$     if char != 'LF echos to the terminal 
 #$     until 'LF
 #$     Backspace deletes previous character

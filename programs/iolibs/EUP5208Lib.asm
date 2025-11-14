@@ -1,4 +1,7 @@
-# EUP5208Lib for the 24x32 Pixel Display and LEDS
+#$---- 
+#$## iolibs/EUP5208Lib.asm
+#$    24x32 Gaming Pixel Display and LEDS
+#$    Used in the Gaming view of the Logisim Gaming Model
 
 D LEDTest.Table
 L 11 22 33 44 55 66 77 88 99 EE
@@ -16,7 +19,9 @@ C LEDS.3 0xC0
 C Screen.Clear 0xE0
 
 
-# CheckerTest fills the screen with the AA/55 checkerboard pattern
+#$
+#$### | CheckerTest
+#$    Fills the screen with the AA/55 checkerboard pattern
 ##################################################################
 D CheckerTest
   LAE 0x60            # Load total screen byte count
@@ -30,7 +35,9 @@ D CheckerTest.do
   JSN CheckerTest.do  # If A!=0 loop 
   RTL                 # Return
 
-# FillScreen fills the screen with all pixels on
+#$
+#$### | FillScreen 
+#$    Fills the screen with all pixels on
 ##################################################################
 D FillScreen
   LAE 0x20            # Load row max value into A
@@ -50,7 +57,9 @@ D FillScreen.do
   JSN FillScreen.do   # if A!=0 loop
   RTL                 # Return
 
-# The LED Test displays 99..00 in all of the LEDs
+#$
+#$### | TestLEDS
+#$    Displays 99..00 in all of the LEDs
 D TestLEDS
   LAE 0x0A            # Load total count of LED values
   LDR LEDTest.Table   # Load the base address of the LED Test Values

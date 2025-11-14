@@ -21,7 +21,7 @@ a 2
 # include both libraries and command execution functions
 I ..\stdlibs\sys.asm
 I ..\stdlibs\StringLib.asm
-I ..\stdlibs\Math.asm
+#I ..\stdlibs\Math.asm
 I ..\stdlibs\UtilFunctions.asm
 I ..\stdlibs\BCDLib.asm
 

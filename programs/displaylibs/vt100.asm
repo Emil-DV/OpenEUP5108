@@ -6,12 +6,13 @@
 #$     All codes must end with the Escape character 0x1B | \e
 #$
 #$     Vt100 code constants [LDR {VT*}, CAL printStr1E]
-#$
+#$         (not all code perform as expected)
+#$     
 #$     VTCLR - Clear the screen
 D VTCLR
 S \e[2J\e\0
 
-#$     VTHOME - Sets the cursor to the top left 
+#$     VTHOME - Sets the cursor to the top left of the client area (row 7)
 D VTHOME
 S \e[7;1H\e\0
 
@@ -35,36 +36,47 @@ S \e[6m\e\0
 D VTHIDECURSOR
 S \e[?25l\e\0
 
+#$     VTUP - move cursor up one row
 D VTUP
 S \e[1A\e\0
 
+#$     VTU3 - move cursor up three rows
 D VTU3
 S \e[3A\e\0
 
+#$     VTDWN - move cursor down one row
 D VTDWN
 S \e[1B\e\0
 
+#$     VTRIGHT - move cursor one to the right
 D VTRIGHT
 S \e[1C\e\0
 
+#$     VTLEFT - move cursor one to the left
 D VTLEFT
 S \e[1D\e\0
 
+#$     VTUPLEFT - move cursor up one and to the left one
 D VTUPLEFT
 S \e[1A\e\e[1D\e\0
 
+#$     VTCR - move to top left corner of the whole screen
 D VTCR
 S \e[1H\e\0
 
+#$     VTDTH - set double height letters top half
 D VTDTH
 L 1B 5B 23 33 1B 00
 
+#$     VTDHBH - set double height letters bottom half
 D VTDHBH
 L 1B 5B 23 34 1B 00
 
+#$     VTSWSH - set single with single height letters
 D VTSWSH
 L 1B 5B 23 35 1B 00
 
+#$     VTDWSH - set double with single height letters
 D VTDWSH
 L 1B 5B 23 36 1B 00
 
@@ -100,9 +112,11 @@ S \e[33;40m\e\0
 D VTREVERSE
 S \e[7m\e\0
 
+#$     VTRSTCOL - reset foreground and background colors
 D VTRSTCOL
 S \e[39;49m\e\0
 
+#$     VTRST - resets to standard text formating 
 D VTRST
 S \e[m\e\0
 
@@ -125,7 +139,7 @@ V vtCol.str     # char vtCol.str[4]
 a 4
 
 #$
-#$### vtSetCursorPos - Sets the cursor positon
+#$### | vtSetCursorPos - Sets the cursor positon
 #$     Set A=col,B=row before calling
 D vtSetCursorPos            # void vtSetCursorPos {
 C vtSetCursorPos.c 2        # c = A
@@ -178,7 +192,7 @@ D spacestr
 L 20 20 20 00
 
 #$
-#$### vtGetCursorPos (experimental)
+#$### | vtGetCursorPos (experimental)
 #$     Gets the cursor positon: A=col,B=row
 D vtGetCursorPos            # void vtGetCursorPos(){
 

@@ -31,19 +31,21 @@ fi
 
 if [ $nolines -eq 1 ]; then
     grep_opts="$grep_opts -h"
+else
+    grep_opts="$grep_opts -H"
 fi
 
 
 if [ $recursive -eq 1 ]; then
     # Recursive search with sorted files
-    find . -type f -name "$file_pattern" -printf '%P\n' | sort | while read -r file; do
+    find . -type f -name "$file_pattern" -printf '%P\n' | sort -n | while read -r file; do
         if [ -n "$file" ]; then
             grep $grep_opts "$search_string" "$file"
         fi
     done
 else
     # Non-recursive search with sorted files
-    find . -maxdepth 1 -type f -name "$file_pattern" -printf '%P\n' | sort | while read -r file; do
+    find . -maxdepth 1 -type f -name "$file_pattern" -printf '%P\n' | sort -r | while read -r file; do
         if [ -n "$file" ]; then
             grep $grep_opts "$search_string" "$file"
         fi

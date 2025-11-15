@@ -201,6 +201,88 @@
      Multiplies B by A via multiple addition
      returning the product in DR
 ---- 
+## stdlibs/StringLib.asm
+     Contiains string manipulation functions
+     somewhat simular to their C versions
+
+### | strreplace
+     Runs through the string pointed to by DR
+     replacing characters matching A with
+     the character in B
+
+### | itoa
+     Converts the value in B to a decimal string pointed
+     to by DR - does not include NULL terminated
+
+### | strlen (RAM)
+     Calculates the lenth of the string pointed
+     to by DR by looking for the NULL terminator
+
+     Returns the result in A (max 255)
+
+### | strlenc (ROM)
+     Calculates the lenth of the string pointed 
+     to by DR by looking for the NULL terminator
+
+     Returns the result in A (max 255)
+
+### | toUpperStr
+     Converts all letters in the string pointed
+     to by DR
+
+     Characters 'a'..'z' becomes 'A'..'Z' others
+     are left unchanged
+
+### | toUpperB 
+     Converts the letter in B to uppercase
+
+     Characters 'a'..'z' becomes 'A'..'Z' others
+     are left unchanged
+
+### | memcpyconst 
+     Copies bytes from src (ROM) to dst (RAM)
+     until a null is read or the max len is reached
+
+     Push the src pointer, dst pointer, and 
+     len (max 255) onto the stack in that order 
+     before calling
+    
+
+### | strcpyconst 
+     Copies bytes from string (ROM) to string (RAM)
+     until a null is read
+
+     Push the src pointer, dst pointer, onto the
+     stack in that order before calling
+
+### | strcpy
+     Copies bytes from string (RAM) to string (RAM)
+     until a null or strcpyDelim is read
+
+     Push the src pointer, dst pointer, onto the
+     stack in that order before calling
+     
+     The Global strcpyDelim can be set to 0x20 (space)
+     to copy the first word from the string
+
+### | strcmpconst 
+     Compares the bytes from src (ROM) to dst (RAM)
+     until a null or mis-match is reached
+
+     Push the src pointer, dst pointer, 
+     onto the stack in that order before calling
+    
+
+### | repeatChar
+     Prints the character in B, A times
+     A = character count
+     B = character to print
+
+### | atol (experimental)
+    Converts the characters in the string pointed to by DR
+    into a two byte value returning it in DR
+    Assumes string passed has only '0'..'9' in it
+---- 
 ## stdlibs/UtilFunctions.asm
      As set of utility functions for various operations
 

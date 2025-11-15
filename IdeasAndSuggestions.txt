@@ -3,4 +3,6 @@ EUP5108  ideas/suggestions
  - Add a file, read by the Emulator, if found, that redefines characters (E0..FE) as any unicode value
  - Add assembler warning message if O directive is < current APA
  - Fix issue where assembler allows the inclusion of the same file more that once
- - Add bin/linux to the path for easier execution of ASM/EMU and centralized bnr script
+ * Add bin/linux to the path for easier execution of ASM/EMU and centralized bnr script
+ - Add memory mapped I/O for RTC & HDD
+ 

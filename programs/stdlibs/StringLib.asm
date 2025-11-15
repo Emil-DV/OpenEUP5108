@@ -1,12 +1,9 @@
-# String functions
-# Stack based
-# strcpyconst(dst,src:EEPROM)
-# strcpy(dst,src)
+#$---- 
+#$## stdlibs/StringLib.asm
+#$     Contiains string manipulation functions
+#$     somewhat simular to their C versions
 
-# Register
-# strlen in:DR=src, out:A=len
-
-# Some useful constants
+# Some useful character constants
 C 'LF 0x0A
 C 'CR 0x0D
 C 'BS 0x08
@@ -16,9 +13,11 @@ C 'ESC 0x1B
 
 I Math.asm #The math functions needed for some of the string functions
 
-#####################################################################################
-# strreplace in:DR=pStr in:A value to remove in:B value to place
-#            runs through a null term string replacing A with B
+#$
+#$### | strreplace
+#$     Runs through the string pointed to by DR
+#$     replacing characters matching A with
+#$     the character in B
 D strreplace
 C strreplace.pStr 3
   SCD
@@ -74,9 +73,10 @@ D strreplace.nxt
   JPL strreplace.do
 
 
-#####################################################################################
-# itoa in:DR=dst[3] in:B
-# useage: LDR Dst address B=value then call itoa
+#$
+#$### | itoa
+#$     Converts the value in B to a decimal string pointed
+#$     to by DR - does not include NULL terminated
 D itoa
 C itoa.pout 2
   SCD
@@ -168,9 +168,12 @@ C itoa.val 1
   INS
   RTL
 
-#####################################################################################
-# strlen in:DR=src out:A=len : limit 255
-# useage: LDR Src address then call strlen. A=len upon return
+#$
+#$### | strlen (RAM)
+#$     Calculates the lenth of the string pointed
+#$     to by DR by looking for the NULL terminator
+#$
+#$     Returns the result in A (max 255)
 D strlen
   LAZ             #A = 0
 D strlen.r  
@@ -182,9 +185,12 @@ D strlen.c
   IND             # DR++
   JPL strlen.r    # loop
 
-#####################################################################################
-# strlenc in:DR=src out:A=len : limit 255
-# useage: LDR Src address then call strlen. A=len upon return
+#$
+#$### | strlenc (ROM)
+#$     Calculates the lenth of the string pointed 
+#$     to by DR by looking for the NULL terminator
+#$
+#$     Returns the result in A (max 255)
 D strlenc
   LAZ             #A = 0
 D strlenc.r  
@@ -196,9 +202,13 @@ D strlenc.c
   IND             # DR++
   JPL strlenc.r   # loop
 
-#####################################################################################
-# toUpperStr in: DR = pointer to null terminated string
-# useage: Characters pointed to by DR: 'a'..'z' becomes 'A'..'Z'
+#$
+#$### | toUpperStr
+#$     Converts all letters in the string pointed
+#$     to by DR
+#$
+#$     Characters 'a'..'z' becomes 'A'..'Z' others
+#$     are left unchanged
 D toUpperStr
   LBM
   JLN toUpperStr.c
@@ -209,9 +219,12 @@ D toUpperStr.c
   IND
   JPL toUpperStr
   
-#####################################################################################
-# toUpperB in/out:B
-# useage: Characters in B 'a'..'z' becomes 'A'..'Z'
+#$
+#$### | toUpperB 
+#$     Converts the letter in B to uppercase
+#$
+#$     Characters 'a'..'z' becomes 'A'..'Z' others
+#$     are left unchanged
 D toUpperB  
   LAE '`
   MAB
@@ -226,9 +239,15 @@ D toUpperB.nd
 D toUpperB.rtl  
   RTL
 
-#####################################################################################
-# memcpyconst dst,src - copy from src to dst byte wise until a null is reached
-# useage: Push Src address then dst address then length byte then call memcpyconst (src is ROM)
+#$
+#$### | memcpyconst 
+#$     Copies bytes from src (ROM) to dst (RAM)
+#$     until a null is read or the max len is reached
+#$
+#$     Push the src pointer, dst pointer, and 
+#$     len (max 255) onto the stack in that order 
+#$     before calling
+#$    
 D memcpyconst
 C memcpyc.src 7
 C memcpyc.dst 5
@@ -304,15 +323,17 @@ D memcpyconst.more
   JPL memcpyconst
 
   
-  
-
-#####################################################################################
-# strcpyconst dst,src - copy from src to dst byte wise until a null is reached
-# useage: Push Src address then dst address then call strcpyconst (src is ROM)
+#$
+#$### | strcpyconst 
+#$     Copies bytes from string (ROM) to string (RAM)
+#$     until a null is read
+#$
+#$     Push the src pointer, dst pointer, onto the
+#$     stack in that order before calling
 D strcpyconst
-# B = Src[0];
-# Load DR with address of Src which is SP+6
 C strcpy.src 6
+C strcpy.dst 4
+# Load DR with address of Src which is SP+6
   POE strcpy.src  # DR = SP+6
 # DR = *DR
   LAM       # A = DRAM[DR]
@@ -327,7 +348,6 @@ C strcpy.src 6
   JLN strcpyconst.cont
 
 # Load DR with the address of Dst which is expected at SP+4
-C strcpy.dst 4
   POE strcpy.dst  # DR = SP+4
   LAM       # A = DRAM[DR]
   DED       # DR--
@@ -382,13 +402,20 @@ D strcpyconst.cont
 # Loop
   JPL strcpyconst
 
+
+#$
+#$### | strcpy
+#$     Copies bytes from string (RAM) to string (RAM)
+#$     until a null or strcpyDelim is read
+#$
+#$     Push the src pointer, dst pointer, onto the
+#$     stack in that order before calling
+#$     
+#$     The Global strcpyDelim can be set to 0x20 (space)
+#$     to copy the first word from the string
 V strcpyDelim # Set this to 0x20 to copy the first word
 a 1
-#####################################################################################
-# strcpy dst,src - copy from src to dst byte wise until a null is reached
-# useage: Push Src address then dst address then call strcpy (src & dst are in DRAM)
 D strcpy
-# B = Src[0];
 # Load DR with address of Src which is SP+6
   POE strcpy.src  # DR = SP +6
 
@@ -466,10 +493,14 @@ D strcpy.cont2
 # Loop
   JPL strcpy
 
-
-#####################################################################################
-# strcmpconst dst,src - compares src to dst byte wise until a mismatch is reached
-# useage: Push Src address then Var address then call strcmpconst (src is ROM)
+#$
+#$### | strcmpconst 
+#$     Compares the bytes from src (ROM) to dst (RAM)
+#$     until a null or mis-match is reached
+#$
+#$     Push the src pointer, dst pointer, 
+#$     onto the stack in that order before calling
+#$    
 D strcmpconst
 C strcmpconst.Src 7
 C strcmpconst.Dst 5
@@ -568,23 +599,22 @@ D strcmpconst.diff
   RTL
   
 
-#######################################################
-# repeatChar: prints a character A times
-# A = character count
-# B = character to print
+#$
+#$### | repeatChar
+#$     Prints the character in B, A times
+#$     A = character count
+#$     B = character to print
 D repeatChar
   W1B             # Output the character
   DEA             # Decrement A
   JLN repeatChar
   RTL
 
-    
-  
-
-#######################################################
-# atol(&DR) convert the characters pointed to with DR
-#           into a two byte and put the results into DR
-#           Assumes string passed has only '0'..'9'
+#$
+#$### | atol (experimental)
+#$    Converts the characters in the string pointed to by DR
+#$    into a two byte value returning it in DR
+#$    Assumes string passed has only '0'..'9' in it
 D atol
   HLT                 # Nop for debug
 C atol.src  4         # Local copy of string address

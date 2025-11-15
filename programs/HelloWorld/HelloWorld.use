@@ -16,11 +16,11 @@ INS:42
 IQM:4
 IQU:4
 JLC:2
-JLN:82
+JLN:78
 JLR:20
 JPL:54
 JPS:2
-JSN:10
+JSN:14
 JSR:4
 LAD:6
 LAE:54
@@ -57,7 +57,6 @@ MBA:14
 MDA:2
 MDB:2
 MTA:2
-NOP:2
 POE:134
 RRA:16
 RTL:94
@@ -79,4 +78,4 @@ W1E:44
 W2A:2
 W2E:4
 XDS:8
-81 of 256 Instructions used (31.64) percent
+80 of 256 Instructions used (31.25) percent

@@ -76,7 +76,7 @@ D strreplace.nxt
 
 #####################################################################################
 # itoa in:DR=dst[3] in:B
-# useage: LDR Dst address A=value then call itoa
+# useage: LDR Dst address B=value then call itoa
 D itoa
 C itoa.pout 2
   SCD

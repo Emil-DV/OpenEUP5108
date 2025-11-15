@@ -1,24 +1,19 @@
-#######################################################
-## Util Functions
-
-## printStr1E/D 
-## getCharB
-## isDigitB
-## isHexDigitB
-## DivBA
-## printBHex
+#$---- 
+#$## stdlibs/UtilFunctions.asm
+#$     As set of utility functions for various operations
 
 D charRuler
 S          1         2         3         4         5         6         7         8\n
 S 123456789*123456789*123456789*123456789*123456789*123456789*123456789*123456789*\n\0
 
-
-#######################################################
-# callFNptr  This could be a better use of the CAS instruction
-D callFNptr  # Calls the function stored in DR and returns
+#$
+#$### | callFNptr
+#$     Calls the function stored in DR and returns
+#$     Done via writes to the ROM (cludge)
+#$     This functionality could be a better use of
+#$     the CAS instruction
+D callFNptr  
   #HLT
-  NOP
-  
   LAR                 # Store DR in BA
   LBD
   LDR callFNptr.call  # Get the pointer to the call instruction in ROM
@@ -31,17 +26,22 @@ L 96 00 00            # Call the function pointer passed in
   RTL
 
 
-#######################################################
-# getRand       Gets a random number from the SFP
+#$
+#$### | getRand
+#$     Gets a random number from the 
+#$     Special Function Port and puts it in B
 D getRand
   W2E 0xFE      # put in random num mode
   W2A           # A=random number range
-  LB0
-  W0E 0x00
-  W2E 0xFC
+  LB0           # Read back rand number
+  W0E 0x00      # Ack read from port
+  W2E 0xFC      # put back into sound mode
   RTL
-#######################################################
-# incShort      Add one to the value stored at DR
+
+#$
+#$### | incShort
+#$     Add one to the 16bit value stored at DR
+#$     i.e. (*DR)++;
 D incShort
   LAM
   INA
@@ -57,7 +57,12 @@ D incShort.c
   
   RTL
 
-#######################################################
+#$
+#$### | sleep
+#$     Delay loop where A is the number of times
+#$     DR is decremented to 0 from 0x0FFF
+#$     One decrement loop = 1044818 cycles
+#$     At 20Mhz that equates to ~52ms
 D sleep       # A=loop count
   #HLT
 D sleep.y     # do {
@@ -74,11 +79,9 @@ D sleep.x     #   do {
   #HLT
   RTL         # return
 
-# One loop =  1044818 cycles
-# Mhz      = 30000000 
-#          ~ 35ms
-
-#######################################################
+#$
+#$### | PrintASCIITbL
+#$     Prints the ASCII table for values 0x20..0xFF
 D PrintASCIITbl
 C PrintASCIITbl.i 1
   LAE 0x20              # Start at the space character
@@ -116,13 +119,11 @@ D PrintASCIITbL.lp1
 
 
 
-#######################################################
 
-#I stringlib.asm
-
-#######################################################
-# stackDump: prints some lines of stack memory
-# A = line count
+#$
+#$### | stackDump
+#$     Prints out lines of stack memory
+#$     where A = line count
 D stackDump
   # Save the line count to DumpLines
   LDR DumpLines
@@ -151,10 +152,11 @@ D stackDump
 
 
 
-#######################################################
-## Print a string of characters to Port1 from EEPROM
-## Takes advantage of the hardware increment in the SP  
-## rather than adding 1 to DR each time                 
+#$
+#$### | printStr1E
+#$     Print a string of characters to Port1 from EEPROM
+#$     Takes advantage of the hardware increment in the SP  
+#$     rather than adding 1 to DR each time                 
 D printStr1E 
   IQM # Mask IRQs since we are using SP for other stuff
   XDS # swap(DR,SP)
@@ -171,10 +173,11 @@ D printStr1E.kp
   INS # SP++
   JPL printStr1E.pb
 
-#######################################################
-## Print a string of characters to Port1 from DRAM
-## Takes advantage of the hardware increment in the SP  
-## rather than adding 1 to DR each time                 
+#$
+#$### | printStr1D
+#$     Print a string of characters to Port1 from RAM
+#$     Takes advantage of the hardware increment in the SP  
+#$     rather than adding 1 to DR each time                 
 D printStr1D 
   IQM # mask IRQs
   XDS # swap(DR,SP)
@@ -191,9 +194,11 @@ D printStr1D.kp
   INS # SP++
   JPL printStr1D.pb #goto |pb
 
-#######################################################
-## getCharB - read a byte from port0 into B and return when != 0
-##           write 0 to port0 to indicate the value has been read
+#$
+#$### | getCharB 
+#$     Reads a byte from port0 (stdin) into B 
+#$     returns when B != 0 otherwise loops
+#$     writes 0 to port0 to indicate the value has been read
 D getCharB
   LB0             # B = Port0       
   JSN getCharB.go  # if(b) ACK read and return
@@ -202,9 +207,10 @@ D getCharB.go
   W0E 0x00        # Port0 = 0  
   RTL             # Return
 
-#######################################################
-## isDigitB - check if the contents of B are >= '0' && < ':'
-##            A set to 0/1 to indicates it is/not a digit
+#$
+#$### | isDigitB 
+#$     Checks if the contents of B are >= '0' && < ':'
+#$     A is set to 0/1 to indicates that B is|is not a digit
 D isDigitB
 # Check if the input is greater than '/' (one less than '0')
   LAE 0x2F        # '/
@@ -226,9 +232,10 @@ D isDigitB.or
   LAZ
   RTL
   
-#######################################################
-## inRangeB - check if the contents of B are > D &&  B <= R 
-##            A set to 0/1 to indicates it is/not in range
+#$
+#$### | inRangeB
+#$     Checks if the contents of B are > D &&  B <= R 
+#$     A set to 0/1 to indicates B is|is not in range
 D inRangeB
 # Check if the input is greater than D
   LAD             # A=D
@@ -249,10 +256,11 @@ D inRangeB.or
   LAZ
   RTL
 
-#######################################################
-## isHexDigitB - check if the contents of B are >= 'A' && < 'G'
-##            A set to 0/1 to indicates it is/not a digit
-##            B set to hex value of digit
+#$
+#$### | isHexDigitB
+#$     Checks if the contents of B are >= 'A' && < 'G'
+#$     A set to 0/1 to indicates it is|is not a hex digit
+#$     B set to hex value of digit
 D isHexDigitB
   CAL isDigitB
   # if A == 1 return
@@ -282,17 +290,16 @@ D isHexDigitB.or
   LAZ
   RTL
 
-# #######################################################
-# Expects the string of hex characters to be on the stack
-# along with the address of the output
-# 
+#$
+#$### | xtos
+#$     Expects a big endian string of hex characters e.g. ABCD 
+#$     to be on the stack along with the address of the output
 D xtos
 C xtos.str 5  #sp+5 = pString
 C xtos.val 3  #sp+3 = pValue
-
  # HLT  # debug breakpoint 
  # NOP
-  
+
 # String is in big endian 0xABCD value is stored CDAB (little)
 # *pString = ABCD
   POE xtos.str
@@ -413,10 +420,13 @@ D xtos.ret
   RTL
 
 
-# #######################################################
-# # 1030: *getLine(DR=dst,A=max)
+#$
+#$### | getLine
+#$     Gets characters from the input and puts them 
+#$     into the string pointed to by DR
+#$     limited to the count in A
 D getLine
-
+# Put passed values onto the stack
 C getLine.char 5
   DES
 C getLine.pStr 3
@@ -441,7 +451,7 @@ D getLine.gac
 D getLine.go  
   W0E 0x00        # Ack read
   # Check for Enter
-  LAE 0x0A
+  LAE 'LF
   MAB 
   JLN getLine.c2
 D getLine.xit
@@ -453,8 +463,9 @@ D getLine.xit
   LDM
   LRB
   SIA  
-  W1E 0x20
+  W1E 'SP
 
+  # Clean up the stack before returning
   INS
   INS
   INS
@@ -464,7 +475,7 @@ D getLine.xit
 
   # Check for BS
 D getLine.c2
-  LAE 0x08
+  LAE 'BS
   MAB
   JLN getLine.oc
   # BS hit, delete last character, A is 0 at this point
@@ -564,9 +575,12 @@ D getLine.oce
   
 # #######################################################
 D Nib2HexTbl
-L 30 31 32 33 34 35 36 37 38 39 41 42 43 44 45 46
-# #######################################################
-D printBHex       # Print the value of B as a two character hex string
+#L 30 31 32 33 34 35 36 37 38 39 41 42 43 44 45 46
+S 0123456789ABCDEF
+#$
+#$### | printBHex
+#$      Prints the value in B as a two character hex string
+D printBHex       
   LAE 0xF0        # mask for high nib
   AAB             # A=mask & B
   RRA             # Rotate Right x4
@@ -595,7 +609,11 @@ V DumpRam_start
 a 2
 V DumpRam_count
 a 1
-
+#$
+#$### | DumpRam
+#$     Dumps RAM values as HEX starting at the global DumpRam_start
+#$     limited to the number in the global DumpRam_count
+#$     (Should really revisit this)
 D DumpRam
   # Store DR into DumpRam.start
   LBD
@@ -648,7 +666,10 @@ D DumpRam.more
   JLN DumpRam.more 
   RTL
   
-  
+#$
+#$### | DumpRamP
+#$     Dumps RAM values as Characters 
+#$     starting at DR for A bytes  
 D DumpRamP
   # Store DR into DumpRam.start
   LBD
@@ -729,7 +750,10 @@ a 1
 D DRamDumpHeader
 S DRAM:00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F 0123456789ABEDEF\n\0
 
-  
+#$
+#$### | DRamDump  
+#$     Prints DumpLines lines of RAM starting at DumpStart  
+#$     in the traditional table of HEX and character values
 D DRamDump
   POE 0x00
   LDR DRamDumpHeader

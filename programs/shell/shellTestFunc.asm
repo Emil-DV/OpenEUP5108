@@ -72,7 +72,7 @@ D tf.docdo
   LAM
   CAL docDrawCard
 
-  W2E 0x50		# Play a beep sound
+  W2E 0x40		# Play a beep sound
   
   LDR tf.col
   LAM

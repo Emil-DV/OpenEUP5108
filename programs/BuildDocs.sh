@@ -11,7 +11,7 @@ filename=StockLibProgs.md
 # #$     {for each line of long description and consts and/or Vars }
 
 # #$
-# #$###  { for function names} - {short description}
+# #$### | { for function names} - {short description}
 
 # Internal Global Consts & Vars should follow the pattern
 # {libAbrvConstName} or {libAbrv.VarName}
@@ -23,5 +23,5 @@ filename=StockLibProgs.md
 
 echo \# EUP5108 Stock Library and Program information > $filename
 # Find #$ comments at the beginning of a line and echos them without the #$
-./findinfiles.sh -r -n '^#\$' '*.asm' | sed 's/^#\$//' >> $filename
+findinfiles -r -n '^#\$' '*.asm' | sed 's/^#\$//' >> $filename
 

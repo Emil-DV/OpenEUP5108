@@ -1,17 +1,27 @@
-################################################################
-## BCD - Library of functions for Binary Coded Decimal Strings
-################################################################
+#$---- 
+#$## stdlibs/BCDLib.asm
+#$     Library of functions for Binary Coded Decimal
+#$     Strings
+#$
+#$     Each BCD string is limited to and expected to 
+#$     be this BCDLib.strlen in length including null
+#$     Example:
+#$     V HighScoreBCD
+#$     a BCDLib.strlen 
+#$       LDR HighScoreBCD
+#$       CAL BCDZro
+C BCDLib.strlen 8  # Max 9999999
 
-# Each BCD string is limited to and expected to be this length including null
-C BCDLib.strlen 8  # Max 99999999
+#$
+#$### | BCDec (Not yet implemented)
+#$     Decrement the BCD string by 1 using single digit math
+#$     DR = pBCDStr
+#D BCDDec
 
-# BCDInc - Increment the string by 1
-# BCDDec - Decrement the string by 1
-# BCDZro - Zero out the BCD string
-# BCDPnt - Print a BCD String 
-
-################################################################
-# BCDInc - Increment the BCD string by 1 using single digit math
+#$
+#$### | BCDInc
+#$     Increment the BCD string by 1 using single digit math
+#$     DR = pBCDStr
 D BCDInc # DR = pBCDStr
 C BCDInc.pBCDStr 1          # Store pBCDStr
   SCD
@@ -74,12 +84,13 @@ D BCDInc.c
   INS
   INS
   RTL
-  
 
-
-
-################################################################
-# BCDZro - Zero out the BCD string in:DR = pBCDStr
+#$
+#$### | BCDZro
+#$     Zero out the BCD string to 0 with 0x0A 
+#$     values to mark unused leading zeros
+#$     Call this first to initialize the BCD string
+#$     DR = pBCDStr
 # The binary value 0x0A is used to mark unfilled leading spaces
 D BCDZro 
   # Run backwards through the string
@@ -100,8 +111,10 @@ D BCDZro.do
 
   RTL
 
-################################################################
-# BCDPnt - Print a BCD String in:DR=pBCDStr
+#$
+#$### | BCDPnt
+#$     Print the BCD String using characters
+#$     DR=pBCDStr
 # The binary value 0x0A is used to mark unfilled leading spaces
 D BCDPnt
 C BCDPnt.pBCDStr 2          # Store pBCDStr
@@ -157,9 +170,10 @@ D BCDPnt.show               # Print the digit
 D BCDLEDnl
 S \e[3A\e\e[4C\e\0
   
-################################################################
-# BCDPntLED - Print a BCD String in BIGLEDs
-# in:DR=pBCDStr
+#$
+#$### | BCDPntLED
+#$     Print the BCD String using BIGLEDs
+#$     DR=pBCDStr
 # The binary value 0x0A is used to mark unfilled leading spaces
 D BCDPntLED
 C BCDPntLED.pBCDStr 2          # Store pBCDStr

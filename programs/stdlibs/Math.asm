@@ -1,6 +1,12 @@
-## Math.asm Math library for mul and div
-# #######################################################
-# Div8(DR=Dividend, B=Divisor, out A=Quotient, out B=Remainder
+ #$---- 
+#$## stdlibs/Math.asm 
+#$     Math library for mul and div functions
+#$
+#$### | Div8
+#$     DR=Dividend (16bit), B=Divisor (8bit)
+#$     Divides DR by B returning Quotient in A &
+#$     Remainder in B
+#$     Also functions as a modulus operation
 D Div8
   LAE 0x00      # Clear the result
 D Div8.loop     
@@ -18,9 +24,11 @@ D Div8.IQ
   INA           # Add 1 to Quotient
   JPS Div8.loop
   
-# #######################################################
-# Integer divide by multiple subtraction B / A : DR=int div B=remainder
-
+#$
+#$### | DivBA
+#$     Divides B by A via multiple subtraction
+#$     returning Quotient in DR and remainder in B
+#$     Also functions as a modulus operation
 D DivBA           # Div B by A 
   LDZ             # Zero out DR
   MBA             # B = B - A
@@ -36,8 +44,10 @@ D DivBA.done
   EBA             # B = B + A
   RTL             
   
-# #######################################################
-# Integer multiply by multiple addtion B * A : DR=result
+#$
+#$### | MulBA
+#$     Multiplies B by A via multiple addition
+#$     returning the product in DR
 D MulBA           # Multiply B x A 
   LTB             # T = B
   LDZ             # DR = 0

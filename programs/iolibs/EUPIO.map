@@ -6,27 +6,27 @@ Line |APA |Content
    16|    |D getC.r |
    17|1004|  W0E 0x00 |
    18|1006|  RTL |
-   24|    |D getString |
-   26|1007|  LB0 |
-   27|1008|  JSN getString.go |
-   28|100A|  JPL getString |
-   29|    |D getString.go |
-   30|100D|  W0E 0x00 |
-   32|100F|  LAE 'LF |
-   33|1011|  MAB |
-   34|1012|  JLN getString.c2 |
-   35|1015|  SIA |
-   36|1016|  RTL |
-   38|    |D getString.c2 |
-   39|1017|  LAE 'BS |
-   40|1019|  MAB |
-   41|101A|  JLN getString.oc |
-   42|101D|  SIA |
-   43|101E|  DED |
-   44|101F|  W1B |
-   45|1020|  JPL getString |
-   47|    |D getString.oc |
-   48|1023|  SIB |
-   49|1024|  IND |
-   50|1025|  W1B |
-   51|1026|  JPL getString |
+   29|    |D getString |
+   31|1007|  LB0 |
+   32|1008|  JSN getString.go |
+   33|100A|  JPL getString |
+   34|    |D getString.go |
+   35|100D|  W0E 0x00 |
+   37|100F|  LAE 'LF |
+   38|1011|  MAB |
+   39|1012|  JLN getString.c2 |
+   40|1015|  SIA |
+   41|1016|  RTL |
+   43|    |D getString.c2 |
+   44|1017|  LAE 'BS |
+   45|1019|  MAB |
+   46|101A|  JLN getString.oc |
+   47|101D|  SIA |
+   48|101E|  DED |
+   49|101F|  W1B |
+   50|1020|  JPL getString |
+   52|    |D getString.oc |
+   53|1023|  SIB |
+   54|1024|  IND |
+   55|1025|  W1B |
+   56|1026|  JPL getString |

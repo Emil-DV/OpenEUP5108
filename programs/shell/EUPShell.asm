@@ -6,6 +6,9 @@
 W main      # Set reset vector to main
 O 0010      # Start rom constants at 0x0010 ROM ADDRESS
 
+I ..\stdlibs\sys.asm # Always include sys.asm before any
+                     # other vars are declared
+                     
 ###### Shell Globals ###################################
 V CmdStr    # The command line entered
 a FF
@@ -19,7 +22,6 @@ V main.pCmdMap  # Temp cmd map pointer to the entry of interest
 a 2
 
 # include both libraries and command execution functions
-I ..\stdlibs\sys.asm
 I ..\stdlibs\StringLib.asm
 #I ..\stdlibs\Math.asm
 I ..\stdlibs\UtilFunctions.asm

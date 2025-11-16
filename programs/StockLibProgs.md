@@ -51,6 +51,7 @@
      VTBLUEONBLK - Sets blue characters on black background
      VTBLUEONWHT - Sets blue characters on white background
      VTBLKONWHT - Sets black characters on white background
+     VTWHTONBLK - Sets white characters on black background
      VTPURPONBLK - Sets purple characters on black background
      VTYELLONBLK - Sets yellow characters on black background
      VTREVERSE - Switches foreground and background colors
@@ -282,6 +283,56 @@
     Converts the characters in the string pointed to by DR
     into a two byte value returning it in DR
     Assumes string passed has only '0'..'9' in it
+---- 
+##  stdlibs/sys.asm
+     System constants and memory mapped I/O
+
+    The realtime clock resides at address 0x00..0x0F
+    and contains the clock in two strings in the format
+    YYMMDD\0HHMMSS\0
+    With the YY being years since 2000 - it will have the year
+    2100 problem - but I won't
+
+    Followed by the two byte value of the current mS in binary
+---- 
+## stdlibs/time.asm
+     Date and Time functions
+     The RTC is now a memory mapped device
+     with the emulator printing the current
+     date and local time to RAM at 0x00 
+
+     Set RTCZone for Local/GMT time first
+     RTCZone = 1 : Local Time
+     RTCZone = 2 : GMT Time
+
+     Pointer vars to the Date and Time
+     strings are located in sys.asm
+     
+     V RTCDate = Date in "YYMMDD\0" format
+     V RTCTime = Local time in "HHMMSS\0" format
+     V RTCmSec = Two byte value of the current
+               mSecond in binary
+
+### | date
+     Prints the current Date string
+
+### | time
+     Prints the current Date string
+     A = 1 (local time)
+     A = 2 (GMT time)	
+
+### | datetime
+     Prints the current date and time
+     in the format YY/MM/DD HH:MM:SS
+     A = 1 (local time)
+     A = 2 (GMT time)	
+
+### | bigtime
+     Prints the current date time using BigLEDs
+     YY/MM/DD
+     HH:MM:SS in the center of the screen
+     A = 1 (local time)
+     A = 2 (GMT time)	
 ---- 
 ## stdlibs/UtilFunctions.asm
      As set of utility functions for various operations

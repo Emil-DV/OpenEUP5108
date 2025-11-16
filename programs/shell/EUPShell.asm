@@ -26,6 +26,7 @@ I ..\stdlibs\StringLib.asm
 #I ..\stdlibs\Math.asm
 I ..\stdlibs\UtilFunctions.asm
 I ..\stdlibs\BCDLib.asm
+I ..\stdlibs\time.asm
 
 I ..\displaylibs\vt100.asm
 I ..\displaylibs\BigLED.asm
@@ -102,6 +103,26 @@ W echoVTCmd
 W echoVT
 W echoVTMsg
 
+W zoneCMD
+W setZone
+W zoneCMDHelp
+
+W dateCmd
+W date
+W dateCmdHelp
+
+W timeCmd
+W time
+W timeCmdHelp
+
+W datetimeCmd
+W datetime
+W datetimeCmdHelp
+
+W bigtimeCmd
+W bigtime
+W bigtimeCmdHelp
+
 #$
 #$     externalcmds.asm
 #$     contains the additional command map entries
@@ -116,6 +137,23 @@ L 00 00  # this null indicates the end of the table
 
 V oneWord
 a 40
+
+D zoneCMD
+S z\0
+D zoneCMDHelp
+S z: Set time zone local (1) GMT (2) RTC off (0)\0
+#######################################################
+D setZone
+  LDR CmdStr
+  IND
+  IND
+  LAM
+  LBE '0
+  MAB
+  LDR RTCZone
+  SIA
+  RTL
+
 
 # While additional commands could be built-in keeping 
 # each program to a set of other files will be more 
@@ -224,7 +262,12 @@ D main # The EUP shell provides a CLI framework for a
   LDR ASCIIShelldon # Print shelldon
   CAL printStr1E    
   
+  LDR RTCZone     # Set the RTCZone for local
+  LAO
+  SIA
+  
 D main.do         # Command loop
+  
   LDR shellPrompt # Print prompt
   CAL printStr1E
   LAE CMDSTRMAX   # Max length of command string
@@ -241,7 +284,6 @@ D main.do         # Command loop
   
   #Process the command entered
 D main.proc  
-  
   LDR CmdStrLen
   SIA             # CmdStrLen = A 
     

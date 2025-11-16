@@ -20,7 +20,7 @@ C sys.scrwidth 0x50
 # OR...
 
 #$    The realtime clock resides at address 0x00..0x0F
-#$    and contains the clock in two BCD strings in the format
+#$    and contains the clock in two strings in the format
 #$    YYMMDD\0HHMMSS\0
 #$    With the YY being years since 2000 - it will have the year
 #$    2100 problem - but I won't
@@ -31,9 +31,11 @@ C sys.scrwidth 0x50
 # calculations and need it mostly for on screen display
 # The mSec is a convient fast turn over value for seeding rand
 A 00
-V RTCDate  # Date BCD string
-a 0x07
-V RTCTime  # Time BCD string
+V RTCDate  # Date string
+a 0x06
+V RTCTrigger # Set to 1 to get local, 2 for GMT
+a 0x01
+V RTCTime  # Time string
 a 0x07
 V RTCmSec  # mSec in short
 a 0x02

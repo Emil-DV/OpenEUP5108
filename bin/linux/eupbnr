@@ -18,5 +18,5 @@ if [ $? -ne 0 ]; then
           ;;
   esac
 fi
-EUPEMU $progname.rom 20000000 R
+EUPEMU $progname.rom 200000000 R
 

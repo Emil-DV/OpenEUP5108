@@ -430,8 +430,8 @@ D getLine
 C getLine.char 5
   DES
 C getLine.pStr 3
-  SCR
   SCD
+  SCR
 C getLine.max 2
   SCA
 C getLine.len 1
@@ -450,6 +450,7 @@ D getLine.gac
 
 D getLine.go  
   W0E 0x00        # Ack read
+  
   # Check for Enter
   LAE 'LF
   MAB 

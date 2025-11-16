@@ -100,6 +100,10 @@ S \e[34;47m\e\0
 D VTBLKONWHT
 S \e[30;47m\e\0
 
+#$     VTWHTONBLK - Sets white characters on black background
+D VTWHTONBLK
+S \e[37;40m\e\0
+
 #$     VTPURPONBLK - Sets purple characters on black background
 D VTPURPONBLK
 S \e[35;40m\e\0

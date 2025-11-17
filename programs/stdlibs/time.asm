@@ -130,7 +130,7 @@ D datetime
 #$     A = 1 (local time)
 #$     A = 2 (GMT time)	
 D bigtimeCmd
-S bigtime\0
+S bt\0
 D bigtimeCmdHelp
 S bigtime: Show the time in big LEDS\0
 C btRow 2
@@ -218,6 +218,11 @@ D bigtime.l
   CAL vtSetCursorPos
   W1E 0xDF
 
+#$     Sleep a little since accessing the RTC in linux
+#$     Takes quite a bit of time and doing it in a hard
+#$     loop tanks the clock rate of the emulator
+  LAE 0x0F
+  CAL sleep
   LB0
   JSN bigtime.x
   JPL bigtime.l

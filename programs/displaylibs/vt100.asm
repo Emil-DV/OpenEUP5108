@@ -24,13 +24,31 @@ S \eD\e\0
 D VTSCRDWN
 S \eM\e\0
 
-#$     VTBIGCHARS - Turns on BIG characters
-D VTBIGCHARS
+#$     VTBLDCHARS - Turns on Bold characters
+D VTBLDCHARS
+S \e[1m\e\0
+
+#$     VTBOFFCHARS - Turns off Bold characters
+D VTBOFFCHARS
+S \e[22m\e\0
+
+
+#$     VTITACHARS - Turns on Italic characters
+D VTITACHARS
 S \e[3m\e\0
 
-#$     VTJUMBOCHARS - Turns on JUMBO characters
-D VTJUMBOCHARS
+#$     VTITOFFCHARS - Turns off Italic characters
+D VTITOFFCHARS
+S \e[23m\e\0
+
+#$     VTBLINKCHARS - Turns on Blinking characters
+D VTBLINKCHARS
 S \e[6m\e\0
+
+#$     VTBLOFFCHARS - Turns off Blinking characters
+D VTBLOFFCHARS
+S \e[25m\e\0
+
 
 #$     VTHIDECURSOR - Hides the cursor
 D VTHIDECURSOR
@@ -63,22 +81,6 @@ S \e[1A\e\e[1D\e\0
 #$     VTCR - move to top left corner of the whole screen
 D VTCR
 S \e[1H\e\0
-
-#$     VTDTH - set double height letters top half
-D VTDTH
-L 1B 5B 23 33 1B 00
-
-#$     VTDHBH - set double height letters bottom half
-D VTDHBH
-L 1B 5B 23 34 1B 00
-
-#$     VTSWSH - set single with single height letters
-D VTSWSH
-L 1B 5B 23 35 1B 00
-
-#$     VTDWSH - set double with single height letters
-D VTDWSH
-L 1B 5B 23 36 1B 00
 
 #$     VTREDONBLK - Sets red characters on black background
 D VTREDONBLK

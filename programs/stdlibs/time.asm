@@ -195,7 +195,9 @@ D bigtime.l
   EDB
   LAM
   CAL printLED
-  # Print the colons (FE)
+  # Print the colons
+  LDR VTBLINKCHARS
+  CAL printStr1E
   LBE btRow
   LAE 35
   CAL vtSetCursorPos
@@ -217,6 +219,8 @@ D bigtime.l
   LAE 45
   CAL vtSetCursorPos
   W1E 0xDF
+  LDR VTBLOFFCHARS
+  CAL printStr1E
 
 #$     Sleep a little since accessing the RTC in linux
 #$     Takes quite a bit of time and doing it in a hard

@@ -1,5 +1,5 @@
 #!/bin/bash
-filename=StockLibProgs.md
+filename=readme.md
 # md code usage
 # use
 # #$**Warning** for important notes
@@ -21,7 +21,7 @@ filename=StockLibProgs.md
 
 # The asssembler does not output label location with . in them
 
-echo \# EUP5108 Stock Library and Program information > $filename
+echo \# EUP5108 Stock Library and Program Documentation > $filename
 # Find #$ comments at the beginning of a line and echos them without the #$
 findinfiles -r -n '^#\$' '*.asm' | sed 's/^#\$//' >> $filename
 

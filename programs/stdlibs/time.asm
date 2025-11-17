@@ -139,6 +139,35 @@ D bigtime
   CAL clearFunc
   LDR VTREDONBLK
   CAL printStr1E
+
+  # Print the colons
+  LDR VTBLINKCHARS
+  CAL printStr1E
+  LBE btRow
+  LAE 35
+  CAL vtSetCursorPos
+  W1E 0xDC
+  LBE btRow
+  LAE 2
+  EBA
+  LAE 35
+  CAL vtSetCursorPos
+  W1E 0xDF
+
+  LBE btRow
+  LAE 45
+  CAL vtSetCursorPos
+  W1E 0xDC
+  LBE btRow
+  LAE 2
+  EBA
+  LAE 45
+  CAL vtSetCursorPos
+  W1E 0xDF
+  LDR VTBLOFFCHARS
+  CAL printStr1E
+
+
 D bigtime.l
   LDR RTCZone	# Copy zone value to RTCTrigger
   LAM
@@ -195,32 +224,6 @@ D bigtime.l
   EDB
   LAM
   CAL printLED
-  # Print the colons
-  LDR VTBLINKCHARS
-  CAL printStr1E
-  LBE btRow
-  LAE 35
-  CAL vtSetCursorPos
-  W1E 0xDC
-  LBE btRow
-  LAE 2
-  EBA
-  LAE 35
-  CAL vtSetCursorPos
-  W1E 0xDF
-
-  LBE btRow
-  LAE 45
-  CAL vtSetCursorPos
-  W1E 0xDC
-  LBE btRow
-  LAE 2
-  EBA
-  LAE 45
-  CAL vtSetCursorPos
-  W1E 0xDF
-  LDR VTBLOFFCHARS
-  CAL printStr1E
 
 #$     Sleep a little since accessing the RTC in linux
 #$     Takes quite a bit of time and doing it in a hard

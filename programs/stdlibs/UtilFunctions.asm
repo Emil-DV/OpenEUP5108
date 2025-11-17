@@ -60,23 +60,18 @@ D incShort.c
 #$
 #$### | sleep
 #$     Delay loop where A is the number of times
-#$     DR is decremented to 0 from 0x0FFF
+#$     DR is decremented from 0x0FFF to 0
 #$     One decrement loop = 1044818 cycles
 #$     At 20Mhz that equates to ~52ms
 D sleep       # A=loop count
-  #HLT
 D sleep.y     # do {
-#  LDZ         #   DR = 0
   LRE 0xFF
   LDE 0x0F
-#  LTO         #   T = 1
-#  MDT         #   DR -= T
 D sleep.x     #   do {
   DED         #     DR -= 1
   JLN sleep.x #   }while(DR != 0)
   DEA         #   A -= 1
   JLN sleep.y # }while(A != 0)
-  #HLT
   RTL         # return
 
 #$

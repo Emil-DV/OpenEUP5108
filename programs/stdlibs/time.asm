@@ -132,7 +132,7 @@ D datetime
 D bigtimeCmd
 S bt\0
 D bigtimeCmdHelp
-S bigtime: Show the time in big LEDS\0
+S bt: Show the time in big LEDS\0
 C btRow 2
 C btCol 30
 D bigtime

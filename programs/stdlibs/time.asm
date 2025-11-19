@@ -20,6 +20,9 @@
 V RTCZone
 a 1
 
+D GMTMark
+S (GMT)\0
+
 #$
 #$### | date
 #$     Prints the current Date string
@@ -166,7 +169,18 @@ D bigtime
   W1E 0xDF
   LDR VTBLOFFCHARS
   CAL printStr1E
-
+  
+  LDR RTCZone
+  LAM
+  LBE 2
+  MBA
+  JLN bigtime.l
+  LBO ####### Load A with 1 ????????
+  LBE 1
+  LAE 38
+  CAL vtSetCursorPos
+  LDR GMTMark
+  CAL printStr1E
 
 D bigtime.l
   LDR RTCZone	# Copy zone value to RTCTrigger

@@ -7,11 +7,11 @@
 #$     Divides DR by B returning Quotient in A &
 #$     Remainder in B
 #$     Also functions as a modulus operation
-D Div8
+D Div8		# The function C: void Div8(DR,B)
   LAE 0x00      # Clear the result
 D Div8.loop     
   MDB           # Subtract devisor from dividend
-  JSR Div8.xt   # if borrow then there are no more divisors in dividend
+  JSR Div8.xt   # if borrowed then there are no more divisors in dividend
   JSN Div8.IQ   # if not zero then value remaining is >  0
   INA           # Add 1 to Quotient
   LBR           # put zero remainder into B

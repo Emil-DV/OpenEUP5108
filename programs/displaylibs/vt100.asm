@@ -181,7 +181,7 @@ C vtSetCursorPos.r 1        # r = B
   POE vtSetCursorPos.c
   LBM
   
-  #Add 2 to vtTEMP.str to get to the row pos
+  #Add 6 to vtTEMP.str to get to the col pos
   LDR vtTEMP.str
   LTE 6
   EDT

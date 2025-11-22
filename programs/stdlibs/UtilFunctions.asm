@@ -25,19 +25,6 @@ D callFNptr.call # a manually entered CAL instruction
 L 96 00 00            # Call the function pointer passed in
   RTL
 
-
-#$
-#$### | getRand
-#$     Gets a random number from the 
-#$     Special Function Port and puts it in B
-D getRand
-  W2E 0xFE      # put in random num mode
-  W2A           # A=random number range
-  LB0           # Read back rand number
-  W0E 0x00      # Ack read from port
-  W2E 0xFC      # put back into sound mode
-  RTL
-
 #$
 #$### | incShort
 #$     Add one to the 16bit value stored at DR
@@ -195,12 +182,25 @@ D printStr1D.kp
 #$     returns when B != 0 otherwise loops
 #$     writes 0 to port0 to indicate the value has been read
 D getCharB
-  LB0             # B = Port0       
-  JSN getCharB.go  # if(b) ACK read and return
-  JPL getCharB     # No character so loop
+  LB0 			# B = Port0       
+  JSN getCharB.go	# if(b) ACK read and return
+  JPL getCharB		# No character so loop
 D getCharB.go
-  W0E 0x00        # Port0 = 0  
-  RTL             # Return
+  W0E 0x00		# ACK read (Port0 = 0)
+  RTL    		# Return
+
+#$
+#$### | getCB 
+#$     Reads a byte from port0 (stdin) into B 
+#$     returns when B != 0 otherwise loops
+#$     writes 0 to port0 to indicate the value has been read
+D getCB
+  LB0           	# B = Port0       
+  JSN getCB.go		# if(b) ACK read and return
+  RTL          		# No character is pending so return
+D getCB.go
+  W0E 0x00    		# ACK read (Port0 = 0)
+  RTL        		# Return with character in B
 
 #$
 #$### | isDigitB 

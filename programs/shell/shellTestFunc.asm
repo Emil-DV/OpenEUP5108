@@ -3,11 +3,14 @@
 # This is an example of an external source code addition
 # to the EUP shell
 
+I ../stdlibs/rand.asm # Bring in the random number lib
+
 # Define the three command table entries
 D testCmd       # the command word
 S test\0     
 D testMsg       # the one line help message
 S test: Runs the latest test code\0
+
 
 D testFunc      # the function itself
   # Run whatever test code there is
@@ -17,7 +20,10 @@ D testFunc      # the function itself
   CAL printStr1E
   
   # Run the playing card test
-  JPL testPlayingCards
+#  JPL testPlayingCards
+  # Run the random value screen test
+  CAL TestRandStr
+  CAL testRandScreen
 
 # The playing cards test  
 V tf.col
@@ -127,69 +133,36 @@ D tf.docrc
   LAE 'q
   MAB
   JLN tf.docdo1 
+  RTL
 
-D tf.loop  
-  LAE 80
-  CAL getRand
-  INB
-  LDR tf.col
-  SIB
-
-  LAE 25
-  CAL getRand
-  INB
-  LDR tf.row
-  SIB
-
-  LAE 0xF0
-  CAL getRand
-  INB
-  LAE 'ESC
-  MAB
-  JLN tf.pchar
-  INB
-D tf.pchar
-  LDR tf.char
-  SIB
-
-  LDR tf.col  
-  LAM
-  LDR tf.row
-  LBM  
-  CAL vtSetCursorPos
-  LDR tf.char
-  LAM
-  W1A
-
-  LAZ
-D tf.delay
-  DEA
-  NOP
-  NOP
-  NOP
-  JLN tf.delay
   
-  JPL tf.loop
+D DrawBoxTest  
+  INS
+# Test of the DrawBox function  
+  LDR VTCLR		# Clear the screen
+  CAL printStr1E
+
+  LDR VTHOME		# Home the cursor
+  CAL printStr1E
   
-  W1E 'LF
-  LDR charRuler
+  LDR charRuler		# Print the ruler
   CAL printStr1E
  
-  LDR VTREDONBLK  # Set Red on Black
+  LDR VTREDONBLK  	# Set Red on Black
   CAL printStr1E
 
-# First we push the row and col for the top left of the box
-  LAE 3           # Row = 3
+  # For the drawBox function we first push the row and col onto the stack for the top left of the box
+  LAE 3          	# Row = 3
   SCA
-  LAE 7           # Col - vt100 Window is 1 based
+  LAE 7         	# Col - vt100 Window is 1 based
   SCA
-# These are the inner dimensions of the box
-# not including the top/bottom or left/right of the frame
-  LAE 12          # Width
-  LBE 1           # height
-  LDR DBLLineMatrix # Double line box matrix
-  CAL DrawBox
-  INS             # Remove the passed vars
+  # The inner dimensions of the box are passed in A (width) & B (height
+  # not including the top/bottom or left/right of the frame
+  LAE 12        	# Width
+  LBE 3        		# height
+  LDR DBLLineMatrix	# Double line box matrix
+  CAL DrawBox		# Draw it
+  INS		        # Remove the passed vars from the stack
   INS
 
 

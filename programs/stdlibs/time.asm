@@ -188,11 +188,38 @@ D bigtime.l
   LDR RTCTrigger
   SIA
 
+  # Print the date above the time
+  LBE btRow
+  DEB
+  LAE 35
+  CAL vtSetCursorPos
+  W1E '2
+  W1E '0
+  LDR RTCDate	# Point to the date string from RTC
+  LAM           # Load Year first digit
+  W1A		# Print it
+  IND		# DR++
+  LAM		# Load Year second digit
+  W1A		# Print it
+  W1E 0x2F	# Print /
+  IND		# DR++
+  LAM		# Load Month first digit
+  W1A		# Print it
+  IND		# DR++
+  LAM		# Load Month second digit
+  W1A		# Print it
+  W1E 0x2F	# Print /
+  IND           # DR++
+  LAM		# Load Day first digit
+  W1A		# Print it
+  IND		# DR++
+  LAM		# Load Day second digit
+  W1A		# Print it  
   LBE btRow
   LAE 27
   CAL vtSetCursorPos
   LDR RTCTime	# Point to the date string from RTC
-  LAM           # Load Year first digit
+  LAM           # Load hour first digit
   LBE 0x30
   MAB
   CAL printLED

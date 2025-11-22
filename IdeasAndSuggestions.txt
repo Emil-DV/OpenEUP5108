@@ -1,11 +1,67 @@
 EUP5108  ideas/suggestions
 
 TODO
- - Add a file, read by the Emulator, if found, that redefines characters (E0..FE) as any unicode value
- - Add memory mapped I/O for HDD
- - Update docs with emulator instructions
- - Add file read by the asm & emu that list nemonics to instructions
+ - Fix bug so gmp stores full path to files
+ - Fix debug line to only show the filename or limited path
 
+ - malloc, free
+ 
+ - Add memory mapped I/O for:
+   "Kniting a socket Library in EUP5108 Assembly"
+   Single/Dual sockets, virtual IPs 192.168.1.1 & 127.0.0.1 netmask 255.255.255.0 
+   Socket Creation:
+     socket(), AF_INET for IPv4), socket type (e.g., SOCK_STREAM for TCP, SOCK_DGRAM for UDP)
+     for TCP:
+      connect(), bind(), listen(), accept(), close() send(), recv(), write(), and read()
+   
+   
+   htons() / htonl(): Convert values from host byte order to network byte order (short/long).
+   ntohs() / ntohl(): Convert values from network byte order to host byte order (short/long).
+   inet_addr() (IPv4 only) or inet_pton() (IPv4 and IPv6): Convert IP addresses from text string format to binary network format.
+
+   ** Most function will be pass throughs to the emulator that calls the same functions and returns values in DRAM **
+
+   SocketAddress structures to represent network endpoints, combining an IP address and a port number.
+	struct sockaddr_in {
+	    short            sin_family; // Address family (always AF_INET for IPv4)
+	    unsigned short   sin_port;   // Port number (in network byte order)
+	    struct in_addr   sin_addr;   // IPv4 address (struct in_addr, in network byte order)
+	    char             sin_zero[8]; // Padding to make the struct the same size as sockaddr
+	};
+
+	struct in_addr {
+	    unsigned long s_addr; // the IP address as a 32-bit integer (network byte order)
+	};
+
+	telnet/ftp/nfs client
+
+   Core UDP APIs
+   Function        Description
+   --------------------------------
+   socket()	Creates a new socket (datagram type SOCK_DGRAM) and returns a file descriptor.
+   bind()   	Associates the socket with a local address and port number (optional for clients, required for servers to listen on a specific port).
+   sendto()	Sends a datagram to a specific destination address and port provided as arguments.
+   recvfrom()	Receives a datagram and captures the source address of the sender in a provided structure.
+   close()	Releases system resources associated with the socket.
+   connect()	Optional: A UDP socket can use connect() to restrict communication to a single peer, allowing use of the simpler send() and recv() functions. This creates a "connected UDP socket".
+
+   NFS client to the OpenEUP5108/programs folder
+     fopen r,w,a, fread, fwrite, fseek(b,c,e), fclose
+	
+ - Rand
+ 	
+ - Arrow UP/Dwn to go through shell command history
+ 	   
+ - Update docs with emulator instructions
+
+ - Calander app? w/alarms - stored on mapped drive
+ 
+ - restrict asm to only building from first to last page (256) of ROM
+ - loadable apps
+
+ - Add a file, read by the Emulator, if found, that redefines characters (E0..FE) as any unicode value
+ - Add file read by the asm & emu that list nemonics to instructions
+  
 Done
  * Add assembler warning message if O directive is < current APA
  * Fix issue where assembler allows the inclusion of the same file more that once

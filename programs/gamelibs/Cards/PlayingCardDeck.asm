@@ -41,49 +41,53 @@ D docID.do
 ##############################################
 # ShuffleDeck - Shuffle deck
 D docShuffleDeck
+  CAL srand		# Seed the Random Number generator from the clock
 C docSD.i 3
-  LAE 52              # i = 52
+  LAE 52		# i (stack) = 52
   SCA
-C docSD.t 2
+C docSD.t 2		# t (stack) 
   DES
-C docSD.r 1  
+C docSD.r 1  		# r (stack)
   DES
   
-D docSD.do
-  POE docSD.i         # A = i
+D docSD.do		# Outer loop through all the possible cards
+  POE docSD.i         	# A = i
   LAM
-  CAL getRand
-  POE docSD.r         # r = B
+  CAL rand		# Get random value (0..i-1)
+  POE docSD.r         	# store random value in B: r = B
   SIB
 
-  LDR docFullDeck     # t = fulldeck[B]
+  LDR docFullDeck  	# DR = &fulldeck[B]
   EDB
-  LBM
-  POE docSD.t         
+  LBM			# B = fulldeck[B]
+  POE docSD.t		# t (stack) = B
   SIB
 
-  POE docSD.i         # A = fulldeck[i-1]  
+  POE docSD.i      	# i (stack) = fulldeck[i-1]  
   LAM
-  DEA
-  LDR docFullDeck
+  DEA			# A-- : i--
+  
+  LDR docFullDeck       # A = fulldeck[i-1]
   EDA
-  LAM
-  SIB                 # fulldeck[i-1] = B
+  LAM			
   
-  POE docSD.r         # fulldeck[r] = A
+  SIB                   # fulldeck[i-1] = B
+  
+  POE docSD.r       	# B = r
   LBM
-  LDR docFullDeck
+  
+  LDR docFullDeck	# fulldeck[B] = A
   EDB
   SIA
 
-  POE docSD.i         # i--
+  POE docSD.i    	# i--
   LAM
   DEA
   SIA
-  JLN docSD.do        # while i > 0
+
+  JLN docSD.do    	# while i > 0
   
-  
-  INS
+  INS			# Remove locals r,t,i before return
   INS
   INS
   RTL

@@ -20,9 +20,14 @@ D testFunc      # the function itself
   CAL printStr1E
   
   # Run the playing card test
-#  JPL testPlayingCards
+#  CAL testPlayingCards
   # Run the random value screen test
-  CAL TestRandStr
+  LDR VTCLR
+  CAL printStr1E
+  LDR VTHOME
+  CAL printStr1E
+
+#  CAL TestRandStr
   CAL testRandScreen
 
 # The playing cards test  
@@ -78,7 +83,9 @@ D tf.docdo
   LAM
   CAL docDrawCard
 
-  W2E 0x40		# Play a beep sound
+  #W2E 0x40		# Play a beep sound
+  LAE 4
+  CAL sleep
   
   LDR tf.col
   LAM

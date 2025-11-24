@@ -176,7 +176,7 @@ D bigtime
   MBA
   JLN bigtime.l
   LBO ####### Load A with 1 ????????
-  LBE 1
+  LBE 5
   LAE 38
   CAL vtSetCursorPos
   LDR GMTMark
@@ -189,11 +189,11 @@ D bigtime.l
   SIA
 
   # Print the date above the time
-  LBE btRow
+  LBE btRow	# Load the btRow - 1 into B
   DEB
-  LAE 35
+  LAE 35	# Col 
   CAL vtSetCursorPos
-  W1E '2
+  W1E '2	# Add the 20 to the year - good enough for how long I got left
   W1E '0
   LDR RTCDate	# Point to the date string from RTC
   LAM           # Load Year first digit

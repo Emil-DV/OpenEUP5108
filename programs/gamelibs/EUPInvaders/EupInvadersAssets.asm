@@ -22,12 +22,12 @@ D eiShield
 # █▀▀▀▀█
 L DC DB DB DB DB DC 00
 L DB DF DF DF DF DB 00 00 00
-C eiShield.size 10
+C eiShield.size 16
 
 #          1         2         3         4         5         6         7         8
 # 123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.
-C eiBadGuyRowLen 45
-C eiBadGuyRowsLen 8A 
+C eiBadGuyRowLen 0x45
+C eiBadGuyRowsLen 0x8A 
 D eiBadGuyRows
 # «(Φ)»  «(Φ)»  «(Φ)»  «(Φ)»  «(Φ)»  «(Φ)»  «(Φ)»  «(Φ)»  «(Φ)»  «(Φ)»\0
 L CD 28 E4 29 CD 20 20 CD 28 E4 29 CD 20 20 CD 28 E4 29 CD 20 20 CD 28 E4 29 CD 20 20 CD 28 E4 29 CD 20 20 
@@ -69,7 +69,7 @@ a 1
 V eiBGRight
 a 1
 
-C eiShieldBlockLen 51
+C eiShieldBlockLen 0x51
 D eiShieldBlock
 #      ████         ████         ████         ████         ████         ████      \n
 #     ██████       ██████       ██████       ██████       ██████       ██████     \n
@@ -92,7 +92,7 @@ L DB B2 B1 B0
 D eiBullet
 # °
 L F8
-C eiBullet1 F8
+C eiBullet1 0xF8
 
 D eiBlasterPulse
 # «∙∙

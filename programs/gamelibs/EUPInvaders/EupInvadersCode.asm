@@ -138,8 +138,8 @@ D ShieldBlockUp
 #######################################################
 ## DrawShieldBlock
 #######################################################
-C ShieldBlockRow 16 
-C ShieldBlockRowBase 18
+C ShieldBlockRow 0x16 
+C ShieldBlockRowBase 0x18
 D DrawShieldBlock
   LDR VTBLUEONBLK
   CAL printStr1E
@@ -203,7 +203,7 @@ D DB.rtl
 #######################################################
 V GoodGuyPOS
 a 1
-C GoodGuyRow 19
+C GoodGuyRow 0x19
 
 D DrawGoodGuy       # void DrawGoodGuy()
   LDR GoodGuyPOS    # B = GoodGuyPOS

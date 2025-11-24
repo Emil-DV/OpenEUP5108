@@ -14,14 +14,15 @@ O 0010      # Start rom constants at 0x0010 ROM ADDRESS
 
 V CmdStr    # The command entered
 a 42
-C CMDSTRMAX 41
+C CMDSTRMAX 0x41
 V CmdStrLen # The length of the command entered
 a 1
 
 I ..\stdlibs\sys.asm
 I Strings.asm
 I BootBanner.asm
-
+I ..\stdlibs\rand.asm
+I ..\stdlibs\BCDLib.asm
 I ..\displaylibs\vt100.asm
 I ..\displaylibs\BoxDrawing.asm
 I ..\displaylibs\BigLED.asm
@@ -153,19 +154,19 @@ D tf.docrc
 
 D tf.loop  
   LAE 80
-  CAL getRand
+  CAL rand
   INB
   LDR tf.col
   SIB
 
   LAE 25
-  CAL getRand
+  CAL rand
   INB
   LDR tf.row
   SIB
 
   LAE 0xF0
-  CAL getRand
+  CAL rand
   INB
   LAE 'ESC
   MAB
@@ -266,7 +267,7 @@ C IRQ1Func.i 1        # Local on the stack
   #CAL ShieldsUp
   
 
-C SpriteRow   09      # Row var
+C SpriteRow   9      # Row var
 C SpriteStart 20      # Start col
 C SpriteStop  25      # Stop Col
 C SpriteDelay 03      # Delay between draws

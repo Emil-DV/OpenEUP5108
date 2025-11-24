@@ -5,13 +5,13 @@ V randSeed
 a 1
 
 D srand
-#  CAL seedRandOrig
-  CAL seedRandMMIO
+  CAL seedRandOrig
+#  CAL seedRandMMIO
   RTL
   
 D rand
-#  CAL getRandOrig
-  CAL getRandMMIO
+  CAL getRandOrig
+#  CAL getRandMMIO
   RTL
 
 #$
@@ -82,6 +82,103 @@ D getRandMMIO
   LDR PRNValue  # Get the new value into B
   LBM
   RTL		# Return 
+
+V EF.a		# Define the data for the Entinty Forest 8Bit random number functions
+a 1
+V EF.b
+a 1
+V EF.c
+a 1
+V EF.x
+a 1
+
+D seedRandEF	#init_rng(s1,s2,s3) //Can also be used to seed the rng with more entropy during use.
+  LAO		# Load the RTCTrigger with 1 to get an update
+  LDR RTCTrigger
+  SIA	
+# XOR new entropy into key state
+# EF.a ^=s1;
+  # Load s1 (seconds from RTC)
+  LDR RTCmSec
+  DED
+  LAM
+  # Load EF.a into B
+  LDR EF.a
+  LBM
+  XBA		# the xor
+  SIB           # save EF.a
+   
+# EF.b ^=s2;
+  # Load s2 (msec[0] from RTC)
+  LDR RTCmSec
+  LAM
+  LDR EF.b
+  LBM
+  XBA
+  SIB
+
+# EF.c ^=s3;
+  # Load s3 (msec[1] from RTC)
+  LDR RTCmSec
+  IND
+  LAM
+  LDR EF.c
+  LBM
+  XBA
+  SIB
+
+# EF.x++;
+  # Increment EF.x
+  LDR EF.x
+  LAM
+  INA
+  SIA
+  
+# EF.a = (EF.a^EF.c^EF.x);
+  LDR EF.a
+  LAM
+  LDR EF.c
+  LBM
+  LDR EF.x
+  LTM
+  XAB
+  XAT
+  LDR EF.a
+  SIA
+  
+# EF.b = (EF.b+EF.a);
+  LDR EF.b
+  LBM
+  LDR EF.a
+  LAM
+  EBA
+  LDR EF.b
+  SIB
+
+# EF.c = (EF.c+(EF.b>>1)^EF.a);
+  LDR EF.b
+  LBM
+  RRB
+  LDR EF.a
+  LAM
+  XAB
+  LDR EF.c
+  LBM
+  EBA
+  SIA
+
+
+
+D getRandEF
+#unsigned char randomize()
+#{
+#x++;               //x is incremented every round and is not affected by any other variable
+#a = (a^c^x);       //note the mix of addition and XOR
+#b = (b+a);         //And the use of very few instructions
+#c = (c+(b>>1)^a);  //the right shift is to ensure that high-order bits from b can affect  
+#return(c)          //low order bits of other variables
+#}
+
 
 #$
 #$### | TestRandStr

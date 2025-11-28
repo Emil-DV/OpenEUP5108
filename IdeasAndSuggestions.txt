@@ -1,8 +1,6 @@
 EUP5108  ideas/suggestions
 
 TODO
- - Fix bug so gmp stores full path to files
- - Fix debug line to only show the filename or limited path
 
  - malloc, free
  
@@ -69,4 +67,7 @@ Done
  * Add memory mapped I/O for RTC  
  * Correct mis matched assembly instructions in docs (LBO & LTH)
  * Update docs with new HelloWorld
- 
+ * Fix bug so gmp stores full path to files
+ * Fix debug line to only show the filename or limited path
+ * Add length of vars to the sym file output
+

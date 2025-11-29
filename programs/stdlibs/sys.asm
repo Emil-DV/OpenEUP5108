@@ -57,23 +57,23 @@ A 0x100    # Move the ADA so all other vars start beyond
 #$ Syscall (execute function on emulator's host)
 
 # int socket(int domain, int type, int protocol);
-C sysSockSocket		0x00
+C sysSockSocket	0x00
 # domain := AF_INET, protocol := 0, type = SOCK_STREAM (TCP) || SOCK_DGRAM (UDP)
 
 # ssize_t send(int sockfd, const void *buf, size_t len, int flags);
-C sysSockSend		0x01
+C sysSockSend	0x01
 
 # ssize_t write(int fd, const void *buf, size_t count); // Alternative to send
-C sysSockWrite		0x02
+C sysSockWrite	0x02
 
 # ssize_t recv(int sockfd, void *buf, size_t len, int flags);
-C sysSockRecv		0x03
+C sysSockRecv	0x03
 
 # ssize_t read(int fd, void *buf, size_t count); // Alternative to recv
-C sysSockRead		0x04
+C sysSockRead	0x04
 
 # int close(int fd);
-C sysSockClose		0x05
+C sysSockClose	0x05
 
 # int shutdown(int sockfd, int how);
 C sysSockShutdown	0x06
@@ -87,13 +87,13 @@ C sysSockGetsockopt	0x08
 # // Server-Side Specific APIs
 
 # int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-C sysSockBind		0x09
+C sysSockBind	0x09
 
 # int listen(int sockfd, int backlog);
-C sysSockListen		0x0A
+C sysSockListen	0x0A
 
 # int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
-C sysSockAccept		0x0B
+C sysSockAccept	0x0B
 
 # // Client-Side Specific API
 
@@ -114,10 +114,10 @@ C sysSockInet_pton	0x0D
 C sysSockInet_ntop	0x0E
 
 # int getaddrinfo(const char *node, const char *service, const struct addrinfo *hints, struct addrinfo **res);
-C sysSockGetaddrinfo    0x0F
+C sysSockGetaddrinfo	0x0F
 
 # void freeaddrinfo(struct addrinfo *res);
-C sysSockFreeaddrinfo   0x10
+C sysSockFreeaddrinfo	0x10
 
 V syscallmake
 a 1
@@ -130,10 +130,7 @@ a 4
 V syscallParam
 a 4
 V syscallData
-a 256
-a 256
-a 256
-a 256
+a 400
 
 # Plan, set syscallnum, cmd, param, data as needed for the call then set syscallmake to 1
 #       wait for syscallmake to return to 0

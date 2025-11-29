@@ -5,13 +5,13 @@ V randSeed
 a 1
 
 D srand
-  CAL seedRandOrig
-#  CAL seedRandMMIO
+#  CAL seedRandOrig
+  CAL seedRandMMIO
   RTL
   
 D rand
-  CAL getRandOrig
-#  CAL getRandMMIO
+#  CAL getRandOrig
+  CAL getRandMMIO
   RTL
 
 #$
@@ -48,6 +48,10 @@ D getRandOrig
   LAE 0x19      # 25 in decimal
   EDA           # add the 25 to DR
   LBR           # Get R into B 
+  RRB
+  RRB
+  RRB
+  RRB
 
   LDR randSeed  # Store the new rand seed
   SIB		
@@ -83,18 +87,29 @@ D getRandMMIO
   LBM
   RTL		# Return 
 
-V EF.a		# Define the data for the Entinty Forest 8Bit random number functions
-a 1
-V EF.b
+
+# An Assembler is a String (symbol) to 
+#    Number (address/value) substitution machine
+# APA = Assembler Program Address (ROM)
+# ADA = Assembler Data Address (RAM)
+# V defines a symbol at the current ADA
+# a Increases the ADA by some amount
+# D defines a symbol at the current APA
+# O Sets the APA to the given value (startup)
+# A Sets the ADA to the given value (memory mapped) 
+
+V EF.a		# Define the data for the 
+a 1		# Eternity Forest 8-Bit random 
+V EF.b		# number functions
 a 1
 V EF.c
 a 1
 V EF.x
 a 1
 
-D seedRandEF	#init_rng(s1,s2,s3) //Can also be used to seed the rng with more entropy during use.
-  LAO		# Load the RTCTrigger with 1 to get an update
-  LDR RTCTrigger
+D seedRandEF	#init_rng(s1,s2,s3) 
+  LAO		# Load the RTCTrigger with 1
+  LDR RTCTrigger #  to get an update
   SIA	
 # XOR new entropy into key state
 # EF.a ^=s1;
@@ -146,7 +161,7 @@ D seedRandEF	#init_rng(s1,s2,s3) //Can also be used to seed the rng with more en
   LDR EF.a
   SIA
   
-# EF.b = (EF.b+EF.a);
+# EF.b = (EF.b+EF.a); # Where is the optimize
   LDR EF.b
   LBM
   LDR EF.a
@@ -158,26 +173,49 @@ D seedRandEF	#init_rng(s1,s2,s3) //Can also be used to seed the rng with more en
 # EF.c = (EF.c+(EF.b>>1)^EF.a);
   LDR EF.b
   LBM
-  RRB
+  RRB		# Rotate Right != Shift Right
   LDR EF.a
   LAM
   XAB
   LDR EF.c
   LBM
   EBA
-  SIA
+  SIB
 
+  RTL
 
 
 D getRandEF
 #unsigned char randomize()
 #{
-#x++;               //x is incremented every round and is not affected by any other variable
-#a = (a^c^x);       //note the mix of addition and XOR
-#b = (b+a);         //And the use of very few instructions
-#c = (c+(b>>1)^a);  //the right shift is to ensure that high-order bits from b can affect  
-#return(c)          //low order bits of other variables
+#x++;               // x is incremented every round 
+#		    // and is not affected by any 
+#		    // other variable
+#a = (a^c^x);       // note the mix of addition and 
+#		    // XOR
+#b = (b+a);         // And the use of very few 
+#		    // instructions
+#c = (c+(b>>1)^a);  // the right shift is to ensure
+#		    // that high-order bits from b 
+#                   // can affect  
+#return(c)          // low order bits of other 
+#                   // variables
 #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #$

@@ -1,6 +1,14 @@
 EUP5108  ideas/suggestions
 
 TODO
+ - a directive should take both digital and hex numbers
+   currently assumes hex
+   
+ - fix tick counter so it does overflow display  
+
+ - Fix step out of function so it runs 
+   until a RTL and SP >=  SP+2
+
 
  - malloc, free
  

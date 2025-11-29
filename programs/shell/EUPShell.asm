@@ -253,10 +253,18 @@ D helpFunc.domore
 D main # The EUP shell provides a CLI framework for a 
        # EUP5108 based PC
   
+  HLT
+  
+  NOP
+  
+  HLT
+  
   LDR VTRST       # Reset screen colors
   CAL printStr1E  
   LDR VTCLR       # Clear screen
   CAL printStr1E
+  
+  HLT
   
   LDR ASCIIShelldon # Print shelldon
   CAL printStr1E    

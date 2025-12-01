@@ -1,5 +1,5 @@
 W main
-O 0010  # Start rom constants at 0x0010 ROM ADDRESS
+O 0x10  # Start rom constants at 0x0010 ROM ADDRESS
 
 # ROM Values
 # String Value in ROM
@@ -24,17 +24,17 @@ V RAM_START
 # Destination string for testing
 # char Dst[17];
 V Dst
-a 17
+a 0x17
 
 # Source string for testing
 # char Src[32];
 V Src
-a 20
+a 0x20
 
 # Result var for strlen test
 # char StrLenValue;
 V StrLenValue
-a 01
+a 1
 
 I StringLib.asm
 I UtilFunctions.asm
@@ -46,10 +46,10 @@ D Prompt
 S EUP:>\0
 
 V CharTyped             # The character entered
-a 01 
+a 1 
 
 V BisDigit              # Var to hold return value 
-a 01
+a 1
 
 D IsADigit
 S  is a Digit :) \n\0
@@ -108,10 +108,10 @@ V Product
 a 2
 
 V Quotient 
-a 01
+a 1
 
 V Remainder
-a 01
+a 1
 
 
 D DivTest
@@ -201,7 +201,7 @@ D MulTest
 ##############################################################################################################
 
 V Cmd
-a 20
+a 0x20
 
 D main
 

@@ -23,7 +23,7 @@
 # ░░░░░
 
 V docFullDeck     # The working ram for a deck
-a 34              # 52 bytes
+a 0x34            # 52 bytes
 ##############################################
 # InitDeck - initialize the deck with sequential values
 D docInitDeck

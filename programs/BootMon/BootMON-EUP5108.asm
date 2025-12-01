@@ -13,7 +13,7 @@ W IRQ2Func
 O 0010      # Start rom constants at 0x0010 ROM ADDRESS
 
 V CmdStr    # The command entered
-a 42
+a 0x42
 C CMDSTRMAX 0x41
 V CmdStrLen # The length of the command entered
 a 1

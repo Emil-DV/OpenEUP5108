@@ -143,7 +143,7 @@ D AP
 S RAM: \0
 
 V RAMString
-a 40
+a 0x40
 
 D StrCpyTest
 # Load the location of the ROMString onto the stack

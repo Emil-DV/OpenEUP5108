@@ -135,8 +135,8 @@ S \e[000;000f\e\0
 D VT.GETCURSORPOS 
 S \e[6n\e\0
 
-V vtTEMP.str    # char vtTemp.str[20]
-a 20
+V vtTEMP.str    # char vtTemp.str[32]
+a 0x20
 
 V vtRow.str     # char vtRow.str[4]
 a 4

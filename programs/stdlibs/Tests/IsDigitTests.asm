@@ -8,8 +8,8 @@ I StringLib.asm     # Brings in String manipulation functions
 D Prompt          # const char Prompt[]="IsDigitTests>"
 S IsDigitTests>\0
 
-V InputString     # char InputString[20]
-a 20
+V InputString     # char InputString[32]
+a 0x20
 
 V InputChar       # char InputChar
 a 1

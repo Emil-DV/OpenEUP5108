@@ -4,14 +4,14 @@
 #$     programs via extendable menu system
 #######################################################
 W main      # Set reset vector to main
-O 0010      # Start rom constants at 0x0010 ROM ADDRESS
+O 0x10      # Start rom constants at 0x0010 ROM ADDRESS
 
 I ..\stdlibs\sys.asm # Always include sys.asm before any
                      # other vars are declared
                      
 ###### Shell Globals ###################################
 V CmdStr    # The command line entered
-a FF
+a 0xFF
 C CMDSTRMAX 0xFE
 V CmdStrLen # The length of the command entered
 a 1
@@ -136,7 +136,7 @@ I externalcmds.asm #external commands
 L 00 00  # this null indicates the end of the table
 
 V oneWord
-a 40
+a 0x40
 
 D zoneCMD
 S z\0
@@ -253,18 +253,10 @@ D helpFunc.domore
 D main # The EUP shell provides a CLI framework for a 
        # EUP5108 based PC
   
-  HLT
-  
-  NOP
-  
-  HLT
-  
   LDR VTRST       # Reset screen colors
   CAL printStr1E  
   LDR VTCLR       # Clear screen
   CAL printStr1E
-  
-  HLT
   
   LDR ASCIIShelldon # Print shelldon
   CAL printStr1E    

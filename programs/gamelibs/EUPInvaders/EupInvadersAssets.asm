@@ -44,13 +44,13 @@ L D5 29 E4 28 B8 20 20 D5 29 E4 28 B8 20 20 D5 29 E4 28 B8 20 20 D5 29 E4 28 B8 
 L D5 29 E4 28 B8 20 20 D5 29 E4 28 B8 20 20 D5 29 E4 28 B8 20 20 D5 29 E4 28 B8 20 20 D5 29 E4 28 B8 00
 
 V eiBadGuyRowsD
-a 45
+a 0x45
 V eiBadGuyRowsD1
-a 45
+a 0x45
 V eiBadGuyRowsD2
-a 45
+a 0x45
 V eiBadGuyRowsD3
-a 45
+a 0x45
 
 V eiBadGuyRowEntry
 a 1
@@ -81,7 +81,7 @@ S     _    _       _    _       _    _       _    _       _    _       _    _   
 
 
 V eiShieldBlockD
-a FF			# char eiShieldBlockD[255];
+a 0xFF			# char eiShieldBlockD[255];
 
 
 

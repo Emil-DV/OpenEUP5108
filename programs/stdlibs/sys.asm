@@ -130,7 +130,7 @@ a 4
 V syscallParam
 a 4
 V syscallData
-a 400
+a 0x400
 
 # Plan, set syscallnum, cmd, param, data as needed for the call then set syscallmake to 1
 #       wait for syscallmake to return to 0

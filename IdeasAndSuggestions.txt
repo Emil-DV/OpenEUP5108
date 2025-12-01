@@ -1,15 +1,7 @@
 EUP5108  ideas/suggestions
 
 TODO
- - a directive should take both digital and hex numbers
-   currently assumes hex
    
- - fix tick counter so it does overflow display  
-
- - Fix step out of function so it runs 
-   until a RTL and SP >=  SP+2
-
-
  - malloc, free
  
  - Add memory mapped I/O for:
@@ -78,4 +70,7 @@ Done
  * Fix bug so gmp stores full path to files
  * Fix debug line to only show the filename or limited path
  * Add length of vars to the sym file output
-
+ * Fix step out of function so it runs until a RTL and SP >=  SP+2
+ * fix tick counter so it does overflow display  
+ * 'a' directive should take both digital and hex numbers currently assumes hex
+ 

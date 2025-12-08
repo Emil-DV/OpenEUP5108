@@ -11,7 +11,6 @@ S test\0
 D testMsg       # the one line help message
 S test: Runs the latest test code\0
 
-
 D testFunc      # the function itself
   # Run whatever test code there is
   LDR VTCLR
@@ -19,17 +18,40 @@ D testFunc      # the function itself
   LDR VTHOME
   CAL printStr1E
   
-  # Run the playing card test
-#  CAL testPlayingCards
-  # Run the random value screen test
-  LDR VTCLR
-  CAL printStr1E
-  LDR VTHOME
-  CAL printStr1E
-
-#  CAL TestRandStr
+  # Call both the seedRandEF (asm code)
+  CAL seedRandEF
+  HLT
+  # And the seedRandMMIO (C version)
+  CAL seedRandMMIO
+  LDR EF.a
+  HLT
+  CAL TestRandStrDual
   CAL testRandScreen
+  HLT
+  NOP
+    
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 # The playing cards test  
 V tf.col
 a 1

@@ -6,12 +6,14 @@ a 1
 
 D srand
 #  CAL seedRandOrig
-  CAL seedRandMMIO
+#  CAL seedRandMMIO
+  CAL seedRandEF
   RTL
   
 D rand
 #  CAL getRandOrig
-  CAL getRandMMIO
+#  CAL getRandMMIO
+  CAL getRandEF
   RTL
 
 #$
@@ -95,33 +97,43 @@ D getRandMMIO
 # V defines a symbol at the current ADA
 # a Increases the ADA by some amount
 # D defines a symbol at the current APA
-# O Sets the APA to the given value (startup)
-# A Sets the ADA to the given value (memory mapped) 
 
-V EF.a		# Define the data for the 
-a 1		# Eternity Forest 8-Bit random 
-V EF.b		# number functions
-a 1
-V EF.c
-a 1
-V EF.x
-a 1
+# Define the data for the 
+# Eternity Forest 8-Bit random 	
+# number functions in RAM
 
-D seedRandEF	#init_rng(s1,s2,s3) 
-  LAO		# Load the RTCTrigger with 1
-  LDR RTCTrigger #  to get an update
-  SIA	
+# static unsigned char a,b,c,x;
+V EF.a		# EF.a is now equal to 0x0643
+a 1		#  reserve 1 byte for that Var
+V EF.b		# EF.b is now equal to 0x0644
+a 1		
+V EF.c		# EF.c is now equal to 0x0645
+a 1		
+V EF.x		# EF.x is now equal to 0x0646
+a 1		
+
+C rr2rshift 0x7F # Mask to make rotate right into shift right
+
+# init_rng(s1,s2,s3) 
+# seedRandEF is now equal to 0x1425 (ROM)
+D seedRandEF	
+  HLT
+  LAO		# Load A with 1
+  LDR RTCTrigger # Load DR w/RTCTrigger (0x0006) RAM
+  SIA		# Store the value of A at DR
+
 # XOR new entropy into key state
 # EF.a ^=s1;
   # Load s1 (seconds from RTC)
-  LDR RTCmSec
+  LDR RTCmSec	# aka (0x000E) RAM
+  DED		# decrement DR x2 to get last second
   DED
-  LAM
+  LAM		# Load a with value at DR (RAM)
   # Load EF.a into B
-  LDR EF.a
-  LBM
-  XBA		# the xor
-  SIB           # save EF.a
+  LDR EF.a	# aka (0x0643)
+  LBM		# Load B with value at DR (EF.a)
+  XBA		# B = B ^ A
+  SIB           # save New value to EF.a
    
 # EF.b ^=s2;
   # Load s2 (msec[0] from RTC)
@@ -174,20 +186,23 @@ D seedRandEF	#init_rng(s1,s2,s3)
   LDR EF.b
   LBM
   RRB		# Rotate Right != Shift Right
+  LAE rr2rshift # Mask to get rid of upper bit
+  ABA		# B = B and A
+  LDR EF.c
+  LAM
+  EBA		# Addition
   LDR EF.a
   LAM
-  XAB
+  XBA		# xor
   LDR EF.c
-  LBM
-  EBA
   SIB
 
   RTL
 
-
-D getRandEF
 #unsigned char randomize()
-#{
+D getRandEF
+C getRandEF.range 1 # this is a "local" var on stack
+  SCA		# Store the range on the stack (A) 
 #x++;               // x is incremented every round 
 #		    // and is not affected by any 
 #		    // other variable
@@ -201,8 +216,55 @@ D getRandEF
 #return(c)          // low order bits of other 
 #                   // variables
 #}
+# This is the same calculation as the done in 
+# the seedRandEF function above
+# EF.x++;
+  # Increment EF.x
+  LDR EF.x
+  LAM
+  INA
+  SIA
+  
+# EF.a = (EF.a^EF.c^EF.x);
+  LDR EF.a
+  LAM
+  LDR EF.c
+  LBM
+  LDR EF.x
+  LTM
+  XAB
+  XAT
+  LDR EF.a
+  SIA
+  
+# EF.b = (EF.b+EF.a); # Where is the optimize
+  LDR EF.b
+  LBM
+  LDR EF.a
+  LAM
+  EBA
+  LDR EF.b
+  SIB
 
-
+# EF.c = (EF.c+(EF.b>>1)^EF.a);
+  LDR EF.b
+  LBM
+  RRB		# Rotate Right != Shift Right
+  LAE 0x7F	# Mask to get rid of upper bit
+  ABA		# B = B AND A
+  LDR EF.c
+  LAM
+  EBA		# Addition
+  LDR EF.a
+  LAM
+  XBA		# xor
+  LDR EF.c
+  SIB		# EF.c is the new value
+  POE getRandEF.range	# Load the stored range
+  LAM
+  CAL DivBA	# Get the modulus of B/A ret in B
+  INS		# Clean up the stack
+  RTL		# Return
 
 
 
@@ -244,6 +306,43 @@ D TestRandStr.l
   LAE 'q		# compare to 'q'
   MAB
   JLN TestRandStr.l	# character != q so loop
+  RTL			# otherwise exit
+
+#$
+#$### | TestRandStrDual
+#$     Generates a random number using both randEF
+#$     and randMMIO, converts them to decimal
+#$     and prints them to the screen
+#$     Both numbers should be the same each time
+#$     hit 'q' to exit, any other key for next number
+D TestRandStrDual
+  LDR VTCLR		# Clear the screen
+  CAL printStr1E
+
+  CAL seedRandEF	# Seed the EF RNG
+  CAL seedRandMMIO	# Seed the MMIO version
+D TestRandStrDual.l		
+  LAE 0xFE  		# Range = 0..255
+  CAL getRandEF		# Get the random number fm EF
+  LDR TestRandStrStr	# Convert value to decimal string
+  CAL itoa
+  LDR TestRandStrStr	# Print the number
+  CAL printStr1D
+  W1E 'SP		# Add a space between them
+
+  LAE 0xFE  		# Range = 0..255
+  CAL getRandMMIO	# Get the random number fm MMIO
+  LDR TestRandStrStr	# Convert value to decimal string
+  CAL itoa
+  LDR TestRandStrStr	# Print the number
+  CAL printStr1D
+  W1E 'SP		# Add a space between them
+  W1E 'SP		# Add another space between sets
+
+  CAL getCharB		# Get a character
+  LAE 'q		# compare to 'q'
+  MAB
+  JLN TestRandStrDual.l	# character != q so loop
   RTL			# otherwise exit
 
 #$

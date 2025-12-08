@@ -18,7 +18,7 @@ a BCDLib.strlen
   CAL printStr1E
 
 D testBCD.gohere  	# do{
-
+  W0E 0x00
   LDR VTHOME		# put the cursor at the top left
   CAL printStr1E
 
@@ -29,5 +29,10 @@ D testBCD.gohere  	# do{
   LDR testBCD.bcd	# testBCD.bcd++;
   CAL BCDInc
   
-  JPL testBCD.gohere    # }while(1);
+  LB0
+  LAE 'q
+  MBA
+  JLN testBCD.gohere    # }while(B == 0);
+  W0E 0x00
+  RTL
 #########################################################################

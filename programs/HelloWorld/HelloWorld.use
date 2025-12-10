@@ -20,7 +20,7 @@ JLN:78
 JLR:20
 JPL:54
 JPS:2
-JSN:14
+JSN:16
 JSR:4
 LAD:6
 LAE:54
@@ -59,7 +59,7 @@ MDB:2
 MTA:2
 POE:134
 RRA:16
-RTL:94
+RTL:96
 SCA:14
 SCB:4
 SCD:8
@@ -75,7 +75,5 @@ W0E:10
 W1A:4
 W1B:16
 W1E:44
-W2A:2
-W2E:4
 XDS:8
-80 of 256 Instructions used (31.25) percent
+78 of 256 Instructions used (30.47) percent

@@ -14,6 +14,8 @@ Our editor of choice is [Notepad++](https://notepad-plus-plus.org/), with it ins
 To add the EUP51_ASM custom language syntax file place the file [Notepad++ files\EUP5108 Language Highlighting.xml](https://github.com/Emil-DV/OpenEUP5108/blob/main/Notepad%2B%2B%20files/EUP5108%20Language%20Highlighting.xml) into your NP++ "userDefineLangs" folder located here: "\Users\username\AppData\Roaming\Notepad++\userDefineLangs"
   
 To use the custom language syntax highlighting, open an EUP5108 .asm file and select "Language|EUP51_ASM" from the main menu. NP++ should remember the selection the next time the file is loaded
+
+Refer to the user's guide for information on using OpenEUP5108 on Linux
   
 For a full set of explainer videos be sure to look through the [EUP5108 playlist](https://www.youtube.com/playlist?list=PLutzSUqCeqd2JNwKN7Za1qZU8AJ8HDwoR), Like, Subscribe, and Hit the Bell Icon for notifications of new videos and live streams
   
@@ -22,8 +24,9 @@ If you would like to help further the development of this project consider suppo
 ### Quick Start 
 
 - [ ] Clone this Repo or Download the .zip and unzip it to a good location
-- [ ] Navigate to your OpenEUP5108\programs\HelloWorld folder
-- [ ] Double click on the BuildNRun.bat file  
+- [ ] Add the OpenEUP5108\bin location to your path (OpenEUP5108/bin/linux) on Linux
+- [ ] Navigate to your OpenEUP5108\programs\HelloWorld folder in a command prompt window 
+- [ ] Enter the command "eupbnr HelloWorld"  
       The Assembler will be invoked to build HelloWorld.asm and its included files  
       Once complete the Emulator will be invoked to run the HelloWorld.rom output of the assembler  
 - [ ] For the full 1990's 80 column x 25 line experience set the Emulator window (cmd.exe) properties thusly

@@ -29,12 +29,42 @@ D testFunc      # the function itself
   CAL testRandScreen
   HLT
   NOP
-    
-
-    
-    
-    
-    
+  
+  
+  # Clear the screen
+  LDR VTCLR
+  CAL printStr1E
+  LDR VTHOME
+  CAL printStr1E
+  
+  
+# const char Astr[] = {"Hello Ian!"}
+D Astr  
+S Hello Ian!\0 
+ 
+  # for(char i=0;i<10;i++)
+  LAZ   # Load A with 0
+  SCA   # Store A on the stack this is our local i
+D forloop.top # Label for the top of the loop 
+  LTE 10   # Load the limit of 10 to T
+  MTA      # T = T - A
+  JLN forBegin # if A < 10 T is not zero so do the block 
+  JPL forEnd   # A == 10 so exit
+  
+D forBegin # {
+  LDR Astr # DR = Astr
+  EDA      # DR = &Astr[i]
+  LBF      # B = Astr[i]
+  W1B      # print(B)
+  # i++
+  INA      # A++
+  POE 1    # DR = &i (on stack)  
+  SIA      # i = A  
+  JPL forloop.top # Jump to top of the for
+D forEnd   # }
+  INS      # Increment the stack to delete i
+  HLT
+  NOP  
     
     
     

@@ -1,16 +1,18 @@
 EUP5108  ideas/suggestions
 
 TODO
- - Document that F2 toggles the RAM view from DR|SP
+ - move memory mapped I/O function from core to emulator layer
  - Add syscalls via software interrupt for RTC,Sockets,Filesystem
 
- - Create "Why 8-bit and Why ASM" short
+ - Create "Why 8-bit and Why ASM" short - Programmin at its purest - directly telling the machine what instructions to run in what order and how to respond to different inputs
+   Lots of recent interest in the older 8 bit machines (c64) - the EUP5108 is a ground up design - one comment as "clever girl" a reference to jurasic park estientally calling me a dinosour
+   Thats fine in a few years of gen z programmers vibe coding solutions us dinos will be called up out of retirement to fix them
  
- - Creat vid about BIOS - direct printing via W1* vs BIOS call
+ - Create vid about BIOS - direct printing via W1* vs BIOS call, RTC Memory mapped vs syscall - use old bios params for RTC and Filesystem
 
  - malloc, free
  
- - Add memory mapped I/O for:
+ - Add syscalls for:
    "Kniting a socket Library in EUP5108 Assembly"
    Single/Dual sockets, virtual IPs 192.168.1.1 & 127.0.0.1 netmask 255.255.255.0 
    Socket Creation:
@@ -80,3 +82,4 @@ Done
  * Rand
  * Add feature where F3 zeros the tick count
  * Add flag to differentiate between const, var, and rom locations  
+ * Document that F2 toggles the RAM view from DR|SP

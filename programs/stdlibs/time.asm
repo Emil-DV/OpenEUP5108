@@ -175,7 +175,7 @@ D bigtime
   LBE 2
   MBA
   JLN bigtime.l
-  LBO ####### Load A with 1 ????????
+  LBO # Load B with 1 
   LBE 5
   LAE 38
   CAL vtSetCursorPos

@@ -24,11 +24,10 @@ I ..\stdlibs\UtilFunctions.asm
 C sys.cursorChar %
 
 D helloeupstr
-S HelloWorld from the EUP exe main\0
+S HelloWorld from the EUP exe main\n\0
 
 D main
   LDR helloeupstr
   CAL printStr1E
-  HLT
   RTL
   

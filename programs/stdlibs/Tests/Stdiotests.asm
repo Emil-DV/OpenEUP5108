@@ -23,9 +23,9 @@ S Testing cd\n\0
 D cdupone
 S ..\\..\0
 D cdbasestr
-S C:/Repos/OpenEUP5108/program/stdlibs\0
+S /home/eupthatsme/repos/OpenEUP5108/programs/EUPexes\0
 D filetestread
-S C:/Repos/OpenEUP5108/programs/EUPexes/EUPExeTest.bin\0
+S EUPExeTest.bin\0
 
 
 
@@ -36,15 +36,16 @@ D main
   HLT
   LDR hellostr
   CAL printStr1E
-  HLT
+  CAL dirtests
   CAL filetests
   
   
   
   
-  
+  LDR goodbyestr
+  CAL printStr1E
   HLT
-  NOP
+  NOP  
 
 
 D fileteststr
@@ -126,8 +127,8 @@ D filetests.good
   LDF
   LRA
   CAL callFNptr
-  HLT
-  NOP
+  RTL
+  
   
 D filetests.cpy
   #load src byte
@@ -181,25 +182,7 @@ D dirtests
   LDR pwdteststr
   CAL printStr1E
   CAL stdioPwd
-#  HLT
-  LDR cdupone
-  SCR
-  SCD
-  LDR cmdstr
-  SCR
-  SCD
-  CAL strcpyconst
-  INS
-  INS
-  INS
-  INS
-  LDR cmdstr
-  CAL stdioCd
-  CAL stdioPwd
-  LDR cmdstr
-  CAL stdioCd
-  CAL stdioPwd
-  
+ 
   LDR cdbasestr
   SCR
   SCD
@@ -214,13 +197,9 @@ D dirtests
   LDR cmdstr
   CAL stdioCd
   CAL stdioPwd
-  
+  RTL
   
   
 
-  LDR goodbyestr
-  CAL printStr1E
-  HLT
-  NOP  
   
  

@@ -106,7 +106,6 @@ D stdioCd.wait  # should wait for syscallbusy to be 0
   LDR syscallbusy
   LBM
   JLN stdioCd.wait
-  HLT
   LDR syscallRtn
   LBM
   JLN stdioCd.err
@@ -149,6 +148,8 @@ D fopen.wait  # should wait for syscallbusy to be 0
   JLN fopen.wait
   LDR syscallRtn
   LBM
+  LAH
+  MAB  
   JLN fopen.good
   # call was unsuccessful so we return zero
   LAZ
@@ -205,6 +206,8 @@ D fread.wait  # should wait for syscallbusy to be 0
   JLN fread.wait
   LDR syscallRtn
   LBM
+  LAH
+  MAB
   JLN fread.good
   LAB
 #  INS

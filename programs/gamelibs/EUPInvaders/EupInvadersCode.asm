@@ -1,7 +1,19 @@
 #######################################################
 ## EUP Invaders - EUP5108 Space Invaders clone
 #######################################################
+O 0x3000
+A 0x1000
+W eiStart
+
+I ../../stdlibs/UtilFunctions.asm
+I ../../stdlibs/StringLib.asm
+I ../../displaylibs/vt100.asm
+I ../../stdlibs/BCDLib.asm
+I ../../displaylibs/BigLEDv2.asm
+I ../../displaylibs/BoxDrawing.asm
+
 I EupInvadersAssets.asm
+
 V eiInit
 a 1
 

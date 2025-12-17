@@ -20,8 +20,7 @@ W main    # Write the location of this EUP's main
 # be able to get entry points from the shell
 I ..\stdlibs\StringLib.asm
 I ..\stdlibs\UtilFunctions.asm
-
-C sys.cursorChar %
+I ..\displaylibs\dispconst.asm
 
 D helloeupstr
 S HelloWorld from the EUP exe main\n\0

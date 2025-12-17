@@ -8,6 +8,8 @@
 #$     Vt100 code constants [LDR {VT*}, CAL printStr1E]
 #$         (not all code perform as expected)
 #$     
+I dispconsts.asm
+
 #$     VTCLR - Clear the screen
 D VTCLR
 S \e[2J\e\0

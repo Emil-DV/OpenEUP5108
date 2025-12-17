@@ -2,10 +2,6 @@
 #$##  stdlibs/sys.asm
 #$     System constants and memory mapped I/O
 #$
-C sys.topline 6      # 1 based
-C sys.cursorChar 0x5F
-C sys.scrwidth 80
-C sys.scrheight 25
 
 # The realtime clock resides at address 0x00..0x08
 # and contains the clock in binary bytes in the format

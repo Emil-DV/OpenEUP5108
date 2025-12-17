@@ -637,7 +637,7 @@ D loadprog
   LDR CmdStr	# add it to the pointer to CmdStr
   EDA
   IND
- 
+  HLT
   CAL fopen
   LDR openfileno
   SIA
@@ -675,6 +675,7 @@ D loadprog.scpy
   JLN loadprog.cpy
   
   #close the file
+  HLT
   LDR openfileno
   LAM
   CAL fclose

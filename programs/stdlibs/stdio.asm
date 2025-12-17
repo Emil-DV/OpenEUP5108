@@ -196,7 +196,6 @@ D fread.wait  # should wait for syscallbusy to be 0
   LAH
   MAB
   JLN fread.good
-  LAB
 #  INS
 #  INS
   RTL

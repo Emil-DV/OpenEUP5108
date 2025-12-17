@@ -31,6 +31,7 @@ C sys.scrheight 25
 # The reasoning here is that I am not likely to do datetime
 # calculations and need it mostly for on screen display
 # The mSec is a convient fast turn over value for seeding rand
+# syscall 1Ah - only read is supported
 A 00
 V RTCDate  # Date string
 a 0x06
@@ -55,95 +56,72 @@ A 0x100    # Move the ADA so all other vars start beyond
            # The I/O memory map area
 
 #$ Syscall (execute function on emulator's host)
-#$ Syscall commands for the stdio
-#$ ls|dir: Lists files and directories.
-#$ cd: Changes the current directory.
-#$ md|mkdir: Makes (creates) a new directory.
-#$ cp|copy: Copies files.
-#$ rm|del: Deletes files.
-#$ ren|mv: Renames files or directories.
-#$ cat|type: Displays the contents of a text file.
-#$ chmod: Change file permissions (linux only)
+#$ Syscall commands for the stdio                 syscallnum 13H
+C syscallstdio 0x13
+#$ ls|dir: Lists files and directories.           syscallCmd 00h
+#$         ls|dir [optional path]
+C syscallstdio.ls 0x00
+#$ cd: Changes the current directory.             syscallCmd 01h
+#$     cd {path}
+C syscallstdio.cd 0x01
+#$ md|mkdir: Makes (creates) a new directory.     syscallCmd 02h
+#$           md|mkdir {path}
+C syscallstdio.md 0x02
+#$ cp|copy: Copies files.                         syscallCmd 03h
+#$          cp {source file} {destination file}   
+C syscallstdio.cp 0x03
+#$ rm|del: Deletes files.                         syscallCmd 04h
+#$         rm|del {file to delete}                
+C syscallstdio.rm 0x04
+#$ ren|mv: Renames files or directories.          syscallCmd 05h
+#$         ren|mv {file to rename}
+C syscallstdio.ren 0x05
+#$ chmod: Change file permissions (linux only)    syscallCmd 06h
+#$        chmod {file to change} {permissions}
+C syscallstdio.chmod 0x06
+#$ pwd: Prints the current directory              syscallCmd 07h
+#$ - base folder is OpenEUP5108/programs
+C syscallstdio.pwd 0x07
+#$ cat|type: Displays the contents of a text file syscallCmd 08h
+#$           cat|type {source file}
+#$
+#$ fopen {file path/name.ext} syscallRtn = file number
+C syscallstdio.open 0x10
+#$ fclose syscallParam = file number
+C syscallstdio.close 0x11
+#$ fread syscallParam = max amount to read, syscallRtn = bytes read
+C syscallstdio.read 0x12
+#$ fwrite syscallParam = amount to write
+C syscallstdio.write 0x13
+#$ fseek syscallParam = location syscallParam2 = starting location
+C syscallstdio.seek 0x14
+#$ fsize syscallParam = open file number
+C syscallstdio.size 0x15
 
-## int socket(int domain, int type, int protocol);
-#C sysSockSocket	0x00
-## domain := AF_INET, protocol := 0, type = SOCK_STREAM (TCP) || SOCK_DGRAM (UDP)
-#
-## ssize_t send(int sockfd, const void *buf, size_t len, int flags);
-#C sysSockSend	0x01
-#
-## ssize_t write(int fd, const void *buf, size_t count); // Alternative to send
-#C sysSockWrite	0x02
-#
-## ssize_t recv(int sockfd, void *buf, size_t len, int flags);
-#C sysSockRecv	0x03
-#
-## ssize_t read(int fd, void *buf, size_t count); // Alternative to recv
-#C sysSockRead	0x04
-#
-## int close(int fd);
-#C sysSockClose	0x05
-#
-## int shutdown(int sockfd, int how);
-#C sysSockShutdown	0x06
-#
-## int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
-#C sysSockSetsockopt	0x07
-#
-## int getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen);
-#C sysSockGetsockopt	0x08
-#
-## // Server-Side Specific APIs
-#
-## int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-#C sysSockBind	0x09
-#
-## int listen(int sockfd, int backlog);
-#C sysSockListen	0x0A
-#
-## int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
-#C sysSockAccept	0x0B
-#
-## // Client-Side Specific API
-#
-## int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-#C sysSockConnect	0x0C
-## // Helper functions (for address manipulation and byte order)
-#
-## These could be defined as passing the * to the param in DR with the swapping happening in place
-## uint16_t htons(uint16_t hostshort);
-## uint32_t htonl(uint32_t hostlong);
-## uint16_t ntohs(uint16_t netshort);
-## uint32_t ntohl(uint32_t netlong);
-#
-## int inet_pton(int af, const char *src, void *dst);
-#C sysSockInet_pton	0x0D
-#
-## const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
-#C sysSockInet_ntop	0x0E
-#
-## int getaddrinfo(const char *node, const char *service, const struct addrinfo *hints, struct addrinfo **res);
-#C sysSockGetaddrinfo	0x0F
-#
-## void freeaddrinfo(struct addrinfo *res);
-#C sysSockFreeaddrinfo	0x10
+#$          
+#$ For the purposes of file system access \ | / will be converted to host native version
 
-V syscallmake
+V syscallbusy   #Check this flag to ensure any prior syscalls are finished
+a 1             #for now all syscalls are blocking
+V syscallmake   #Set this flag to make a syscall after setting up the call cmd,param,data
 a 1
-V syscallnum
+V syscallNum    #The syscall number a.k.a the class of command
 a 1
-V syscallRtn
+V syscallRtn    #The return value of the syscall 00h = success
 a 4
-V syscallCmd
+V syscallCmd    #The command to execute
 a 4
-V syscallParam
+V syscallParam  #The integer param if any
 a 4
-V syscallData
+V syscallParam2 #The second integer param if any
+a 1
+V syscallData   #The long form data (src/dest paths, block to write or read)
 a 0x400
+C syscallDataSize 0x400
 
 # Plan, set syscallnum, cmd, param, data as needed for the call then set syscallmake to 1
-#       wait for syscallmake to return to 0
-#       read return value from syscallRtn
+#       wait for syscallmake and syscallbusy to return to 0
+#       read return value from syscallRtn and/or syscallData
 
 
 

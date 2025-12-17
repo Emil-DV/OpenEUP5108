@@ -156,6 +156,123 @@ D docDC.drawface
   INS
   RTL
   
+# The playing cards test  
+V tf.col
+a 1
+V tf.row
+a 1
+V tf.char
+a 1
+V tf.i
+a 1
+
+D testPlayingCards  
+  LDR tf.i
+  LAO
+  SIA
+  
+  CAL docInitDeck
+  LAE 16
+  LBE 2
+  CAL vtSetCursorPos
+
+  LDR VTBLUEONWHT
+  CAL printStr1E
+
+  LDR docBack
+  CAL printStr1E
+  
+  
+D tf.docdo1  
+  LDR tf.char
+  LAZ
+  SIA
+
+  LDR tf.col
+  LAE 24
+  SIA
+  LDR tf.row
+  LAE 2
+  SIA
+  
+D tf.docdo
+  LDR tf.col
+  LAM
+  LDR tf.row
+  LBM
+  CAL vtSetCursorPos
+  
+  LDR tf.char
+  LAM
+  LDR docFullDeck
+  EDA
+  LAM
+  CAL docDrawCard
+
+  #W2E 0x40		# Play a beep sound
+  LAE 4
+  CAL sleep
+  
+  LDR tf.col
+  LAM
+  LBE 6
+  EAB
+  SIA
+  
+  LBE 48
+  MBA
+  JLN tf.docrc
+  LDR tf.col
+  LAE 24
+  SIA
+  LDR tf.row
+  LAM
+  INA
+  SIA
+  
+  
+D tf.docrc  
+  LDR tf.char
+  LAM
+  INA
+  SIA
+  
+  LBE 52
+  MBA
+  JLN tf.docdo  
+
+  LDR VTREDONBLK
+  CAL printStr1E
+
+  LAE 2			#Starting col of LED prints
+  LDR tf.i		#LED Number
+  LBM
+  TLB			#Multiply B by 4 via shifts
+  TLB
+  EAB
+  LBE 20		#Starting row of LED prints
+  CAL vtSetCursorPos
+  
+  LDR tf.i
+  LAM
+  CAL printLED
+  LDR tf.i
+  LAM
+  INA
+  SIA
+
+  CAL docShuffleDeck
+  CAL getCharB
+  LAE 'q
+  MAB
+  JLN tf.docdo1 
+  RTL  
+  
+  
+  
+  
+  
+  
 ##############################################  
 C docIndexSize 3 
 D docIndex

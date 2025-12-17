@@ -310,4 +310,36 @@ D PrintBoxDigits.lp         # do{
   
   INS                 # Clean up stack
   RTL
+
+
+
+D DrawBoxTest  
+  INS
+# Test of the DrawBox function  
+  LDR VTCLR		# Clear the screen
+  CAL printStr1E
+
+  LDR VTHOME		# Home the cursor
+  CAL printStr1E
   
+  LDR charRuler		# Print the ruler
+  CAL printStr1E
+ 
+  LDR VTREDONBLK  	# Set Red on Black
+  CAL printStr1E
+
+  # For the drawBox function we first push the row and col onto the stack for the top left of the box
+  LAE 3          	# Row = 3
+  SCA
+  LAE 7         	# Col - vt100 Window is 1 based
+  SCA
+  # The inner dimensions of the box are passed in A (width) & B (height
+  # not including the top/bottom or left/right of the frame
+  LAE 12        	# Width
+  LBE 3        		# height
+  LDR DBLLineMatrix	# Double line box matrix
+  CAL DrawBox		# Draw it
+  INS		        # Remove the passed vars from the stack
+  INS
+  RTL
+    

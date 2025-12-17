@@ -6,17 +6,17 @@ W testCmd
 W testFunc
 W testMsg
 
-W EupInvadersCmd
-W eiStart
-W EupInvadersMsg
+#W EupInvadersCmd
+#W eiStart
+#W EupInvadersMsg
 
-W EUPOUTCmd
-W EUPOUT
-W EUPOUTMsg
+#W EUPOUTCmd
+#W EUPOUT
+#W EUPOUTMsg
 
-W BCDTestCmd
-W testBCD
-W BCDtestHelp
+#W BCDTestCmd
+#W testBCD
+#W BCDtestHelp
 
 #W scrtestCmd
 #W scrtestFunc

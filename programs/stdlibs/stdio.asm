@@ -38,15 +38,8 @@
 #$ fsize syscallParam = open file number
 #$ syscallstdio.size  
 
-
-D pwdCmd
-S pwd\0
-D pwdHelp
-S pwd: prints the current directory\0
-
 D invalidstr
 S Invalid path\n\0
-
 
 #$ pwd: prints the current directory
 D stdioPwd
@@ -74,11 +67,6 @@ D stdioPwd.err
   RTL
 
 
-
-D cdcmd
-S cd\0
-D cdhelp
-S cd: change directory\0  
 #$ cd: change directory DR=directory string
 D stdioCd
   SCR
@@ -109,8 +97,7 @@ D stdioCd.wait  # should wait for syscallbusy to be 0
   LDR syscallRtn
   LBM
   JLN stdioCd.err
-  # call was successful so we print a nl
-  W1E 'LF
+  # call was successful so we return
   RTL
 D stdioCd.err  
   LDR invalidstr

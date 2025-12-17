@@ -23,11 +23,10 @@ a 2
 
 # include both libraries and command execution functions
 I ..\stdlibs\StringLib.asm
-#I ..\stdlibs\Math.asm
 I ..\stdlibs\UtilFunctions.asm
 I ..\stdlibs\BCDLib.asm
 I ..\stdlibs\time.asm
-
+I ..\stdlibs\stdio.asm
 I ..\displaylibs\vt100.asm
 I ..\displaylibs\BigLED.asm
 I ..\displaylibs\BoxDrawing.asm
@@ -80,6 +79,17 @@ S v\0
 D echoVTMsg
 S v: Echos the string surrounding it with esc chars as a VT100 command\0
 
+D pwdCmd
+S pwd\0
+D pwdHelp
+S pwd: prints the current directory\0
+
+D cdcmd
+S cd\0
+D cdhelp
+S cd: change directory\0  
+
+
 
 C cmdMapEntrySize 6 # char cmdMapEntrySize = sizeof(CmdMapentry);
 D shellCmdMap       # struct CmdMapEntry {
@@ -123,6 +133,18 @@ W bigtimeCmd
 W bigtime
 W bigtimeCmdHelp
 
+W pwdCmd
+W stdioPwd
+W pwdHelp
+
+W cdcmd
+W dostdioCd
+W cdhelp
+
+W loadprogCmd
+W loadprog
+W loadprogHelp
+
 #$
 #$     externalcmds.asm
 #$     contains the additional command map entries
@@ -137,6 +159,16 @@ L 00 00  # this null indicates the end of the table
 
 V oneWord
 a 0x40
+
+D dostdioCd
+  # Get the CmdStr parameter portion into DR
+  LDR oneWord	# get the strlen of oneWord
+  CAL strlen
+  LDR CmdStr	# add it to the pointer to CmdStr
+  EDA
+  IND
+  CAL stdioCd
+  RTL  
 
 D zoneCMD
 S z\0
@@ -581,3 +613,122 @@ D PHV.xit
 
   RTL
 
+D loadprogCmd
+S lp\0
+D loadprogHelp
+S lp: Load EUPexe e.g. lp EUPexeTest.bin\0
+V openfileno
+a 1
+
+V amt2cpy
+a 1
+
+V cpydst
+a 2
+
+V cpysrc
+a 2
+
+D loadprog
+  # DR = ptr to program to load and params
+  # Get the CmdStr parameter portion into DR
+  LDR oneWord	# get the strlen of oneWord
+  CAL strlen
+  LDR CmdStr	# add it to the pointer to CmdStr
+  EDA
+  IND
+ 
+  CAL fopen
+  LDR openfileno
+  SIA
+  LBA
+  JLN loadprog.go
+  LDR invalidstr
+  CAL printStr1E
+  RTL
+
+D loadprog.go
+  # set base location
+  LDR cpydst
+  LAZ
+  SIA
+  IND
+  LAE 0x30
+  SIA
+
+D loadprog.scpy
+  LDR syscallData
+  LAR
+  LBD
+  LDR cpysrc
+  SIA
+  IND
+  SIB
+  # read from the file
+  LDR openfileno
+  LAM
+  LBH
+  CAL fread
+  LDR amt2cpy
+  SIA
+  LBA
+  JLN loadprog.cpy
+  
+  #close the file
+  LDR openfileno
+  LAM
+  CAL fclose
+  
+  LRE 0x00
+  LDE 0x30
+  LAF
+  IND
+  LDF
+  LRA
+  CAL callFNptr
+  RTL
+  
+  
+D loadprog.cpy
+  #load src byte
+  LDR cpysrc
+  LAM
+  IND
+  LDM
+  LRA
+  LBM
+  LDR cpydst
+  LAM
+  IND
+  LDM
+  LRA
+  SEB
+  # cpydst++
+  IND
+  LAR
+  LBD
+  LDR cpydst
+  SIA
+  IND
+  SIB
+  # cpysrc++
+  LDR cpysrc
+  LAM
+  IND
+  LDM
+  LRA
+  IND
+  LAR
+  LBD
+  LDR cpysrc
+  SIA
+  IND
+  SIB
+  LDR amt2cpy
+  LAM
+  DEA
+  SIA
+  JLN loadprog.cpy
+  JPL loadprog.scpy
+  
+  

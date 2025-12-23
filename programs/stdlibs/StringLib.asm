@@ -242,7 +242,7 @@ D toUpperB.rtl
 #$
 #$### | memcpyconst 
 #$     Copies bytes from src (ROM) to dst (RAM)
-#$     until a null is read or the max len is reached
+#$     until the max len is reached
 #$
 #$     Push the src pointer, dst pointer, and 
 #$     len (max 255) onto the stack in that order 
@@ -321,6 +321,90 @@ D memcpyconst.more
     
 # Loop
   JPL memcpyconst
+
+
+#$
+#$### | memcpy 
+#$     Copies bytes from src (RAM) to dst (RAM)
+#$     until the max len is reached
+#$
+#$     Push the src pointer, dst pointer, and 
+#$     len (max 255) onto the stack in that order 
+#$     before calling
+#$    
+D memcpy
+C memcpy.src 7
+C memcpy.dst 5
+C memcpy.len 3
+  
+# check if the length is zero
+  POE memcpy.len
+  LBM
+  JLN memcpy.more
+  RTL
+
+D memcpy.more  
+# B = Src[0];
+# Load DR with address of Src which is SP+6
+  POE memcpy.src  # DR = SP+6
+# DR = *DR
+  LAM       # A = DRAM[DR]
+  DED       # DR--
+  LDM       # D = DRAM[DR]
+  LRA       # R = A
+
+# Loads into B set the zero flag 
+  LBM       # B = RAM[DR]
+
+# Load DR with the address of Dst which is expected at SP+4
+  POE memcpy.dst  # DR = SP+4
+  LAM       # A = DRAM[DR]
+  DED       # DR--
+  LDM       # D = DRAM[DR]
+  LRA       # R = A
+
+# Store the value from Src into Dst
+  SIB       # DRAM[DR] = B
+
+# increment DR (aka Dst)
+  IND       # DR++
+
+# Store new value of dst
+  LAR       # A = R
+  LBD       # B = D
+  POE memcpy.dst  # DR = SP+4
+  SIA       # DRAM[DR] = A
+  DED       # DR--
+  SIB       # DRAM[DR] = B
+ 
+# Load DR with address of Src which is SP+6
+  POE memcpy.src  # DR = SP+6
+
+# Load DR with Src
+  LAM       # A = DRAM[DR]
+  DED       # DR--
+  LDM       # D = DRAM[DR]
+  LRA       # R = A
+
+# increment Src
+  IND       # DR++
+
+#store new value
+  LAR       # A = R
+  LBD       # B = D
+  POE memcpy.src  # DR = SP+6
+  SIA       # DRAM[DR] = A
+  DED       # DR--
+  SIB       # DRAM[DR] = B
+
+# load value of length and decrement 
+  POE memcpy.len
+  LAM
+  DEA
+  SIA
+    
+# Loop
+  JPL memcpy
 
   
 #$
@@ -644,6 +728,7 @@ D atol.xit
   RTL
   
 D atol.nxt
+  
   LAE '0
   MBA                 # B=B-A //subtract '0 from the first character
 #  LAE A = 10

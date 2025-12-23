@@ -145,6 +145,10 @@ W loadprogCmd
 W loadprog
 W loadprogHelp
 
+W catfilecmd
+W catfile
+W catfilehelp
+
 #$
 #$     externalcmds.asm
 #$     contains the additional command map entries
@@ -629,6 +633,12 @@ a 2
 V cpysrc
 a 2
 
+#$ # lp: Load Program e.g. lp eupexetest.bin
+#$ Loads the given program file into ROM based at 0x3000
+#$ Program must be built with the address of its entry function at 0x3000
+#$ and variables not overlapping those in the EUPShell program
+#$ See programs/EUPexes/EUPExeTest.asm for the header
+
 D loadprog
   # DR = ptr to program to load and params
   # Get the CmdStr parameter portion into DR
@@ -637,7 +647,7 @@ D loadprog
   LDR CmdStr	# add it to the pointer to CmdStr
   EDA
   IND
-  HLT
+  LAE fileModeRead
   CAL fopen
   LDR openfileno
   SIA
@@ -667,7 +677,7 @@ D loadprog.scpy
   # read from the file
   LDR openfileno
   LAM
-  LBH
+  LBE 250
   CAL fread
   LDR amt2cpy
   SIA
@@ -675,7 +685,6 @@ D loadprog.scpy
   JLN loadprog.cpy
   
   #close the file
-  HLT
   LDR openfileno
   LAM
   CAL fclose
@@ -731,5 +740,119 @@ D loadprog.cpy
   SIA
   JLN loadprog.cpy
   JPL loadprog.scpy
+  
+#$ catfile: show file contents on screen one page (10 lines) at a time
+V catfileno
+a 1
+
+D catfilefopenerrstr
+S Unable to open file: \0
+
+D catfilecmd
+S cat\0
+D catfilehelp
+S cat: filename.ext - shows file contents one screen at a time 'q' to quit
+D catfile
+C catfile.lines 10
+C catfile.lfs 3
+  LAE catfile.lines # store the lfs counter on the stack
+  SCA
+  
+C catfile.fn 1
+  LDR CmdStr	# the the filename from the command line
+  LAE 4		# skip the command and the space
+  EDA
+  SCD		# store for later and fopen
+  SCR
+  # attempt to open the file for read
+  LAE fileModeRead	# Read mode
+  CAL fopen
+  LDR catfileno		# store the fileno
+  SIA
+  LBA
+  JLN catfile.fopengood		# we opened the file so start printing chars
+
+  LDR catfilefopenerrstr	# We didn't open file so print error msg
+  CAL printStr1E
+  POE catfile.fn		# print the file name
+  LAM
+  IND
+  LBM
+  LDB
+  LRA
+  CAL printStr1D		
+D catfile.xit
+  W1E 'LF
+  INS
+  INS
+  INS
+  RTL
+
+D catfile.fopengood
+  LDR catfileno
+  LAM
+  CAL fgetCharB		# Get a character from the open file
+  JLN catfile.printchar
+  # read zero so eof
+  LDR catfileno		# character is NULL = EOF
+  LAM
+  CAL fclose		# close the file before exit
+  JPL catfile.xit
+D catfile.printchar
+  # if the character in B is 'LF then decrement counter
+  LAE 'LF
+  MAB
+  JLN catfile.continue
+  # got a LF
+  POE catfile.lfs	# decrement the lfs counter
+  LAM
+  DEA
+  SIA
+  JLN catfile.continue	# not at zero yet so continue
+  
+  W1E 'LF		# at zero so pause after printing the LF
+  CAL getCharB
+  LAE 'q
+  MBA
+  JLN catfile.!q
+  LDR catfileno		# quitting early so close file
+  LAM
+  CAL fclose		# close the file before exit
+  JPL catfile.xit
+    
+D catfile.!q
+  POE catfile.lfs	# reset the lfs counter
+  LAE catfile.lines
+  SIA
+  JPL catfile.fopengood
+
+D catfile.continue  
+  W1B
+  JPL catfile.fopengood
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   

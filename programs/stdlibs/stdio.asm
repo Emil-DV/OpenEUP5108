@@ -33,7 +33,7 @@
 #$ syscallstdio.read 
 #$ fwrite syscallParam = amount to write
 #$ syscallstdio.write 
-#$ fseek syscallParam = location syscallParam2 = starting location
+#$ fseek syscallParam = A = fileno,DR = offset, B = whence
 #$ syscallstdio.seek  
 #$ fsize syscallParam = open file number
 #$ syscallstdio.size  
@@ -105,12 +105,21 @@ D stdioCd.err
   RTL  
 
 #$ fopen DR = file to open A = mode
-#$ Mode = r read w write W read/write a append
+#$ Mode = 0:read 1:write 2:read/write
+#$        3:read/write/truc 4:Write+append
 #$ return A = file number | 0 for error
+C fileModeRead 0
+C fileModeWrite 1
+C fileModeRW 2
+C fileModeRWT 3
+C fileModeAppend 4
+
 D fopen
   SCR
   SCD
   # Setup the syscall area for the commands
+  LDR syscallParam
+  SIA
   LAE syscallstdio
   LDR syscallNum
   SIA
@@ -206,6 +215,134 @@ D fread.good
   #CAL printStr1D
   LAB
   RTL
+  
+  
+#$ fwrite A = file number, B = amount DR = pSrc
+#$ return A = bytes written for succcess and 0 for error
+D fwrite
+  SCA # store A (fileno) on stack for later
+  SCB # store B (amt) on stack for later
+  SCR # Put DR on stack for call to memcpy (src)
+  SCD
+  LDR syscallData  # Put syscallData on stack for call to memcpy (dst)
+  SCR 
+  SCD
+  SCB # store B on stack for memcpy
+  CAL memcpy
+  INS
+  INS
+  INS
+  INS
+  INS
+  # Setup the syscall area for the commands  
+  POE 2 # Get passed A from stack
+  LAM
+  LDR syscallParam
+  SIA
+  POE 1 # Get passed B from stack
+  LBM
+  LDR syscallParam2
+  SIB
+  LAE syscallstdio
+  LDR syscallNum
+  SIA
+  LAE syscallstdio.write
+  LDR syscallCmd
+  SIA
+  LDR syscallmake
+  LAO
+  SIA
+D fwrite.wait  # should wait for syscallbusy to be 0
+  LDR syscallbusy
+  LBM
+  JLN fwrite.wait
+  LDR syscallRtn
+  LBM
+  LAH
+  MAB
+  JLN fwrite.good
+  INS
+  INS
+  RTL
+  
+D fwrite.good
+  INS
+  INS
+  LAB
+  RTL
+
+
+
+
+
+D fseek
+  SCD # save DR for later as amount
+  SCR
+  # A = fileno
+  LDR syscallParam
+  SIA
+  # B = wence
+  LDR syscallParam2
+  SIB
+  POE 1
+  LAM
+  LDR syscallData
+  SIA
+  POE 2
+  LAM
+  LDR syscallData
+  IND
+  SIA
+
+  LAE syscallstdio
+  LDR syscallNum
+  SIA
+  LAE syscallstdio.seek
+  LDR syscallCmd
+  SIA
+  LDR syscallmake
+  LAO
+  SIA
+D fseek.wait  # should wait for syscallbusy to be 0
+  LDR syscallbusy
+  LBM
+  JLN fseek.wait
+  LDR syscallRtn
+  LBM
+  LAH
+  MAB
+  JLN fseek.good
+  LAO	# return A = zero for failure
+  INS
+  INS
+  RTL  
+D fseek.good
+  LAO	# return A = 1 for success
+  INS
+  INS
+  RTL  
+  
+#$ fgetCharB - reads one byte from an open file into B
+#$  A = fileno when called
+D fgetCharB  
+  LBO
+  CAL fread
+  LDR syscallRtn
+  LBM
+  JLN fgetCharB.rc
+  RTL
+D fgetCharB.rc
+  LDR syscallData
+  LBM
+  RTL
+
+
+
+
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@
 # to the EUP shell
 
 I ../stdlibs/rand.asm # Bring in the random number lib
+I ../stdlibs/tests/filefunctestsbody.asm
 
 # Define the three command table entries
 D testCmd       # the command word
@@ -17,6 +18,9 @@ D testFunc      # the function itself
   CAL printStr1E
   LDR VTHOME
   CAL printStr1E
+  
+  CAL fftmain
+  
   
   # Call both the seedRandEF (asm code)
   CAL seedRandEF
@@ -69,23 +73,4 @@ D forEnd   # }
   RTL  
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-  
-
-
 

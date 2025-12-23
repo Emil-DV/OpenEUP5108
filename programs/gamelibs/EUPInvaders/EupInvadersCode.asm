@@ -1,7 +1,7 @@
 #######################################################
 ## EUP Invaders - EUP5108 Space Invaders clone
 #######################################################
-O 0x3000
+O 0x3000	# Start at the well known
 A 0x1000
 W eiStart
 
@@ -493,6 +493,12 @@ D eiML.!c
   LAE 'q            # if(B != 'q')
   MAB               
   JLN eiML.!q       #   goto eiML.!q
+  LDR VTCLR
+  CAL printStr1E
+  LDR VTHOME
+  CAL printStr1E  
+  LDR VTWHTONBLK
+  CAL printStr1E
   RTL
 
 D eiML.!q

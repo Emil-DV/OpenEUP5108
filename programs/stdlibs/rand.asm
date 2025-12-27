@@ -117,7 +117,7 @@ C rr2rshift 0x7F # Mask to make rotate right into shift right
 # init_rng(s1,s2,s3) 
 # seedRandEF is now equal to 0x1425 (ROM)
 D seedRandEF	
-  HLT
+#  HLT
   LAO		# Load A with 1
   LDR RTCTrigger # Load DR w/RTCTrigger (0x0006) RAM
   SIA		# Store the value of A at DR
@@ -202,7 +202,7 @@ D seedRandEF
 #unsigned char randomize()
 D getRandEF
 C getRandEF.range 1 # this is a "local" var on stack
-  SCA		# Store the range on the stack (A) 
+  SCA		    # Store the range on the stack (A) 
 #x++;               // x is incremented every round 
 #		    // and is not affected by any 
 #		    // other variable

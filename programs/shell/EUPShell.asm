@@ -751,7 +751,7 @@ S Unable to open file: \0
 D catfilecmd
 S cat\0
 D catfilehelp
-S cat: filename.ext - shows file contents one screen at a time 'q' to quit
+S cat: filename.ext - shows file contents one screen at a time 'q' to quit\0
 D catfile
 C catfile.lines 10
 C catfile.lfs 3

@@ -3,6 +3,23 @@
 #$  the syscall area by duplicating the necessary
 #$  Values from sys.asm
 
+#A 00
+C RTCDate 0 # Date string
+#a 0x06
+C RTCTrigger 7 # Set to 1 to get local, 2 for GMT
+#a 0x01
+C RTCTime 8 # Time string
+#a 0x07
+C RTCmSec 15 # mSec in short
+#a 0x02
+
+# The random number generator resides after the clock
+# and contains a range, seed, and produced values
+V PRNSeed 0x020 # Normally 0x00 write a value to trigger
+C PRNRange 0x021 # Normally 0x00 write a value to trigger
+C PRNValue 0x022 # The new value
+
+
 C syscallstdio 0x13
 #$ ls|dir: Lists files and directories.           syscallCmd 00h
 #$         ls|dir [optional path]

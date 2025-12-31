@@ -190,7 +190,16 @@ D initreseedrolls
   LAE 119
   SIA
   RTL  
-  
+
+D playrollsnd
+# 11513121 
+  W2E 0x21
+#  W2E 0x51
+#  W2E 0x31
+#  W2E 0x21
+  RTL
+
+
 D doRoll
   LDR rollnumbcd
   CAL BCDInc
@@ -211,12 +220,19 @@ D doRoll
   CAL pickColor
   # do the dice rolling
   CAL rollD4
+  CAL playrollsnd
   CAL rollD6
+  CAL playrollsnd  
   CAL rollD8
+  CAL playrollsnd  
   CAL rollD10
+  CAL playrollsnd  
   CAL rollD12  
+  CAL playrollsnd  
   CAL rollD20
+  CAL playrollsnd  
   CAL rollD100
+  CAL playrollsnd    
   LDR VTGREENONBLK
   CAL printStr1E
 
@@ -226,7 +242,7 @@ D doRoll
   SIA
   JLN doRoll.ny
   # cal reseedfunc
-  CAL seedRandEF	#todo: replace with reading from file
+  CAL seedRandFmFile
   CAL initreseedrolls
   LAE seednumbcd.col
   LBE uptimebcd.row
@@ -276,7 +292,7 @@ D nextRollcheck.ny
 
 
 D dndsleep
-  LAE 0x07
+  LAE 0x04
   CAL sleep  
   RTL
 
@@ -320,6 +336,7 @@ D updateuptime.c
   LAE uptimebcd.col
   LBE uptimebcd.row
   CAL vtSetCursorPos   
+  W2E 0x51
   LDR uptimebcd
   CAL BCDPnt
   
@@ -650,10 +667,80 @@ D drawdieboxes
   CAL printStr1E
   RTL
 
+D seedRandFmFile
+  CAL seedRandEF
+  LDR fprandfile
+  LAM
+  LBE 4
+  CAL fread
+  LDR syscallData
+  LAM
+  LDR EF.a
+  LBM
+  XAB
+  SIA
+  LDR syscallData
+  IND
+  LAM
+  LDR EF.b
+  LBM
+  XAB
+  SIA
+  LDR syscallData
+  IND
+  IND
+  LAM
+  LDR EF.c
+  LBM
+  XAB
+  SIA
+  LDR syscallData
+  IND
+  IND
+  IND
+  LAM
+  LDR EF.x
+  LBM
+  XAB
+  SIA
+  RTL
+  
+V fprandfile
+a 1
+V randfilenamestr
+a 30
 
+D randfilename
+S randnums\0
+
+D fopenerr
+S Unable to open randnums file\n\0
 
 D dnddicemain
   CAL seedRandEF
+  LDR randfilename
+  SCR
+  SCD
+  LDR randfilenamestr
+  SCR
+  SCD
+  CAL strcpyconst
+  INS
+  INS
+  INS
+  INS
+  LAE fileModeRead
+  LDR randfilenamestr
+  CAL fopen
+  LBA
+  JLN dnddicemainfopen.go
+  LDR fopenerr
+  CAL printStr1E
+  RTL
+D dnddicemainfopen.go
+  LDR fprandfile
+  SIB
+  
   LDR nxtColor
   LAE colortable.cnt
   SIA

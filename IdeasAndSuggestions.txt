@@ -1,14 +1,15 @@
 EUP5108  ideas/suggestions
 
 TODO
+ - ASM: glitch when using symbol for a directive
  - ASM: Allow a const to be defined more than once so long as the values match
- - ASM: Add the filename to the top of the .map files
- - ASM: Add ADA collumn to .map file that shows the location of Variables
  - ASM: Generate unified .map file in the build location rather than in each files location
  - ASM: Remove excess path data from output messages
- - ASM: When exe is specified output a .eup file instead of .bin
  - ASM: Document the exe function 
- - EMU: When a .eup file is loaded via syscall also load the .gmp file for debug informaiton
+ - EUPShell - when a command is not found internally assume it
+   is a program to load/run
+ - EUPexes - Write a .start function?
+
  
  - Create "Why 8-bit and Why ASM" short - Programmin at its purest - directly telling the machine what instructions to run in what order and how to respond to different inputs
    Lots of recent interest in the older 8 bit machines (c64) - the EUP5108 is a ground up design - one comment as "clever girl" a reference to jurasic park estientally calling me a dinosour
@@ -73,6 +74,10 @@ TODO
  - Add file read by the asm & emu that list nemonics to instructions
   
 Done
+ * ASM: When exe is specified output a .eup file instead of .bin
+ * ASM: Add the filename to the top of the .map files
+ * ASM: Add ADA collumn to .map file that shows the location of Variables
+ * EMU: When a .eup file is loaded via syscall also load the .gmp file for debug informaiton
  * Add syscalls.asm so that libs using syscall values can be used as EUP loadable programs
  * move memory mapped I/O function from core to emulator layer
  * Add assembler warning message if O directive is < current APA
@@ -91,3 +96,4 @@ Done
  * Add feature where F3 zeros the tick count
  * Add flag to differentiate between const, var, and rom locations  
  * Document that F2 toggles the RAM view from DR|SP
+ 

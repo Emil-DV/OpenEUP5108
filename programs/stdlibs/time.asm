@@ -125,6 +125,7 @@ D datetime
   W1E 'LF
   RTL
   
+  
 #$
 #$### | bigtime
 #$     Prints the current date time using BigLEDs
@@ -138,12 +139,9 @@ D bigtimeCmdHelp
 S bt: Show the time in big LEDS\0
 C btRow 2
 C btCol 30
-D bigtime
-  CAL clearFunc
-  LDR VTREDONBLK
-  CAL printStr1E
 
-  # Print the colons
+D bigtimeColons
+ # Print the colons
   LDR VTBLINKCHARS
   CAL printStr1E
   LBE btRow
@@ -169,26 +167,18 @@ D bigtime
   W1E 0xDF
   LDR VTBLOFFCHARS
   CAL printStr1E
-  
-  LDR RTCZone
-  LAM
-  LBE 2
-  MBA
-  JLN bigtime.l
+  RTL
+
+D bigtimeGMT
   LBO # Load B with 1 
   LBE 5
   LAE 38
   CAL vtSetCursorPos
   LDR GMTMark
   CAL printStr1E
-
-D bigtime.l
-  LDR RTCZone	# Copy zone value to RTCTrigger
-  LAM
-  LDR RTCTrigger
-  SIA
-
-  # Print the date above the time
+  RTL
+  
+D bigtimeDate
   LBE btRow	# Load the btRow - 1 into B
   DEB
   LAE 35	# Col 
@@ -215,6 +205,9 @@ D bigtime.l
   IND		# DR++
   LAM		# Load Day second digit
   W1A		# Print it  
+  RTL
+
+D bigtimetime
   LBE btRow
   LAE 27
   CAL vtSetCursorPos
@@ -265,6 +258,36 @@ D bigtime.l
   EDB
   LAM
   CAL printLED
+  RTL
+  
+D bigtime
+  LDR VTCLR
+  CAL printStr1E  
+  LDR VTHOME
+  CAL printStr1E
+  LDR VTREDONBLK
+  CAL printStr1E
+
+  CAL bigtimeColons
+  
+  LDR RTCZone
+  LAM
+  LBE 2
+  MBA
+  JLN bigtime.l
+  CAL bigtimeGMT
+
+D bigtime.l
+  LDR RTCZone	# Copy zone value to RTCTrigger
+  LAM
+  LDR RTCTrigger
+  SIA
+
+  # Print the date above the time
+ 
+  CAL bigtimeDate
+  CAL bigtimetime
+
 
 #$     Sleep a little since accessing the RTC in linux
 #$     Takes quite a bit of time and doing it in a hard
@@ -277,7 +300,10 @@ D bigtime.l
 D bigtime.x  
   LAZ
   W0A
-  CAL clearFunc
+  LDR VTCLR
+  CAL printStr1E  
+  LDR VTHOME
+  CAL printStr1E
   LDR VTWHTONBLK
   CAL printStr1E
   RTL

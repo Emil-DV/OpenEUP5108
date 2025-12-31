@@ -6,11 +6,11 @@
 #A 00
 C RTCDate 0 # Date string
 #a 0x06
-C RTCTrigger 7 # Set to 1 to get local, 2 for GMT
+C RTCTrigger 6 # Set to 1 to get local, 2 for GMT
 #a 0x01
-C RTCTime 8 # Time string
+C RTCTime 7 # Time string
 #a 0x07
-C RTCmSec 15 # mSec in short
+C RTCmSec 14 # mSec in short
 #a 0x02
 
 # The random number generator resides after the clock

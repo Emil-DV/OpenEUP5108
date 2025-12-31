@@ -96,6 +96,10 @@ S \e[31;47m\e\0
 D VTBLUEONBLK
 S \e[34;40m\e\0
 
+#$     VTGREENONBLK - Sets green characters on black background
+D VTGREENONBLK
+S \e[32;40m\e\0
+
 #$     VTBLUEONWHT - Sets blue characters on white background
 D VTBLUEONWHT
 S \e[34;47m\e\0
@@ -115,6 +119,10 @@ S \e[35;40m\e\0
 #$     VTYELLONBLK - Sets yellow characters on black background
 D VTYELLONBLK
 S \e[33;40m\e\0
+
+#$     VTCYANONBLK - Sets yellow characters on black background
+D VTCYANONBLK
+S \e[36;40m\e\0
 
 #$     VTREVERSE - Switches foreground and background colors
 D VTREVERSE

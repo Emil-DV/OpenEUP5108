@@ -210,12 +210,22 @@ D merrystr
 S \e[92;40m\e\e[6m\e
 S Merry Christmas!\0
 
+C mcStart.pcmd 5
+
 #############################################
 D mcStart
   LDR VTRST
   CAL printStr1E
   LDR VTCLR
   CAL printStr1E
+  HLT
+  POE mcStart.pcmd
+  LAM
+  IND
+  LRM
+  LDA
+  CAL printStr1D
+
   CAL seedRandEF
   CAL drawTrunk
   CAL drawBranches

@@ -109,6 +109,10 @@ W DisplayHexValuesCmd
 W DisplayHexValues
 W DisplayHexValuesMsg
 
+W PlayHexValuesCmd
+W PlayHexValues
+W PlayHexValuesMsg
+
 W echoVTCmd
 W echoVT
 W echoVTMsg
@@ -541,6 +545,11 @@ D DHV.xit  #Line is done or there was a non-hex digit
   INS      #Clean up stack
 
   RTL #Return
+
+D PlayHexValuesCmd
+S s\0
+D PlayHexValuesMsg
+S s: Play hex values via sound port\0
   
 ##########################################################  
 D PlayHexValues
@@ -568,6 +577,7 @@ D PHV.loop
   LAM
 
   LDR CmdStr
+  IND
   EDA
 
   LBM 
@@ -589,6 +599,7 @@ D PHV.loop
   SIA
   
   LDR CmdStr
+  IND
   EDA
 
   LBM 
@@ -633,6 +644,9 @@ a 2
 V cpysrc
 a 2
 
+V progName
+a 80
+
 #$ # lp: Load Program e.g. lp eupexetest.bin
 #$ Loads the given program file into ROM based at 0x3000
 #$ Program must be built with the address of its entry function at 0x3000
@@ -646,28 +660,49 @@ D loadprog
   CAL strlen
   LDR CmdStr	# add it to the pointer to CmdStr
   EDA
-  IND
+  IND		# At this point CmdStr = something.eup args...
+  SCR		# Push the CmdStr onto the stack for later
+  SCD
+  SCR		# Push it again for the string copy
+  SCD
+  LDR progName  # Push the progName onto the stack for strcpy
+  SCR
+  SCD
+  LDR strcpyDelim # Set the strcpyDelim to space to get just
+  LAE 0x20	  # the program name
+  SIA
+  CAL strcpy	# string copy the first word (program name)
+  INS		# remove progName & CmdStr from stack
+  INS
+  INS
+  INS
+  LDR strcpyDelim # Reset strcpyDelim for later
+  LAZ
+  SIA
+  LDR progName  # Put progName into DR for file open
   LAE fileModeRead
   CAL fopen
   LDR openfileno
   SIA
   LBA
-  JLN loadprog.go
-  LDR invalidstr
+  JLN loadprog.go # File was opened so do the copy
+  LDR invalidstr  # File not opened, print error
   CAL printStr1E
+  INS		  # Clean up stack
+  INS
   RTL
 
-D loadprog.go
+D loadprog.go     # Start the copy of the program's binary
   # set base location
-  LDR cpydst
-  LAZ
+  LDR cpydst      # Initialize cpydst with well known address
+  LAZ		  # of 0x3000
   SIA
   IND
   LAE 0x30
   SIA
 
 D loadprog.scpy
-  LDR syscallData
+  LDR syscallData  # set the cpysrc to the syscallData area
   LAR
   LBD
   LDR cpysrc
@@ -682,20 +717,22 @@ D loadprog.scpy
   LDR amt2cpy
   SIA
   LBA
-  JLN loadprog.cpy
+  JLN loadprog.cpy # There were bytes read so continue copy
   
-  #close the file
+  #close the file - no more bytes to read
   LDR openfileno
   LAM
   CAL fclose
-  
+  # Read the first two byte a the well known address into DR
   LRE 0x00
   LDE 0x30
   LAF
   IND
   LDF
   LRA
-  CAL callFNptr
+  CAL callFNptr # Call that function
+  INS		# Remove CmdStr from the stack
+  INS
   RTL
   
   
@@ -738,8 +775,8 @@ D loadprog.cpy
   LAM
   DEA
   SIA
-  JLN loadprog.cpy
-  JPL loadprog.scpy
+  JLN loadprog.cpy	# more of this block to copy
+  JPL loadprog.scpy  	# Block complete attemp to read more
   
 #$ catfile: show file contents on screen one page (10 lines) at a time
 V catfileno
@@ -832,27 +869,4 @@ D catfile.continue
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   

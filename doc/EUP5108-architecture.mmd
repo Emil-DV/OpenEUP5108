@@ -1,0 +1,107 @@
+---
+title: EUP5108 Microcontroller Architecture
+---
+graph TB
+    subgraph CTRL["Control Unit (Microprogrammed)"]
+        direction TB
+        SEQ_CTR["Sequence<br/>Counter<br/>(8-bit)"]
+        SEQ_ROM["Sequencer ROM<br/>256 x 32-bit<br/>microinstructions"]
+        IRSEQ["IRSeqMap ROM<br/>256 x 16-bit<br/>opcode → ALU func +<br/>seq start addr"]
+        IRQSEQ["IRQSeqMap ROM<br/>256 x 16-bit<br/>IRQ vectoring"]
+        SEQ_CTR --> SEQ_ROM
+        SEQ_ROM -->|"reg clocks<br/>mux selects<br/>bus enables"| CTRL_SIGNALS(("Control<br/>Signals"))
+    end
+
+    subgraph CPU["CPU Core"]
+        direction TB
+        subgraph REGS8["8-bit Registers"]
+            A["A<br/>Accumulator"]
+            B["B<br/>Accumulator"]
+            T["T<br/>Temp / Carry Path"]
+            IR["IR<br/>Instruction Reg"]
+        end
+        subgraph REGS16["16-bit Registers"]
+            IP["IP<br/>Instruction Pointer"]
+            DR["DR (D:R)<br/>Data/Addr Pointer"]
+            SP["SP<br/>Stack Pointer<br/>init 0xFFFF"]
+        end
+        subgraph ALU_BLK["1-bit Serial ALU"]
+            ALU{"ALU<br/>Add / Sub<br/>AND OR XOR NOT<br/>Shift / Rotate"}
+            FLAGS["Flags<br/>C: Carry<br/>B: Borrow<br/>NZ: Not Zero"]
+            ALU --> FLAGS
+        end
+        T -.-|"carry/shift<br/>path"| ALU
+    end
+
+    subgraph MEM["Memory (64KB + 64KB)"]
+        direction TB
+        subgraph ROM_BLK["ROM (Program) 64KB"]
+            RVEC["0x0000 Reset Vector"]
+            HVEC["0x0002 HW IRQ Vector"]
+            SV1["0x0004 SW IRQ1 Vector"]
+            SV2["0x0006 SW IRQ2 Vector"]
+            PROG["0x0008+ Program Code"]
+        end
+        subgraph RAM_BLK["RAM (Data) 64KB"]
+            MMIO["0x0000-0x00FF<br/>Memory-Mapped I/O"]
+            RTC["0x00-0x0F RTC<br/>YYMMDD HHMMSS ms"]
+            RNG["0x20-0x22 RNG<br/>Seed Range Value"]
+            VARS["0x0100+ Variables"]
+            STACK["Stack ↓ from 0xFFFF"]
+        end
+    end
+
+    subgraph IO["I/O Ports (8-bit bidirectional)"]
+        direction LR
+        P0["Port 0<br/>Keyboard"]
+        P1["Port 1<br/>Display"]
+        P2["Port 2<br/>General"]
+        P3["Port 3<br/>General"]
+    end
+
+    subgraph IRQ["Interrupt System"]
+        direction LR
+        HWIRQ["HW IRQ<br/>(maskable)"]
+        SWIRQ1["SW IRQ1"]
+        SWIRQ2["SW IRQ2"]
+        IQM_IQU["IQM / IQU<br/>Mask / Unmask"]
+    end
+
+    %% Bus connections
+    DBUS["8-bit Data Bus"]
+    ABUS["16-bit Address Bus"]
+
+    CPU <-->|"read/write"| DBUS
+    DBUS <--> ROM_BLK
+    DBUS <--> RAM_BLK
+    DBUS <--> IO
+
+    IP --> ABUS
+    DR --> ABUS
+    SP --> ABUS
+    ABUS --> ROM_BLK
+    ABUS --> RAM_BLK
+
+    %% Control flow
+    IR --> IRSEQ
+    IRSEQ -->|"ALU func<br/>seq addr"| SEQ_CTR
+    CTRL_SIGNALS --> CPU
+    IRQ -->|"vector"| IRQSEQ
+    IRQSEQ --> SEQ_CTR
+
+    %% Styling
+    classDef regStyle fill:#4a90d9,stroke:#2c5f8a,color:#fff
+    classDef aluStyle fill:#e07040,stroke:#a04020,color:#fff
+    classDef romStyle fill:#6b8e6b,stroke:#4a6b4a,color:#fff
+    classDef ramStyle fill:#9b7dcf,stroke:#6b4d9f,color:#fff
+    classDef ioStyle fill:#d4a843,stroke:#a07820,color:#fff
+    classDef busStyle fill:#888,stroke:#555,color:#fff
+    classDef ctrlStyle fill:#c0392b,stroke:#8b1a1a,color:#fff
+
+    class A,B,T,IR,IP,DR,SP regStyle
+    class ALU,FLAGS aluStyle
+    class RVEC,HVEC,SV1,SV2,PROG romStyle
+    class MMIO,RTC,RNG,VARS,STACK ramStyle
+    class P0,P1,P2,P3 ioStyle
+    class DBUS,ABUS busStyle
+    class SEQ_CTR,SEQ_ROM,IRSEQ,IRQSEQ,CTRL_SIGNALS ctrlStyle

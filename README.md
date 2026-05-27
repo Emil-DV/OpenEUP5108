@@ -7,6 +7,24 @@ The source for the Assembler & Emulator is not yet stable and is thus in a priva
 
 For the Open Source purist, the Assembler and Emulator can be thought of as the engine that runs the EUP5108 shell program, games, and other Open Source examples in programs folder
   
+### New Features
+
+**Memory-Mapped I/O (MMIO)** — The emulator now supports MMIO for interacting with host services directly from EUP5108 programs:
+
+| Address | Size | Access | Description |
+|---------|------|--------|-------------|
+| 0x00–0x0F | 16 | R | Real-time clock (date/time strings + milliseconds) |
+| 0x14 | 1 | W | Screenshot trigger — write non-zero to capture the emulator terminal as a PNG |
+| 0x20–0x22 | 3 | R/W | Pseudo-random number generator (seed, range, value) |
+
+The screenshot trigger is available now on Linux. Windows support is coming soon.
+
+**16-bit Math Library** — Add, Subtract, Multiply, and Divide operations for 16-bit values. See [programs/stdlibs/Math16.asm](programs/stdlibs/Math16.asm).
+
+See [doc/EUPEMU-feature-requests.md](doc/EUPEMU-feature-requests.md) for the full MMIO roadmap and [programs/stdlibs/sys.asm](programs/stdlibs/sys.asm) for the variable definitions.
+
+---
+
 Check out [doc/EUP5108UserGuide.pdf](https://github.com/Emil-DV/OpenEUP5108/blob/main/doc/EUP5108UsersGuide.pdf) for detailed information about the operation, instruction set, and micro-coded architecture of the EUP5108
   
 Our editor of choice is [Notepad++](https://notepad-plus-plus.org/), with it installed, Halting the Emulator will bring up the source code on the current line being executed and then grab the focus
